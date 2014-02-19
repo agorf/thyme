@@ -7,7 +7,6 @@ DataMapper::Model.raise_on_save_failure = true
 
 module Thyme
   class Photo
-
     include DataMapper::Resource
 
     THUMBS_PATH = 'thumbs'
