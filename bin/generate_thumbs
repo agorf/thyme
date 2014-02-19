@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'data_mapper'
+require 'thyme/photo'
+
+DataMapper.setup(:default, "sqlite://#{File.expand_path('./index.db')}")
+
+Thyme::Photo.each do |photo|
+  puts photo.filename
+  photo.generate_thumbs!
+end
