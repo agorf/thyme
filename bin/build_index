@@ -2,10 +2,9 @@
 
 require 'find'
 require 'data_mapper'
+require 'thyme/db'
 require 'thyme/photo'
 
-DataMapper::Logger.new(STDOUT, :debug)
-DataMapper.setup(:default, "sqlite://#{File.expand_path('./index.db')}")
 DataMapper.auto_migrate!
 
 Find.find('/home/agorf/Desktop/').each do |filename|
