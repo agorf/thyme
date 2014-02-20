@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'data_mapper'
-require 'thyme/db'
-require 'thyme/photo'
+require 'thyme'
 
 Thyme::Photo.each do |photo|
   puts photo.filename

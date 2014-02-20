@@ -84,5 +84,3 @@ module Thyme
     end
   end
 end
-
-DataMapper.finalize

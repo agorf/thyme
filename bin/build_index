@@ -2,8 +2,7 @@
 
 require 'find'
 require 'data_mapper'
-require 'thyme/db'
-require 'thyme/photo'
+require 'thyme'
 
 ARGV.each do |library_path|
   Find.find(library_path).each do |filename|
