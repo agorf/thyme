@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'find'
-require 'data_mapper'
 require 'thyme'
 
 ARGV.each do |library_path|
