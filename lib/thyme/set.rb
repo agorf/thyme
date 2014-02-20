@@ -12,10 +12,10 @@ module Thyme
     def self.find_or_create_by_path(path)
       conditions = { path: path.split(File::SEPARATOR)[-2] }
 
-      if set = Thyme::Set.first(conditions)
+      if set = Set.first(conditions)
         set
       else
-        Thyme::Set.create(conditions)
+        Set.create(conditions)
       end
     end
   end
