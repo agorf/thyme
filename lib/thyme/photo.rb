@@ -2,6 +2,7 @@ require 'data_mapper'
 require 'fileutils'
 require 'mini_exiftool'
 require 'mini_magick'
+require 'thyme/set'
 
 DataMapper::Model.raise_on_save_failure = true
 
@@ -21,6 +22,8 @@ module Thyme
     property :taken_at, DateTime
     property :exif,     Json
 
+    belongs_to :set
+
     def self.create_from_file(path)
       exif = MiniExiftool.new(path)
       open(path) {|f|
@@ -30,9 +33,20 @@ module Thyme
           width:    exif['ExifImageWidth'],
           height:   exif['ExifImageHeight'],
           taken_at: exif['DateTimeOriginal'],
-          exif:     exif.to_hash
+          exif:     exif.to_hash,
+          set:      set(path)
         )
       }
+    end
+
+    def self.set(path)
+      conditions = { path: path.split(File::SEPARATOR)[-2] }
+
+      if set = Thyme::Set.first(conditions)
+        set
+      else
+        Thyme::Set.create(conditions)
+      end
     end
 
     def filename
