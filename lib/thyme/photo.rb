@@ -4,8 +4,6 @@ require 'mini_exiftool'
 require 'mini_magick'
 require 'thyme/set'
 
-DataMapper::Model.raise_on_save_failure = true
-
 module Thyme
   class Photo
     include DataMapper::Resource
