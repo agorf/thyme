@@ -14,7 +14,7 @@ module Thyme
     FileUtils.mkdir_p THUMBS_PATH
 
     property :id,       Serial
-    property :path,     String, length: 4096
+    property :path,     String, length: 4096, unique: true
     property :size,     Integer
     property :width,    Integer
     property :height,   Integer
