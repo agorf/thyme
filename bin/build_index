@@ -5,12 +5,12 @@ require 'data_mapper'
 require 'thyme/db'
 require 'thyme/photo'
 
-LIBRARY_PATH='/home/agorf/Desktop/'
-
 DataMapper.auto_migrate!
 
-Find.find(LIBRARY_PATH).each do |filename|
-  if File.file?(filename) && File.extname(filename) == '.JPG'
-    Thyme::Photo.create_from_file(filename)
+ARGV.each do |library_path|
+  Find.find(library_path).each do |filename|
+    if File.file?(filename) && File.extname(filename) == '.JPG'
+      Thyme::Photo.create_from_file(filename)
+    end
   end
 end
