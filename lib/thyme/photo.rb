@@ -8,6 +8,10 @@ module Thyme
   class Photo
     include DataMapper::Resource
 
+    THUMBS = {
+      small: '200x200',
+      big:   '1000x1000'
+    }
     THUMBS_PATH = 'thumbs'
 
     FileUtils.mkdir_p THUMBS_PATH
@@ -50,8 +54,13 @@ module Thyme
     end
 
     def generate_thumbs!
-      generate_small_thumb!
-      generate_big_thumb!
+      THUMBS.each do |suffix, size|
+        generate_thumb!(suffix, size)
+      end
+    end
+
+    def thumb_path(suffix)
+      File.join(THUMBS_PATH, "#{basename}_#{suffix}#{extname}")
     end
 
     private
@@ -64,23 +73,11 @@ module Thyme
       File.extname(path)
     end
 
-    def generate_thumb!(size)
+    def generate_thumb!(suffix, size)
       image = MiniMagick::Image.open(path)
       image.resize(size)
       image.auto_orient
-      image.write(thumb_path(size))
-    end
-
-    def generate_small_thumb!
-      generate_thumb!('200x200')
-    end
-
-    def generate_big_thumb!
-      generate_thumb!('1000x1000')
-    end
-
-    def thumb_path(size)
-      File.join(THUMBS_PATH, "#{basename}_#{size}#{extname}")
+      image.write(thumb_path(suffix))
     end
   end
 end
