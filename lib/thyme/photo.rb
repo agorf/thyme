@@ -37,6 +37,14 @@ module Thyme
       }
     end
 
+    def self.photo?(path)
+      jpeg?(path) && File.file?(path)
+    end
+
+    def self.jpeg?(path)
+      %w{.jpeg .jpg .JPEG .JPG}.include?(File.extname(path))
+    end
+
     def filename
       File.basename(path)
     end
