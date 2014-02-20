@@ -5,8 +5,6 @@ require 'data_mapper'
 require 'thyme/db'
 require 'thyme/photo'
 
-DataMapper.auto_migrate!
-
 ARGV.each do |library_path|
   Find.find(library_path).each do |filename|
     if File.file?(filename) && File.extname(filename) == '.JPG'
