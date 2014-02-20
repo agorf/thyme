@@ -32,19 +32,9 @@ module Thyme
           height:   exif['ExifImageHeight'],
           taken_at: exif['DateTimeOriginal'],
           exif:     exif.to_hash,
-          set:      set(path)
+          set:      Set.find_or_create_by_path(path)
         )
       }
-    end
-
-    def self.set(path)
-      conditions = { path: path.split(File::SEPARATOR)[-2] }
-
-      if set = Thyme::Set.first(conditions)
-        set
-      else
-        Thyme::Set.create(conditions)
-      end
     end
 
     def filename
