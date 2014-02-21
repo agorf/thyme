@@ -5,12 +5,12 @@ module Thyme
     include DataMapper::Resource
 
     property :id,   Serial
-    property :path, String, length: 4096, unique: true
+    property :name, String, length: 4096, unique: true
 
     has n, :photos
 
-    def self.find_or_create_by_path(path)
-      conditions = { path: path.split(File::SEPARATOR)[-2] }
+    def self.find_or_create_by_photo_path(path)
+      conditions = { name: path.split(File::SEPARATOR)[-2] }
 
       if set = Set.first(conditions)
         set

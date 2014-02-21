@@ -36,7 +36,7 @@ module Thyme
           height:   exif['ExifImageHeight'],
           taken_at: exif['DateTimeOriginal'],
           exif:     exif.to_hash,
-          set:      Set.find_or_create_by_path(path)
+          set:      Set.find_or_create_by_photo_path(path)
         )
       }
     end
