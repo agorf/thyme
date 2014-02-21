@@ -13,3 +13,5 @@ ARGV.each do |library_path|
     end
   end
 end
+
+Thyme::Set.map(&:update_taken_at!)

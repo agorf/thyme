@@ -4,8 +4,9 @@ module Thyme
   class Set
     include DataMapper::Resource
 
-    property :id,   Serial
-    property :name, String, length: 4096, unique: true
+    property :id,       Serial
+    property :name,     String, length: 4096, unique: true
+    property :taken_at, DateTime
 
     has n, :photos
 
@@ -17,6 +18,11 @@ module Thyme
       else
         Set.create(conditions)
       end
+    end
+
+    def update_taken_at!
+      self.taken_at = photos.all(fields: [:taken_at]).map(&:taken_at).max
+      save
     end
   end
 end
