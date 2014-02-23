@@ -56,7 +56,7 @@ module Thyme
     end
 
     def thumb_path(suffix)
-      File.join('public', 'thumbs', "#{basename}_#{suffix}#{extname}")
+      File.join('public', 'thumbs', thumb_filename(suffix))
     end
 
     private
@@ -74,6 +74,10 @@ module Thyme
       image.resize(size)
       image.auto_orient
       image.write(thumb_path(suffix))
+    end
+
+    def thumb_filename(suffix)
+      "#{basename}_#{suffix}#{extname}"
     end
   end
 end
