@@ -59,6 +59,10 @@ module Thyme
       File.join('public', 'thumbs', thumb_filename(suffix))
     end
 
+    def thumb_url(suffix)
+      "/thumbs/#{thumb_filename(suffix)}"
+    end
+
     private
 
     def basename

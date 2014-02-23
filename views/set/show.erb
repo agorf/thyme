@@ -1,0 +1,4 @@
+<h1><%= @set.name %></h1>
+<% @photos.each do |photo| %>
+  <img src="<%= photo.thumb_url(:small) %>">
+<% end %>

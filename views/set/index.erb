@@ -1,5 +1,5 @@
 <ul>
   <% @sets.each do |set| %>
-    <li><%= set.name %></li>
+    <li><a href="/set/<%= set.id %>"><%= set.name %></a></li>
   <% end %>
 </ul>

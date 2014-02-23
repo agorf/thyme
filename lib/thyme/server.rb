@@ -9,5 +9,11 @@ module Thyme
       @sets = Set.all(order: [:taken_at.desc])
       erb :'set/index'
     end
+
+    get '/set/:id/?' do
+      @set = Set.get!(params[:id])
+      @photos = @set.photos.all(order: [:taken_at.asc])
+      erb :'set/show'
+    end
   end
 end
