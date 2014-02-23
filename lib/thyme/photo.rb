@@ -1,5 +1,4 @@
 require 'data_mapper'
-require 'fileutils'
 require 'mini_exiftool'
 require 'mini_magick'
 require 'thyme/set'
@@ -13,8 +12,6 @@ module Thyme
       big:   '1000x1000'
     }
     THUMBS_PATH = 'thumbs'
-
-    FileUtils.mkdir_p THUMBS_PATH
 
     property :id,       Serial
     property :path,     String, length: 4096, unique: true

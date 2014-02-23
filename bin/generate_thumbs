@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 
+require 'fileutils'
 require 'thyme'
+
+FileUtils.mkdir_p Thyme::Photo::THUMBS_PATH
 
 Thyme::Photo.each do |photo|
   puts photo.filename
