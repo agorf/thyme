@@ -6,7 +6,7 @@ module Thyme
     set :views, File.expand_path('views')
 
     get '/set/?' do
-      @sets = Thyme::Set.all(order: [:taken_at.desc])
+      @sets = Set.all(order: [:taken_at.desc])
       erb :'set/index'
     end
   end
