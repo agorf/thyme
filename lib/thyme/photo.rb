@@ -11,7 +11,6 @@ module Thyme
       small: '200x200',
       big:   '1000x1000'
     }
-    THUMBS_PATH = 'thumbs'
 
     property :id,       Serial
     property :path,     String, length: 4096, unique: true
@@ -57,7 +56,7 @@ module Thyme
     end
 
     def thumb_path(suffix)
-      File.join(THUMBS_PATH, "#{basename}_#{suffix}#{extname}")
+      File.join('public', 'thumbs', "#{basename}_#{suffix}#{extname}")
     end
 
     private

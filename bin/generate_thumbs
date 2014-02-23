@@ -3,7 +3,7 @@
 require 'fileutils'
 require 'thyme'
 
-FileUtils.mkdir_p Thyme::Photo::THUMBS_PATH
+FileUtils.mkdir_p File.join(*%w{public thumbs})
 
 Thyme::Photo.each do |photo|
   puts photo.filename
