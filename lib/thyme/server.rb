@@ -3,7 +3,7 @@ require 'thyme'
 
 module Thyme
   class Server < Sinatra::Base
-    set :views, File.expand_path('views')
+    set :root, File.expand_path('.')
 
     get '/set/?' do
       @sets = Set.all(order: [:taken_at.desc])
