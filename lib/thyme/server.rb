@@ -15,5 +15,10 @@ module Thyme
       @photos = @set.photos.all(order: [:taken_at.asc])
       erb :'set/show'
     end
+
+    get '/photo/:id/?' do
+      @photo = Photo.get!(params[:id])
+      erb :'photo/show'
+    end
   end
 end
