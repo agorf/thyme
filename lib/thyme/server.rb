@@ -5,6 +5,10 @@ module Thyme
   class Server < Sinatra::Base
     set :root, File.expand_path('.')
 
+    get '/' do
+      redirect '/set/'
+    end
+
     get '/set/?' do
       @sets = Set.all(order: [:taken_at.desc])
       erb :'set/index'
