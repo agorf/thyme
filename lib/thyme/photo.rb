@@ -49,6 +49,14 @@ module Thyme
       generate_big_thumb!
     end
 
+    def next
+      set.photos.first(:taken_at.gt => taken_at, order: [:taken_at.asc])
+    end
+
+    def prev
+      set.photos.first(:taken_at.lt => taken_at, order: [:taken_at.desc])
+    end
+
     def thumb_url(suffix)
       "/thumbs/#{thumb_filename(suffix)}"
     end
