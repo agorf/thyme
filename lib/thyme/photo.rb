@@ -63,32 +63,32 @@ module Thyme
       File.extname(path)
     end
 
-    def generate_small_thumb!
-      return if File.exist?(thumb_path('small'))
-
-      image = MiniMagick::Image.open(path)
-
-      image.combine_options do |c|
-        c.auto_orient
-        c.resize('200x200^')
-        c.gravity('center')
-        c.extent('200x200')
-      end
-
-      image.write(thumb_path('small'))
+    def generate_big_thumb!
+      generate_thumb!('1000x1000', :big)
     end
 
-    def generate_big_thumb!
-      return if File.exist?(thumb_path('big'))
+    def generate_small_thumb!
+      generate_thumb!('200x200', :small)
+    end
+
+    def generate_thumb!(size, suffix)
+      return if File.exist?(thumb_path(suffix))
 
       image = MiniMagick::Image.open(path)
 
       image.combine_options do |c|
         c.auto_orient
-        c.resize('1000x1000')
+
+        if suffix == :small
+          c.resize("#{size}^")
+          c.gravity('center')
+          c.extent(size)
+        elsif suffix == :big
+          c.resize(size)
+        end
       end
 
-      image.write(thumb_path('big'))
+      image.write(thumb_path(suffix))
     end
 
     def thumb_filename(suffix)
