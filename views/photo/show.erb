@@ -1,2 +1,64 @@
 <h1><%= @photo.filename %></h1>
 <img src="<%= @photo.thumb_url(:big) %>">
+<table>
+  <tr>
+    <th>Filename</th>
+    <td><%= @photo.filename %></td>
+  </tr>
+  <tr>
+    <th>Size</th>
+    <td><%= (@photo.size / 1024.0 ** 2).round(2) %> MB</td>
+  </tr>
+  <tr>
+    <th>Set</th>
+    <td><a href="/set/<%= @photo.set.id %>"><%= @photo.set.name %></a></td>
+  </tr>
+  <tr>
+    <th>Size</th>
+    <td><%= @photo.width %> &times; <%= @photo.height %></td>
+  </tr>
+  <tr>
+    <th>Aspect ratio</th>
+    <td><%= @photo.width / @photo.height.to_f %></td>
+  </tr>
+  <tr>
+    <th>Taken at</th>
+    <td><%= @photo.taken_at.strftime('%a, %e %b %Y %H:%M:%S %z') %></td>
+  </tr>
+  <tr>
+    <th>Camera</th>
+    <td><%= @photo.exif['Make'] %> <%= @photo.exif['Model'] %></td>
+  </tr>
+  <tr>
+    <th>Artist</th>
+    <td><%= @photo.exif['Artist'] %></td>
+  </tr>
+  <tr>
+    <th>Shutter speed</th>
+    <td><%= @photo.exif['ExposureTime'] %></td>
+  </tr>
+  <tr>
+    <th>Aperture size</th>
+    <td>f/<%= @photo.exif['FNumber'] %></td>
+  </tr>
+  <tr>
+    <th>ISO</th>
+    <td><%= @photo.exif['ISO'] %></td>
+  </tr>
+  <tr>
+    <th>Exp. compensation</th>
+    <td><%= @photo.exif['ExposureCompensation'] %></td>
+  </tr>
+  <tr>
+    <th>Light source</th>
+    <td><%= @photo.exif['LightSource'] %></td>
+  </tr>
+  <tr>
+    <th>Focus mode</th>
+    <td><%= @photo.exif['FocusMode'] %></td>
+  </tr>
+  <tr>
+    <th>Shooting mode</th>
+    <td><%= @photo.exif['ShootingMode'] %></td>
+  </tr>
+</table>
