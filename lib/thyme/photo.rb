@@ -7,11 +7,6 @@ module Thyme
   class Photo
     include DataMapper::Resource
 
-    THUMBS = {
-      small: '200x200',
-      big:   '1000x1000'
-    }
-
     property :id,       Serial
     property :path,     String, length: 4096, unique: true
     property :size,     Integer
@@ -50,13 +45,8 @@ module Thyme
     end
 
     def generate_thumbs!
-      THUMBS.each do |suffix, size|
-        generate_thumb!(suffix, size)
-      end
-    end
-
-    def thumb_path(suffix)
-      File.join('public', 'thumbs', thumb_filename(suffix))
+      generate_small_thumb!
+      generate_big_thumb!
     end
 
     def thumb_url(suffix)
@@ -73,15 +63,40 @@ module Thyme
       File.extname(path)
     end
 
-    def generate_thumb!(suffix, size)
+    def generate_small_thumb!
+      return if File.exist?(thumb_path('small'))
+
       image = MiniMagick::Image.open(path)
-      image.resize(size)
-      image.auto_orient
-      image.write(thumb_path(suffix))
+
+      image.combine_options do |c|
+        c.auto_orient
+        c.resize('200x200^')
+        c.gravity('center')
+        c.extent('200x200')
+      end
+
+      image.write(thumb_path('small'))
+    end
+
+    def generate_big_thumb!
+      return if File.exist?(thumb_path('big'))
+
+      image = MiniMagick::Image.open(path)
+
+      image.combine_options do |c|
+        c.auto_orient
+        c.resize('1000x1000')
+      end
+
+      image.write(thumb_path('big'))
     end
 
     def thumb_filename(suffix)
       "#{basename}_#{suffix}#{extname}"
+    end
+
+    def thumb_path(suffix)
+      File.join('public', 'thumbs', thumb_filename(suffix))
     end
   end
 end
