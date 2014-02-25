@@ -1,9 +1,9 @@
 <h1><%= @photo.filename %></h1>
-<%= erb :'_set', locals: { set: @photo.set.prev } if @photo.set.prev %>
-<%= erb :'_photo', locals: { photo: @photo.prev } if @photo.prev %>
+<%= partial 'set', @photo.set.prev if @photo.set.prev %>
+<%= partial 'photo', @photo.prev if @photo.prev %>
 <img src="<%= @photo.thumb_url(:big) %>" alt="<%= @photo.filename %>">
-<%= erb :'_photo', locals: { photo: @photo.next } if @photo.next %>
-<%= erb :'_set', locals: { set: @photo.set.next } if @photo.set.next %>
+<%= partial 'photo', @photo.next if @photo.next %>
+<%= partial 'set', @photo.set.next if @photo.set.next %>
 <table>
   <tr>
     <th>File name</th>

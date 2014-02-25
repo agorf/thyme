@@ -1,7 +1,7 @@
 <% if @sets.any? %>
   <ol>
     <% @sets.each do |set| %>
-      <li><%= erb :'_set', locals: { set: set } %></li>
+      <li><%= partial 'set', set %></li>
     <% end %>
   </ol>
 <% end %>
