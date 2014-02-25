@@ -1,3 +1,3 @@
 # Thyme
 
-A simple gallery.
+A minimal gallery for viewing your photos.
