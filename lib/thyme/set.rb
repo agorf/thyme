@@ -24,5 +24,13 @@ module Thyme
       self.taken_at = photos.all(fields: [:taken_at]).map(&:taken_at).max
       save
     end
+
+    def next
+      Set.first(:taken_at.gt => taken_at, order: [:taken_at.asc])
+    end
+
+    def prev
+      Set.first(:taken_at.lt => taken_at, order: [:taken_at.desc])
+    end
   end
 end
