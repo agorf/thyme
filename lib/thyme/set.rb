@@ -32,5 +32,9 @@ module Thyme
     def prev
       Set.first(:taken_at.lt => taken_at, order: [:taken_at.desc])
     end
+
+    def thumb_url(suffix)
+      photos.first(order: [:taken_at.asc]).thumb_url(suffix)
+    end
   end
 end

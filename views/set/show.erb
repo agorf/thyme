@@ -1,10 +1,10 @@
 <h1><%= @set.name %></h1>
-<% if @set.prev %>
-  <a href="/set/<%= @set.prev.id %>"><%= @set.prev.name %></a>
-<% end %>
-<% if @set.next %>
-  <a href="/set/<%= @set.next.id %>"><%= @set.next.name %></a>
-<% end %>
-<% @photos.each do |photo| %>
-  <a href="/photo/<%= photo.id %>"><img src="<%= photo.thumb_url(:small) %>"></a>
+<%= erb :'_set', locals: { set: @set.prev } if @set.prev %>
+<%= erb :'_set', locals: { set: @set.next } if @set.next %>
+<% if @photos.any? %>
+  <ol>
+    <% @photos.each do |photo| %>
+      <li><%= erb :'_photo', locals: { photo: photo } %></li>
+    <% end %>
+  </ol>
 <% end %>

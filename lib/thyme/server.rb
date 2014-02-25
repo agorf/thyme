@@ -7,6 +7,12 @@ module Thyme
   class Server < Sinatra::Base
     set :root, File.expand_path('.')
 
+    helpers do
+      def pluralize(n, singular, plural)
+        [n, n == 1 ? singular : plural].join(' ')
+      end
+    end
+
     get '/' do
       redirect '/set/'
     end

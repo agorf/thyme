@@ -1,5 +1,7 @@
-<ul>
-  <% @sets.each do |set| %>
-    <li><a href="/set/<%= set.id %>"><%= set.name %></a></li>
-  <% end %>
-</ul>
+<% if @sets.any? %>
+  <ol>
+    <% @sets.each do |set| %>
+      <li><%= erb :'_set', locals: { set: set } %></li>
+    <% end %>
+  </ol>
+<% end %>
