@@ -1,5 +1,6 @@
 require 'sinatra/base'
-require 'thyme'
+require 'thyme/photo'
+require 'thyme/set'
 
 module Thyme
   class Server < Sinatra::Base
