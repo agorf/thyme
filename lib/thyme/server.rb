@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'thyme/photo'
+require 'thyme/photo_wrapper'
 require 'thyme/set'
 
 module Thyme
@@ -22,7 +23,7 @@ module Thyme
     end
 
     get '/photo/:id/?' do
-      @photo = Photo.get!(params[:id])
+      @photo = Thyme::PhotoWrapper.new(Photo.get!(params[:id]))
       erb :'photo/show'
     end
   end

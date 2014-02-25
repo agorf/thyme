@@ -13,7 +13,7 @@
   </tr>
   <tr>
     <th>File size</th>
-    <td><%= (@photo.size / 1024.0 ** 2).round(2) %> MB</td>
+    <td><%= @photo.file_size %></td>
   </tr>
   <tr>
     <th>Set</th>
@@ -21,11 +21,11 @@
   </tr>
   <tr>
     <th>Dimensions</th>
-    <td><%= @photo.width %> &times; <%= @photo.height %></td>
+    <td><%= @photo.dimensions %></td>
   </tr>
   <tr>
     <th>Aspect ratio</th>
-    <td><%= @photo.width / @photo.height.to_f %></td>
+    <td><%= @photo.aspect_ratio %></td>
   </tr>
   <tr>
     <th>Taken at</th>
@@ -33,7 +33,7 @@
   </tr>
   <tr>
     <th>Camera</th>
-    <td><%= @photo.exif['Make'] %> <%= @photo.exif['Model'] %></td>
+    <td><%= @photo.camera %></td>
   </tr>
   <tr>
     <th>Artist</th>
