@@ -8,11 +8,11 @@
 <% end %>
 <table>
   <tr>
-    <th>Filename</th>
+    <th>File name</th>
     <td><%= @photo.filename %></td>
   </tr>
   <tr>
-    <th>Size</th>
+    <th>File size</th>
     <td><%= (@photo.size / 1024.0 ** 2).round(2) %> MB</td>
   </tr>
   <tr>
@@ -20,7 +20,7 @@
     <td><a href="/set/<%= @photo.set.id %>"><%= @photo.set.name %></a></td>
   </tr>
   <tr>
-    <th>Size</th>
+    <th>Dimensions</th>
     <td><%= @photo.width %> &times; <%= @photo.height %></td>
   </tr>
   <tr>
