@@ -3,13 +3,11 @@ require 'thyme'
 
 CLOBBER.include('index.db', File.join(*%w{public thumbs}))
 
-desc 'Create or upgrade database schema'
 task :upgrade_schema do
   require 'data_mapper'
   DataMapper.auto_upgrade!
 end
 
-desc 'Make thumbnails directory'
 task :make_thumbs_dir do
   mkdir_p File.join(*%w{public thumbs})
 end
