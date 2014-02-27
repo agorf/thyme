@@ -15,7 +15,11 @@ end
 desc 'Scan library for photos and build database'
 task :build_index, [:library_path] => [:upgrade_schema] do |t, args|
   FileList[
-    File.join(args.library_path, '**', '*.{jpg,jpeg,JPG,JPEG}')
+    File.join(
+      File.expand_path(args.library_path),
+      '**',
+      '*.{jpg,jpeg,JPG,JPEG}'
+    )
   ].each do |filename|
     Thyme::Photo.create_from_file(filename)
   end
