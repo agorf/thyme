@@ -12,11 +12,10 @@ module Thyme
         [n, n == 1 ? singular : plural].join(' ')
       end
 
-      def partial(name, object)
+      def partial(name, locals)
         # prefix last path component with _
         path = name.dup.insert((name.rindex(File::SEPARATOR) || -1) + 1, '_')
-        object_key = name.split(File::SEPARATOR).last
-        erb path.to_sym, locals: { object_key.to_sym => object }
+        erb path.to_sym, locals: locals
       end
     end
 

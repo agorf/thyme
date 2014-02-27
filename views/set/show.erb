@@ -1,10 +1,10 @@
 <h1><%= @set.name %></h1>
-<%= partial 'set', @set.prev if @set.prev %>
-<%= partial 'set', @set.next if @set.next %>
+<%= partial 'set', set: @set.prev if @set.prev %>
+<%= partial 'set', set: @set.next if @set.next %>
 <% if @photos.any? %>
   <ol>
     <% @photos.each do |photo| %>
-      <li><%= partial 'photo', photo %></li>
+      <li><%= partial 'photo', photo: photo %></li>
     <% end %>
   </ol>
 <% end %>
