@@ -1,8 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'fileutils'
-require 'thyme'
-
-FileUtils.mkdir_p File.join(*%w{public thumbs})
-
-Thyme::Photo.map(&:generate_thumbs!)

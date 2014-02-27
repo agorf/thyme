@@ -6,6 +6,7 @@ PATH
       dm-sqlite-adapter
       mini_exiftool
       mini_magick
+      rake
       sinatra
 
 GEM
@@ -79,6 +80,7 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
+    rake (0.9.6)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)

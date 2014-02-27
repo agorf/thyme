@@ -26,6 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'mini_exiftool'
   gem.add_runtime_dependency 'mini_magick'
   gem.add_runtime_dependency 'sinatra'
+  gem.add_runtime_dependency 'rake'
 
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'thin'
