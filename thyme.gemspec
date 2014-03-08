@@ -30,4 +30,5 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'thin'
+  gem.add_development_dependency 'rerun'
 end

@@ -37,6 +37,11 @@ task :serve do
   exec 'bundle exec rackup -p 4567'
 end
 
+desc 'Run application and reload on changes'
+task :rerun do
+  exec "bundle exec rerun 'bundle exec rake serve'"
+end
+
 desc 'Open application in browser'
 task :open do
   fork do

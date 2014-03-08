@@ -14,6 +14,11 @@ GEM
   specs:
     addressable (2.3.5)
     bcrypt-ruby (3.1.2)
+    celluloid (0.15.2)
+      timers (~> 1.1.0)
+    celluloid-io (0.15.0)
+      celluloid (>= 0.15.0)
+      nio4r (>= 0.5.0)
     coderay (1.1.0)
     daemons (1.1.9)
     data_mapper (1.2.0)
@@ -66,13 +71,20 @@ GEM
       data_objects (= 0.10.14)
     eventmachine (1.0.3)
     fastercsv (1.5.5)
+    ffi (1.9.3)
     json (1.8.1)
     json_pure (1.8.1)
+    listen (2.7.0)
+      celluloid (>= 0.15.2)
+      celluloid-io (>= 0.15.0)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
     method_source (0.8.2)
     mini_exiftool (2.4.1)
     mini_magick (3.7.0)
       subexec (~> 0.2.1)
     multi_json (1.8.4)
+    nio4r (1.0.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -81,6 +93,11 @@ GEM
     rack-protection (1.5.2)
       rack
     rake (0.9.6)
+    rb-fsevent (0.9.4)
+    rb-inotify (0.9.3)
+      ffi (>= 0.5.0)
+    rerun (0.9.0)
+      listen (~> 2.7)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -93,6 +110,7 @@ GEM
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
     tilt (1.4.1)
+    timers (1.1.0)
     uuidtools (2.1.4)
 
 PLATFORMS
@@ -100,5 +118,6 @@ PLATFORMS
 
 DEPENDENCIES
   pry
+  rerun
   thin
   thyme!
