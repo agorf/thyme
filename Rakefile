@@ -13,7 +13,7 @@ task :make_thumbs_dir do
 end
 
 desc 'Scan library for photos and build database'
-task :build_index, [:library_path] => [:upgrade_schema] do |t, args|
+task :scan, [:library_path] => [:upgrade_schema] do |t, args|
   FileList[
     File.join(
       File.expand_path(args.library_path),
