@@ -42,11 +42,19 @@ module Thyme
     end
 
     def next
-      set.photos.first(:taken_at.gt => taken_at, order: [:taken_at.asc])
+      set.photos.first(
+        :taken_at.gte => taken_at,
+        :path.gt => path,
+        order: [:taken_at.asc, :path.asc]
+      )
     end
 
     def prev
-      set.photos.first(:taken_at.lt => taken_at, order: [:taken_at.desc])
+      set.photos.first(
+        :taken_at.lte => taken_at,
+        :path.lt => path,
+        order: [:taken_at.desc, :path.desc]
+      )
     end
 
     def thumb_url(suffix)

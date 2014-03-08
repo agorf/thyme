@@ -33,7 +33,7 @@ module Thyme
     %w{/set/:id/? /set/:id/photo/?}.each do |path|
       get path do
         @set = Set.get!(params[:id])
-        @photos = @set.photos.all(order: [:taken_at.asc])
+        @photos = @set.photos.all(order: [:taken_at.asc, :path.asc])
         erb :'set/show'
       end
     end
