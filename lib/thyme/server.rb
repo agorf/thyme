@@ -6,6 +6,8 @@ require 'thyme/set'
 module Thyme
   class Server < Sinatra::Base
     set :root, File.expand_path(File.join(*%w{.. .. ..}), __FILE__)
+    set :thumbs_path, File.expand_path(File.join(*%w{.. .. .. public thumbs}),
+      __FILE__)
 
     helpers do
       def pluralize(n, singular, plural)

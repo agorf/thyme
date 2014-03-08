@@ -1,7 +1,7 @@
 require 'rake/clean'
 require 'thyme'
 
-CLOBBER.include('index.db', File.join(*%w{public thumbs}))
+CLOBBER.include('index.db', Thyme::Server.thumbs_path)
 
 task :upgrade_schema do
   require 'data_mapper'
@@ -9,7 +9,7 @@ task :upgrade_schema do
 end
 
 task :make_thumbs_dir do
-  mkdir_p File.join(*%w{public thumbs})
+  mkdir_p Thyme::Server.thumbs_path
 end
 
 desc 'Scan library for photos and build database'

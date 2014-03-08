@@ -96,7 +96,7 @@ module Thyme
     end
 
     def thumb_path(suffix)
-      File.join('public', 'thumbs', thumb_filename(suffix))
+      File.join(Thyme::Server.thumbs_path, thumb_filename(suffix))
     end
   end
 end
