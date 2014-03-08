@@ -30,14 +30,21 @@ module Thyme
       erb :'set/index'
     end
 
-    get '/set/:id/?' do
-      @set = Set.get!(params[:id])
-      @photos = @set.photos.all(order: [:taken_at.asc])
-      erb :'set/show'
+    %w{/set/:id/? /set/:id/photo/?}.each do |path|
+      get path do
+        @set = Set.get!(params[:id])
+        @photos = @set.photos.all(order: [:taken_at.asc])
+        erb :'set/show'
+      end
     end
 
-    get '/photo/:id/?' do
+    get '/set/:set_id/photo/:id/?' do
       @photo = Thyme::PhotoWrapper.new(Photo.get!(params[:id]))
+
+      if @photo.set_id != params[:set_id].to_i
+        halt 404, 'Invalid set or photo id'
+      end
+
       erb :'photo/show'
     end
   end
