@@ -1,4 +1,5 @@
 require 'data_mapper'
+require 'dimensions'
 require 'mini_exiftool'
 require 'mini_magick'
 require 'thyme/set'
@@ -19,12 +20,13 @@ module Thyme
 
     def self.create_from_file(path)
       exif = MiniExiftool.new(path)
+      width, height = Dimensions.dimensions(path)
       open(path) {|f|
         create(
           path:     path,
           size:     f.size,
-          width:    exif['ExifImageWidth'],
-          height:   exif['ExifImageHeight'],
+          width:    width,
+          height:   height,
           taken_at: exif['DateTimeOriginal'],
           exif:     exif.to_hash,
           set:      Set.find_or_create_by_photo_path(path)
