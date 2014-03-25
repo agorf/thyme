@@ -1,9 +1,9 @@
 <h1><%= @photo.filename %></h1>
-<%= partial 'set_thumb', set: @photo.set.prev if @photo.set.prev %>
+<%= partial 'set_thumb', set: @photo.set.next if @photo.set.next %>
 <%= partial 'photo_thumb', photo: @photo.prev if @photo.prev %>
 <img src="<%= @photo.thumb_url(:big) %>" alt="<%= @photo.filename %>">
 <%= partial 'photo_thumb', photo: @photo.next if @photo.next %>
-<%= partial 'set_thumb', set: @photo.set.next if @photo.set.next %>
+<%= partial 'set_thumb', set: @photo.set.prev if @photo.set.prev %>
 <table>
   <tr>
     <th>File name</th>

@@ -1,6 +1,6 @@
 <h1><%= @set.name %></h1>
-<%= partial 'set_thumb', set: @set.prev if @set.prev %>
 <%= partial 'set_thumb', set: @set.next if @set.next %>
+<%= partial 'set_thumb', set: @set.prev if @set.prev %>
 <% if @photos.any? %>
   <ol>
     <% @photos.each do |photo| %>
