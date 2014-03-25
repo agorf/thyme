@@ -10,14 +10,18 @@ module Thyme
       __FILE__)
 
     helpers do
-      def pluralize(n, singular, plural)
-        [n, n == 1 ? singular : plural].join(' ')
-      end
-
       def partial(name, locals)
         # prefix last path component with _
         path = name.dup.insert((name.rindex(File::SEPARATOR) || -1) + 1, '_')
         erb path.to_sym, locals: locals
+      end
+
+      def truncate(text, length)
+        if text.length < length
+          text
+        else
+          text[0...length].strip + '...'
+        end
       end
     end
 

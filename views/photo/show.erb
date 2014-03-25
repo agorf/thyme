@@ -1,10 +1,11 @@
-<h1><%= @photo.filename %></h1>
 <%= partial 'set_thumb', set: @photo.set.next if @photo.set.next %>
 <%= partial 'photo_thumb', photo: @photo.prev if @photo.prev %>
-<img src="<%= @photo.thumb_url(:big) %>" alt="<%= @photo.filename %>">
+<%= partial 'set_thumb', set: @photo.set if @photo.set %>
 <%= partial 'photo_thumb', photo: @photo.next if @photo.next %>
 <%= partial 'set_thumb', set: @photo.set.prev if @photo.set.prev %>
-<table>
+<h1><%= @photo.filename %></h1>
+<img src="<%= @photo.thumb_url(:big) %>" alt="<%= @photo.filename %>" class="big-thumb">
+<table id="photo-details">
   <tr>
     <th>File name</th>
     <td><%= @photo.filename %></td>
@@ -12,10 +13,6 @@
   <tr>
     <th>File size</th>
     <td><%= @photo.file_size %></td>
-  </tr>
-  <tr>
-    <th>Set</th>
-    <td><a href="/set/<%= @photo.set.id %>"><%= @photo.set.name %></a></td>
   </tr>
   <tr>
     <th>Dimensions</th>

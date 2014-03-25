@@ -1,5 +1,5 @@
 <% if @sets.any? %>
-  <ol>
+  <ol class="flat-list">
     <% @sets.each do |set| %>
       <li><%= partial 'set_thumb', set: set %></li>
     <% end %>

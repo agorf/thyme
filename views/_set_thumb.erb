@@ -1,5 +1,8 @@
-<a href="/set/<%= set.id %>" title="<%= set.name %>">
+<a class="set thumb" href="/set/<%= set.id %>" title="<%= set.name %>">
   <img src="<%= set.thumb_url(:small) %>" alt="<%= set.name %>">
-  <h2><%= set.name %></h2>
-  <p><%= pluralize(set.photos.count, 'photo', 'photos') %></p>
+  <h2><%= truncate(set.name, 20) %></h2>
+  <p>
+    <i class="fa fa-picture-o"></i>
+    <%= set.photos.count %>
+  </p>
 </a>
