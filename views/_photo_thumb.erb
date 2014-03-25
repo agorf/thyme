@@ -1,4 +1,4 @@
-<a href="/set/<%= photo.set.id %>/photo/<%= photo.id %>">
+<a href="/set/<%= photo.set.id %>/photo/<%= photo.id %>" title="<%= photo.filename %>">
   <img src="<%= photo.thumb_url(:small) %>" alt="<%= photo.filename %>">
   <h2><%= photo.filename %></h2>
 </a>
