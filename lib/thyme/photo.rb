@@ -44,7 +44,7 @@ module Thyme
     end
 
     def next
-      set.photos.first(
+      @next ||= set.photos.first(
         :taken_at.gte => taken_at,
         :path.gt => path,
         order: [:taken_at.asc, :path.asc]
@@ -52,7 +52,7 @@ module Thyme
     end
 
     def prev
-      set.photos.first(
+      @prev ||= set.photos.first(
         :taken_at.lte => taken_at,
         :path.lt => path,
         order: [:taken_at.desc, :path.desc]
