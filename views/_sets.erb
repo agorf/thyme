@@ -1,0 +1,9 @@
+<% if @sets.any? %>
+  <ol>
+    <% @sets.each do |set| %>
+      <li<%= ' class="active"' if @set && @set.id == set.id %>>
+        <%= partial 'set_thumb', set: set %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

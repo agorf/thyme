@@ -4,6 +4,25 @@
     <title>Thyme</title>
     <link rel="stylesheet" href="/thyme.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Auto-scroll to previous item of selected item
+        $('#sets, #photos').each(function () {
+          var $container = $(this);
+          var $target = $container.find('.active');
+          if ($target.length) {
+            if ($target.prev().length) {
+              $target = $target.prev();
+            }
+            $container.scrollTop(
+              $target.offset().top - $container.offset().top +
+                $container.scrollTop()
+            );
+          }
+        });
+      });
+    </script>
   </head>
   <body>
     <%= yield %>

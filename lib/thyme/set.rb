@@ -25,14 +25,6 @@ module Thyme
       save
     end
 
-    def next
-      @next ||= Set.first(:taken_at.gt => taken_at, order: [:taken_at.asc])
-    end
-
-    def prev
-      @prev ||= Set.first(:taken_at.lt => taken_at, order: [:taken_at.desc])
-    end
-
     def thumb_url(suffix)
       @thumb_url ||= photos.first(order: [:taken_at.asc]).thumb_url(suffix)
     end

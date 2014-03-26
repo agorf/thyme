@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  margin: 10px;
+  margin: 0;
   padding: 0;
 }
 
@@ -8,23 +8,42 @@ a {
   color: #00f;
 }
 
-.flat-list {
+.panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  width: 219px;
+}
+
+#photos {
+  left: 219px;
+  overflow-y: scroll;
+}
+
+#photo {
+  left: 438px;
+  width: auto;
+}
+
+#sets ol, #photos ol {
   list-style: none;
   margin: 0;
   padding: 0;
-  overflow: auto;
 }
 
-.flat-list li {
-  margin-bottom: 10px;
-  margin-right: 10px;
-  float: left;
+#sets a, #photos a {
+  border: 2px solid #fff;
+}
+
+#sets .active a, #photos .active a {
+  border-color: red;
 }
 
 .thumb {
   width: 200px;
   height: 200px;
-  display: inline-block;
+  display: block;
   position: relative;
 }
 
@@ -53,6 +72,7 @@ a {
 
 #photo-details {
   font-size: 13px;
+  clear: right;
 }
 
 #photo-details th {
@@ -68,5 +88,4 @@ a {
 
 .big-thumb {
   float: left;
-  margin-right: 10px;
 }

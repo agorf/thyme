@@ -10,7 +10,7 @@ module Thyme
       __FILE__)
 
     helpers do
-      def partial(name, locals)
+      def partial(name, locals = {})
         # prefix last path component with _
         path = name.dup.insert((name.rindex(File::SEPARATOR) || -1) + 1, '_')
         erb path.to_sym, locals: locals
@@ -25,31 +25,36 @@ module Thyme
       end
     end
 
-    get '/' do
-      redirect '/set/'
-    end
-
-    get '/set/?' do
-      @sets = Set.all(order: [:taken_at.desc])
-      erb :'set/index'
-    end
-
-    %w{/set/:id/? /set/:id/photo/?}.each do |path|
+    %w{
+      /
+      /set/?
+      /set/:set_id/?
+      /set/:set_id/photo/?
+      /set/:set_id/photo/:photo_id/?
+    }.each do |path|
       get path do
-        @set = Set.get!(params[:id])
-        @photos = @set.photos.all(order: [:taken_at.asc, :path.asc])
-        erb :'set/show'
+        @sets = Set.all(order: [:taken_at.desc])
+
+        if params[:set_id]
+          @set = Set.get!(params[:set_id])
+
+          if params[:photo_id]
+            @photo = Photo.get!(params[:photo_id])
+
+            if @photo.set_id != @set.id
+              halt 404, 'Invalid set or photo id'
+            end
+
+            @photo = Thyme::PhotoWrapper.new(@photo)
+          else
+            redirect "/set/#{@set.id}/photo/#{@set.photos.first.id}"
+          end
+
+          @photos = @set.photos.all(order: [:taken_at.asc, :path.asc])
+        end
+
+        erb :index
       end
-    end
-
-    get '/set/:set_id/photo/:id/?' do
-      @photo = Thyme::PhotoWrapper.new(Photo.get!(params[:id]))
-
-      if @photo.set_id != params[:set_id].to_i
-        halt 404, 'Invalid set or photo id'
-      end
-
-      erb :'photo/show'
     end
   end
 end
