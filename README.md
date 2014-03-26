@@ -14,7 +14,7 @@ A simple, web-based photo browser and viewer.
 
 ## License
 
-Licensed under the MIT license (see LICENSE.txt).
+Licensed under the MIT license (see `LICENSE.txt`).
 
 ## Author
 
