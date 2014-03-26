@@ -1,6 +1,6 @@
 # Thyme
 
-A minimal gallery for viewing your photos.
+A simple photo browser and viewer.
 
 ## Quick how-to
 
