@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.email         = ['me@agorf.gr']
   gem.homepage      = 'http://agorf.gr/'
 
-  gem.description   = %q{A simple gallery}
+  gem.description   = %q{A simple, web-based photo browser and viewer}
   gem.summary       = gem.description
 
   gem.files         = `git ls-files`.split($/)
