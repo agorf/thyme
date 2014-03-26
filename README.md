@@ -1,6 +1,6 @@
 # Thyme
 
-A simple photo browser and viewer.
+A simple, web-based photo browser and viewer.
 
 ## Quick how-to
 
