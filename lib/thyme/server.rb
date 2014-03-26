@@ -51,6 +51,8 @@ module Thyme
           end
 
           @photos = @set.photos.all(order: [:taken_at.asc, :path.asc])
+        else
+          redirect '/set/' + Set.first(order: [:taken_at.desc]).id.to_s
         end
 
         erb :index
