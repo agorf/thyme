@@ -25,8 +25,12 @@ module Thyme
       save
     end
 
-    def thumb_url(suffix)
-      @thumb_url ||= photos.first(order: [:taken_at.asc]).thumb_url(suffix)
+    def thumb_url
+      @thumb_url ||= photos.first(order: [:taken_at.asc]).small_thumb_url
+    end
+
+    def photos_count
+      photos.count
     end
   end
 end

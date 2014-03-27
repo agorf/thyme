@@ -36,7 +36,7 @@ a {
   border: 2px solid #fff;
 }
 
-#sets .active a, #photos .active a {
+#sets .active, #photos .active {
   border-color: red;
 }
 

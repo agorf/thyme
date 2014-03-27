@@ -46,7 +46,7 @@ desc 'Open application in browser'
 task :open do
   fork do
     sleep 2
-    exec 'xdg-open http://localhost:4567'
+    exec 'xdg-open http://localhost:4567/index.html'
   end
 
   Rake::Task['serve'].execute

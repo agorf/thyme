@@ -1,9 +1,0 @@
-<% if @photos.any? %>
-  <ol>
-    <% @photos.each do |photo| %>
-      <li<%= ' class="active"' if @photo && @photo.id == photo.id %>>
-        <%= partial 'photo_thumb', photo: photo %>
-      </li>
-    <% end %>
-  </ol>
-<% end %>

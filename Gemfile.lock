@@ -4,6 +4,7 @@ PATH
     thyme (0.0.1)
       data_mapper
       dimensions
+      dm-serializer
       dm-sqlite-adapter
       mini_exiftool
       mini_magick

@@ -1,0 +1,8 @@
+{
+  "name": "thyme",
+  "dependencies": {
+    "ember": "~1.4.0",
+    "moment": "~2.5.1",
+    "font-awesome": "~4.0.3"
+  }
+}

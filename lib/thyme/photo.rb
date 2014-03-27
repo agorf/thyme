@@ -34,8 +34,8 @@ module Thyme
       }
     end
 
-    def filename
-      File.basename(path)
+    def big_thumb_url
+      thumb_url(:big)
     end
 
     def generate_thumbs!
@@ -43,14 +43,14 @@ module Thyme
       generate_big_thumb!
     end
 
-    def thumb_url(suffix)
-      "/thumbs/#{thumb_filename(suffix)}"
+    def small_thumb_url
+      thumb_url(:small)
     end
 
     private
 
     def basename
-      File.basename(filename, extname)
+      File.basename(path, extname)
     end
 
     def extname
@@ -91,6 +91,10 @@ module Thyme
 
     def thumb_path(suffix)
       File.join(Thyme::Server.thumbs_path, thumb_filename(suffix))
+    end
+
+    def thumb_url(suffix)
+      "/thumbs/#{thumb_filename(suffix)}"
     end
   end
 end

@@ -28,6 +28,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'sinatra'
   gem.add_runtime_dependency 'rake'
   gem.add_runtime_dependency 'dimensions'
+  gem.add_runtime_dependency 'dm-serializer'
 
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'thin'

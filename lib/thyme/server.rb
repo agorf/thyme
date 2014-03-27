@@ -1,6 +1,6 @@
+require 'dm-serializer/to_json'
 require 'sinatra/base'
 require 'thyme/photo'
-require 'thyme/photo_wrapper'
 require 'thyme/set'
 
 module Thyme
@@ -9,58 +9,27 @@ module Thyme
     set :thumbs_path, File.expand_path(File.join(*%w{.. .. .. public thumbs}),
       __FILE__)
 
-    helpers do
-      def partial(name, locals = {})
-        # prefix last path component with _
-        path = name.dup.insert((name.rindex(File::SEPARATOR) || -1) + 1, '_')
-        erb path.to_sym, locals: locals
-      end
-
-      def pluralize(n, singular, plural)
-        [n, n == 1 ? singular : plural].join(' ')
-      end
-
-      def truncate(text, length)
-        if text.length < length
-          text
-        else
-          text[0...length].strip + '...'
-        end
-      end
+    before do
+      pass unless request.accept?('application/json')
+      content_type :json
     end
 
-    %w{
-      /
-      /set/?
-      /set/:set_id/?
-      /set/:set_id/photo/?
-      /set/:set_id/photo/:photo_id/?
-    }.each do |path|
-      get path do
-        @sets = Set.all(order: [:taken_at.desc])
+    get '/set' do
+      if params[:id]
+        Set.get!(params[:id])
+      else
+        Set.all(order: [:taken_at.desc])
+      end.to_json(methods: [:thumb_url, :photos_count])
+    end
 
-        if params[:set_id]
-          @set = Set.get!(params[:set_id])
-
-          if params[:photo_id]
-            @photo = Photo.get!(params[:photo_id])
-
-            if @photo.set_id != @set.id
-              halt 404, 'Invalid set or photo id'
-            end
-
-            @photo = Thyme::PhotoWrapper.new(@photo)
-          else
-            redirect to("/set/#{@set.id}/photo/#{@set.photos.first.id}")
-          end
-
-          @photos = @set.photos.all(order: [:taken_at.asc, :path.asc])
-        else
-          redirect to('/set/' + Set.first(order: [:taken_at.desc]).id.to_s)
-        end
-
-        erb :index
-      end
+    get '/photo' do
+      if params[:id]
+        Photo.get!(params[:id])
+      else
+        conditions = { order: [:taken_at.asc, :path.asc] }
+        conditions[:set_id] = params[:set_id] if params[:set_id]
+        Photo.all(conditions)
+      end.to_json(methods: [:big_thumb_url, :small_thumb_url])
     end
   end
 end
