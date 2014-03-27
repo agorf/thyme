@@ -16,6 +16,10 @@ module Thyme
         erb path.to_sym, locals: locals
       end
 
+      def pluralize(n, singular, plural)
+        [n, n == 1 ? singular : plural].join(' ')
+      end
+
       def truncate(text, length)
         if text.length < length
           text
