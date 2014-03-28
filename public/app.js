@@ -31,8 +31,10 @@ App.SetRoute = Ember.Route.extend({
   },
   setupController: function (controller, set) {
     controller.set('model', set);
+    var self = this;
     Ember.$.getJSON('/photo', { set_id: set.id }).then(function (data) {
       controller.set('photos', data);
+      self.transitionTo('photo', data[0]);
     });
   }
 });
