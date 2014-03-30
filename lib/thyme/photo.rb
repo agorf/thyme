@@ -2,6 +2,7 @@ require 'data_mapper'
 require 'dimensions'
 require 'mini_exiftool'
 require 'mini_magick'
+require 'thyme/core_ext'
 require 'thyme/set'
 
 module Thyme
@@ -32,6 +33,16 @@ module Thyme
           set:      Set.find_or_create_by_photo_path(path)
         )
       }
+    end
+
+    def self.oldest_first
+      all(order: [:taken_at.asc, :path.asc])
+    end
+
+    def as_json(options = {})
+      super(
+        options.merge(methods: [:big_thumb_url, :small_thumb_url])
+      ).translate_keys(set_id: :set).camelize_keys
     end
 
     def big_thumb_url

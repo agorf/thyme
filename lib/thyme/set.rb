@@ -1,4 +1,5 @@
 require 'data_mapper'
+require 'thyme/core_ext'
 
 module Thyme
   class Set
@@ -20,17 +21,17 @@ module Thyme
       end
     end
 
+    def self.newest_first
+      all(order: [:taken_at.desc])
+    end
+
+    def as_json(options = {})
+      super(options).merge(photos: photos.oldest_first.map(&:id)).camelize_keys
+    end
+
     def update_taken_at!
       self.taken_at = photos.all(fields: [:taken_at]).map(&:taken_at).max
       save
-    end
-
-    def thumb_url
-      @thumb_url ||= photos.first(order: [:taken_at.asc]).small_thumb_url
-    end
-
-    def photos_count
-      photos.count
     end
   end
 end

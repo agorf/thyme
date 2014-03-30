@@ -2,14 +2,32 @@ window.App = Ember.Application.create({
   LOG_TRANSITIONS: true
 });
 
-App.computed = {}
+App.JsonTransform = DS.Transform.extend({
+  serialize: function (data) {
+    return JSON.stringify(data);
+  },
+  deserialize: function (data) {
+    return data;
+  }
+});
 
-App.computed.pluralize = function (property, singular, plural) {
-  return function () {
-    var n = this.get(property);
-    return n + ' ' + (n === 1 ? singular : plural);
-  }.property(property);
-};
+App.Set = DS.Model.extend({
+  name: DS.attr('string'),
+  takenAt: DS.attr('date'),
+  photos: DS.hasMany('photo')
+});
+
+App.Photo = DS.Model.extend({
+  path: DS.attr('string'),
+  size: DS.attr('number'),
+  width: DS.attr('number'),
+  height: DS.attr('number'),
+  takenAt: DS.attr('date'),
+  exif: DS.attr('json'),
+  bigThumbUrl: DS.attr('string'),
+  smallThumbUrl: DS.attr('string'),
+  set: DS.belongsTo('set')
+});
 
 App.Router.map(function () {
   this.resource('sets', { path: '/' }, function () {
@@ -21,34 +39,33 @@ App.Router.map(function () {
 
 App.SetsRoute = Ember.Route.extend({
   model: function () {
-    return Ember.$.getJSON('/set');
+    return this.store.find('set');
   }
 });
 
 App.SetRoute = Ember.Route.extend({
   model: function (params) {
-    return Ember.$.getJSON('/set', { id: params.set_id });
-  },
-  setupController: function (controller, set) {
-    controller.set('model', set);
-    var self = this;
-    Ember.$.getJSON('/photo', { set_id: set.id }).then(function (data) {
-      controller.set('photos', data);
-      self.transitionTo('photo', data[0]);
-    });
+    return this.store.find('set', params.set_id);
   }
 });
 
 App.PhotoRoute = Ember.Route.extend({
   model: function (params) {
-    return Ember.$.getJSON('/photo', { id: params.photo_id });
+    return this.store.find('photo', params.photo_id);
   }
 });
 
 App.SetController = Ember.ObjectController.extend({
-  photos_count_title: App.computed.pluralize('model.photos_count',
-                                             'photo',
-                                             'photos')
+  photosCount: function () {
+    return this.get('model.photos.length');
+  }.property('model.photos.length'),
+  photosCountTitle: function () {
+    var n = this.get('photosCount');
+    return (n === 1) ? '1 photo' : n + ' photos';
+  }.property('photosCount'),
+  thumbUrl: function () {
+    return this.get('model.photos.firstObject.smallThumbUrl');
+  }.property('model.photos.firstObject.smallThumbUrl')
 });
 
 App.PhotoController = Ember.ObjectController.extend({

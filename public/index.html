@@ -18,11 +18,11 @@
   </script>
   <script type="text/x-handlebars" data-template-name="sets/_set_thumb">
     {{#link-to 'set' this title=name classNames="set thumb"}}
-      <img {{bind-attr src=thumb_url alt=name}}">
+      <img {{bind-attr src=thumbUrl alt=name}}">
       <h2>{{truncate name 20}}</h2>
-      <p {{bind-attr title=photos_count_title}}>
+      <p {{bind-attr title=photosCountTitle}}>
         <i class="fa fa-picture-o"></i>
-        {{photos_count}}
+        {{photosCount}}
       </p>
     {{/link-to}}
   </script>
@@ -38,13 +38,13 @@
   </script>
   <script type="text/x-handlebars" data-template-name="set/_photo_thumb">
     {{#link-to 'photo' this title=fileName classNames="photo thumb"}}
-      <img {{bind-attr src=small_thumb_url alt=fileName}}">
+      <img {{bind-attr src=smallThumbUrl alt=fileName}}">
       <h2>{{truncate fileName 20}}</h2>
     {{/link-to}}
   </script>
   <script type="text/x-handlebars" data-template-name="photo">
     <div id="photo" class="panel">
-      <img {{bind-attr src=big_thumb_url alt=fileName class=":big-thumb"}}>
+      <img {{bind-attr src=bigThumbUrl alt=fileName class=":big-thumb"}}>
       <table id="photo-details">
         <tr><th>File name</th><td>{{fileName}}</td></tr>
         <tr><th>File size</th><td>{{formattedSize}}</td></tr>
@@ -66,6 +66,7 @@
   <script src="bower_components/jquery/jquery.js"></script>
   <script src="bower_components/handlebars/handlebars.js"></script>
   <script src="bower_components/ember/ember.js"></script>
+  <script src="bower_components/ember-data/ember-data.js"></script>
   <script src="bower_components/moment/moment.js"></script>
   <script src="app.js"></script>
 </body>
