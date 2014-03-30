@@ -89,6 +89,44 @@ App.PhotoController = Ember.ObjectController.extend({
   }.property('model.taken_at')
 });
 
+// http://mavilein.github.io/javascript/2013/08/01/Ember-JS-After-Render-Event/
+Ember.View.reopen({
+  didInsertElement: function () {
+    this._super();
+    Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
+  },
+  afterRenderEvent: function () {}
+});
+
+App.ThumbsView = Ember.View.extend({
+  scrollToActive: function (container) {
+    var $container = Ember.$(container);
+    var $target = $container.find('.active');
+
+    if ($target.length) {
+      if ($target.prev().length) {
+        $target = $target.prev();
+      }
+
+      $container.scrollTop(
+        $target.offset().top - $container.offset().top + $container.scrollTop()
+      );
+    }
+  }
+});
+
+App.SetView = App.ThumbsView.extend({
+  afterRenderEvent: function () {
+    this.scrollToActive('#sets');
+  }
+});
+
+App.PhotoView = App.ThumbsView.extend({
+  afterRenderEvent: function () {
+    this.scrollToActive('#photos');
+  }
+});
+
 Ember.Handlebars.helper('truncate', function (text, length) {
   if (text.length < length) {
     return text;
