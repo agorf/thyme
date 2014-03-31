@@ -101,11 +101,13 @@ Ember.View.reopen({
 App.ThumbsView = Ember.View.extend({
   scrollToActive: function (container) {
     var $container = Ember.$(container);
-    var $target = $container.find('.active');
+    var $target = $container.find('.active').parent();
 
     if ($target.length) {
-      if ($target.prev().length) {
-        $target = $target.prev();
+      var $targetPrev = $target.prevAll('li:first');
+
+      if ($targetPrev.length) {
+        $target = $targetPrev;
       }
 
       $container.scrollTop(
