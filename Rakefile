@@ -44,7 +44,6 @@ task :serve do
   Thyme::Server.run!
 end
 
-desc 'Run application and reload on changes'
 task :rerun do
   exec "bundle exec rerun 'bundle exec rake serve'"
 end
