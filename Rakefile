@@ -1,5 +1,10 @@
+lib = File.expand_path('../lib', __FILE__)
+$:.unshift(lib) if !$:.include?(lib)
+
 require 'rake/clean'
-require 'thyme'
+require 'thyme/db'
+require 'thyme/server'
+require 'thyme/photo'
 
 CLOBBER.include('index.db', Thyme::Server.thumbs_path)
 
@@ -14,6 +19,8 @@ end
 
 desc 'Scan library for photos and build database'
 task :scan, [:library_path] => [:upgrade_schema] do |t, args|
+  require 'thyme/set'
+
   FileList[
     File.join(
       File.expand_path(args.library_path),
@@ -34,7 +41,7 @@ end
 
 desc 'Run application'
 task :serve do
-  exec 'bundle exec rackup -p 4567'
+  Thyme::Server.run!
 end
 
 desc 'Run application and reload on changes'
