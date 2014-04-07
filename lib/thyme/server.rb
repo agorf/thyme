@@ -9,6 +9,10 @@ module Thyme
     set :thumbs_path, File.expand_path(File.join(*%w{.. .. .. public thumbs}),
       __FILE__)
 
+    get '/' do
+      redirect to('/index.html')
+    end
+
     get '/sets' do
       pass unless request.accept?('application/json')
       content_type :json
