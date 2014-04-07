@@ -6,3 +6,4 @@
 * Speed up library scan and thumbnail generation
 * Load more images on scroll
 * Make it possible to set orientation
+* Rewrite backend in Node.js
