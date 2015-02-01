@@ -31,12 +31,12 @@ task :scan, [:library_path] => [:upgrade_schema] do |t, args|
     Thyme::Photo.create_from_file(filename)
   end
 
-  Thyme::Set.map(&:update_taken_at!)
+  Thyme::Set.each(&:update_taken_at!)
 end
 
 desc 'Generate photo thumbnails from database'
 task generate_thumbs: [:upgrade_schema, :make_thumbs_dir] do
-  Thyme::Photo.map(&:generate_thumbs!)
+  Thyme::Photo.each(&:generate_thumbs!)
 end
 
 desc 'Run application'
