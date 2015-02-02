@@ -38,8 +38,16 @@ function PhotoViewModel(data) {
     return (Math.round((self.data.size / (1024 * 1024)) * 100) / 100) + ' MB';
   };
 
-  self.formattedTakenAt = function () {
-    return moment(self.data.taken_at).format('ddd, D MMM YYYY HH:mm:ss z');
+  self.takenAt = function () {
+    if (self.data.takenAt) {
+      return moment(self.data.takenAt).fromNow();
+    }
+  };
+
+  self.takenAtTitle = function () {
+    if (self.data.takenAt) {
+      return moment(self.data.takenAt).format('ddd, D MMM YYYY HH:mm:ss z');
+    }
   };
 
   self.shutterSpeed = function () {
