@@ -6,16 +6,26 @@
   <link rel="stylesheet" href="/thyme.css">
 </head>
 <body>
-  <div id="sets" class="panel">
-    <ol data-bind="template: { name: 'sets-template', foreach: sets }"></ol>
+  <div id="pane">
+    <!-- ko if: photo -->
+      <div id="photo" data-bind="template: { name: 'photo-template', data: photo }"></div>
+    <!-- /ko -->
+    <!-- ko ifnot: photo -->
+      <ol id="thumbs">
+        <!-- ko if: photos().length > 0 -->
+          <!-- ko template: { name: 'photos-template', foreach: photos } -->
+          <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: photos().length === 0 -->
+          <!-- ko template: { name: 'sets-template', foreach: sets } -->
+          <!-- /ko -->
+        <!-- /ko -->
+      </ol>
+    <!-- /ko -->
   </div>
-  <div id="photos" class="panel">
-    <ol data-bind="template: { name: 'photos-template', foreach: photos }"></ol>
-  </div>
-  <div id="photo" class="panel" data-bind="template: { name: 'photo-template', data: photo, if: photo }"></div>
   <script type="text/html" id="sets-template">
     <li>
-      <a href="#" data-bind="attr: { title: data.name }, css: { 'set thumb': true, active: $data == $root.set() }, click: $root.set">
+      <a href="#" data-bind="attr: { title: data.name }, css: 'set thumb', click: $root.set">
         <img data-bind="attr: { src: data.thumbUrl, alt: data.name }">
         <h2 data-bind="text: shortName()"></h2>
         <p data-bind="attr: { title: photosCountTitle() }">
@@ -27,7 +37,7 @@
   </script>
   <script type="text/html" id="photos-template">
     <li>
-      <a href="#" data-bind="attr: { title: fileName() }, css: { 'photo thumb': true, active: $data == $root.photo() }, click: $root.photo">
+      <a href="#" data-bind="attr: { title: fileName() }, css: 'photo thumb', click: $root.photo">
         <img data-bind="attr: { src: data.smallThumbUrl, alt: fileName() }">
         <h2 data-bind="text: shortName()"></h2>
       </a>
@@ -56,6 +66,7 @@
   <script src="bower_components/lodash/lodash.js"></script>
   <script src="bower_components/moment/moment.js"></script>
   <script src="bower_components/knockoutjs/dist/knockout.js"></script>
+  <script src="bower_components/sammy/lib/sammy.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

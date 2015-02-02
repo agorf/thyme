@@ -42,7 +42,7 @@ module Thyme
     def as_json(options = {})
       super(
         options.merge(methods: [:big_thumb_url, :small_thumb_url])
-      ).translate_keys(set_id: :set).camelize_keys
+      ).camelize_keys
     end
 
     def big_thumb_url

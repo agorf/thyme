@@ -24,5 +24,18 @@ module Thyme
       content_type :json
       Photo.all(set: { id: params[:set_id].to_i }).oldest_first.to_json
     end
+
+    get '/photo' do
+      pass unless request.accept?('application/json')
+      content_type :json
+
+      conditions = { id: params[:photo_id], set: { id: params[:set_id].to_i } }
+
+      if photo = Photo.first(conditions)
+        photo.to_json
+      else
+        halt 404, 'Not Found'
+      end
+    end
   end
 end

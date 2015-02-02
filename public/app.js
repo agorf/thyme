@@ -49,45 +49,63 @@ function SetViewModel(data) {
 function ThymeViewModel() {
   var self = this;
 
-  self.photo = ko.observable();
+  self.photo = _.tap(ko.observable(), function (observable) {
+    observable.subscribe(function (photo) {
+      if (photo) {
+        location.hash = photo.data.setId + '/' + photo.data.id;
+      }
+    });
+  });
 
   self.photos = ko.observableArray([]);
 
-  self.set = ko.observable();
+  self.set = _.tap(ko.observable(), function (observable) {
+    observable.subscribe(function (set) {
+      location.hash = set.data.id;
+    });
+  });
 
   self.sets = ko.observableArray([]);
 
-  self.loadPhotos = function (set) {
-    self.photos([]); // clear photos
-
-    $.getJSON('/photos', { set_id: set.data.id }, function (photosData) {
-      _.forEach(photosData, function (photoData, i) {
-        var photo = new PhotoViewModel(photoData);
-        self.photos.push(photo);
-
-        if (i === 0) {
-          self.photo(photo); // show photo
-        }
+  Sammy(function () {
+    this.get('#:setId/:photoId', function () {
+      var data = {
+        set_id: this.params.setId,
+        photo_id: this.params.photoId
+      };
+      $.getJSON('/photo', data, function (photoData) {
+        self.photo(new PhotoViewModel(photoData));
       });
     });
-  };
 
-  self.loadSets = function () {
-    $.getJSON('/sets', function (setsData) {
-      _.forEach(setsData, function (setData, i) {
-        var set = new SetViewModel(setData);
-        self.sets.push(set);
+    this.get('#:setId', function () {
+      self.photo(null);
 
-        if (i === 0) {
-          self.set(set); // load photos
-        }
+      if (self.photos().length > 0) { // back pressed
+        return;
+      }
+
+      $.getJSON('/photos', { set_id: this.params.setId }, function (photosData) {
+        _.forEach(photosData, function (photoData) {
+          self.photos.push(new PhotoViewModel(photoData));
+        });
       });
     });
-  };
 
-  self.set.subscribe(self.loadPhotos);
+    this.get('', function () {
+      self.photos([]);
 
-  self.loadSets();
+      if (self.sets().length > 0) { // back pressed
+        return;
+      }
+
+      $.getJSON('/sets', function (setsData) {
+        _.forEach(setsData, function (setData) {
+          self.sets.push(new SetViewModel(setData));
+        });
+      });
+    });
+  }).run();
 };
 
 // lodash extensions
