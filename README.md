@@ -1,17 +1,22 @@
 # Thyme
 
-A simple, web-based photo browser and viewer.
+A minimal single-page web app for browsing and viewing photos locally.
+
+<a href="https://www.flickr.com/photos/infobunny/7093903557" title="thyme by
+poppet with a camera, on Flickr"><img
+src="https://farm6.staticflickr.com/5327/7093903557_725d7a4c0e_s.jpg" width="75"
+height="75" alt="thyme"></a>
 
 ## Quick how-to
 
 1. Install system deps: `sudo apt-get install libimage-exiftool-perl
    imagemagick` (for `mini_exiftool` and `mini_magick` gems respectively)
-1. Checkout code: `git clone https://github.com/agorf/thyme && cd thyme`
+1. Clone code: `git clone https://github.com/agorf/thyme && cd thyme`
 1. Install Ruby gems: `bundle install`
 1. Install [Bower](http://bower.io/) components: `bower install`
 1. Scan photos: `bundle exec rake scan[/path/to/photographs]`
 1. Generate thumbs: `bundle exec rake generate_thumbs` (may take a while)
-1. Open app: `bundle exec rake open`
+1. Run app and open in browser: `bundle exec rake open`
 
 ## License
 
