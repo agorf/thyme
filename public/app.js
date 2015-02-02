@@ -92,7 +92,7 @@ function ThymeViewModel() {
 
 // lodash extensions
 _.mixin({
-  gcd: function gcd(a, b) {
+  gcd: function (a, b) {
     return b ? _.gcd(b, a % b) : Math.abs(a);
   },
   pluralize: function (n, singular, plural) {
