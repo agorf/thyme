@@ -40,16 +40,16 @@
       <tr><th>File size</th><td data-bind="text: $parent.formattedSize()"></td></tr>
       <tr><th>Dimensions</th><td data-bind="html: width + '&times;' + height"></td></tr>
       <tr><th>Aspect ratio</th><td data-bind="text: $parent.aspectRatio()"></td></tr>
-      <tr><th>Taken</th><td data-bind="text: $parent.takenAt(), attr: { title: $parent.takenAtTitle() }"></td></tr>
-      <tr><th>Camera</th><td data-bind="text: $parent.camera()"></td></tr>
-      <tr><th>Artist</th><td data-bind="text: exif.Artist"></td></tr>
-      <tr><th>Shutter speed</th><td data-bind="text: $parent.shutterSpeed()"></td></tr>
-      <tr><th>Aperture size</th><td data-bind="text: $parent.apertureSize()"></td></tr>
-      <tr><th>ISO</th><td data-bind="text: exif.ISO"></td></tr>
-      <tr><th>Exp. compensation</th><td data-bind="text: exif.ExposureCompensation"></td></tr>
-      <tr><th>Light source</th><td data-bind="text: exif.LightSource"></td></tr>
-      <tr><th>Focus mode</th><td data-bind="text: exif.FocusMode"></td></tr>
-      <tr><th>Shooting mode</th><td data-bind="text: exif.ShootingMode"></td></tr>
+      <tr data-bind="if: takenAt"><th>Taken</th><td data-bind="text: $parent.takenAt(), attr: { title: $parent.takenAtTitle() }"></td></tr>
+      <tr data-bind="if: exif.Make && exif.Model"><th>Camera</th><td data-bind="text: exif.Make + ' ' + exif.Model"></td></tr>
+      <tr data-bind="if: exif.Artist"><th>Artist</th><td data-bind="text: exif.Artist"></td></tr>
+      <tr data-bind="if: exif.ExposureTime"><th>Shutter speed</th><td data-bind="text: exif.ExposureTime + ' s'"></td></tr>
+      <tr data-bind="if: exif.FNumber"><th>Aperture size</th><td data-bind="text: 'f/' + exif.FNumber"></td></tr>
+      <tr data-bind="if: exif.ISO"><th>ISO</th><td data-bind="text: exif.ISO"></td></tr>
+      <tr data-bind="if: exif.ExposureCompensation"><th>Exp. compensation</th><td data-bind="text: exif.ExposureCompensation"></td></tr>
+      <tr data-bind="if: exif.LightSource"><th>Light source</th><td data-bind="text: exif.LightSource"></td></tr>
+      <tr data-bind="if: exif.FocusMode"><th>Focus mode</th><td data-bind="text: exif.FocusMode"></td></tr>
+      <tr data-bind="if: exif.ShootingMode"><th>Shooting mode</th><td data-bind="text: exif.ShootingMode"></td></tr>
     </table>
   </script>
   <script src="bower_components/jquery/dist/jquery.js"></script>

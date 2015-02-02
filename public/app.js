@@ -3,27 +3,12 @@ function PhotoViewModel(data) {
 
   self.data = data;
 
-  self.apertureSize = function () {
-    if (self.data.exif.FNumber) {
-      return 'f/' + self.data.exif.FNumber;
-    }
-  };
-
   self.aspectRatio = function () {
     var width = self.data.width;
     var height = self.data.height;
     var gcd = _.gcd(width, height);
 
     return (width / gcd) + ':' + (height / gcd);
-  };
-
-  self.camera = function () {
-    var make = self.data.exif.Make;
-    var model = self.data.exif.Model;
-
-    if (make && model) {
-      return make + ' ' + model;
-    }
   };
 
   self.fileName = function () {
@@ -39,21 +24,11 @@ function PhotoViewModel(data) {
   };
 
   self.takenAt = function () {
-    if (self.data.takenAt) {
-      return moment(self.data.takenAt).fromNow();
-    }
+    return moment(self.data.takenAt).fromNow();
   };
 
   self.takenAtTitle = function () {
-    if (self.data.takenAt) {
-      return moment(self.data.takenAt).format('ddd, D MMM YYYY HH:mm:ss z');
-    }
-  };
-
-  self.shutterSpeed = function () {
-    if (self.data.exif.ExposureTime) {
-      return self.data.exif.ExposureTime + ' s';
-    }
+    return moment(self.data.takenAt).format('ddd, D MMM YYYY HH:mm:ss z');
   };
 }
 
