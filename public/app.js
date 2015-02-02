@@ -4,10 +4,8 @@ function PhotoViewModel(data) {
   self.data = data;
 
   self.apertureSize = function () {
-    var f;
-
-    if (f = self.data.exif.FNumber) {
-      return 'f/' + f;
+    if (self.data.exif.FNumber) {
+      return 'f/' + self.data.exif.FNumber;
     }
   };
 
@@ -15,13 +13,15 @@ function PhotoViewModel(data) {
     var width = self.data.width;
     var height = self.data.height;
     var gcd = _.gcd(width, height);
+
     return (width / gcd) + ':' + (height / gcd);
   };
 
   self.camera = function () {
-    var make, model;
+    var make = self.data.exif.Make;
+    var model = self.data.exif.Model;
 
-    if ((make = self.data.exif.Make) && (model = self.data.exif.Model)) {
+    if (make && model) {
       return make + ' ' + model;
     }
   };
