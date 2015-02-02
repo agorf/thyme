@@ -66,7 +66,7 @@ function ThymeViewModel() {
         self.photos.push(photo);
 
         if (i === 0) {
-          self.photo(photo); // load photo
+          self.photo(photo); // show photo
         }
       });
     });
@@ -79,7 +79,7 @@ function ThymeViewModel() {
         self.sets.push(set);
 
         if (i === 0) {
-          self.set(set);
+          self.set(set); // load photos
         }
       });
     });
