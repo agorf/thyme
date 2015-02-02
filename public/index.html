@@ -6,68 +6,56 @@
   <link rel="stylesheet" href="/thyme.css">
 </head>
 <body>
-  <script type="text/x-handlebars" data-template-name="sets">
-    <div id="sets" class="panel">
-      <ol>
-        {{#each itemController="set"}}
-          <li>{{partial 'sets/set_thumb'}}</li>
-        {{/each}}
-      </ol>
-    </div>
-    {{outlet}}
+  <div id="sets" class="panel">
+    <ol data-bind="template: { name: 'sets-template', foreach: sets }"></ol>
+  </div>
+  <div id="photos" class="panel">
+    <ol data-bind="template: { name: 'photos-template', foreach: photos }"></ol>
+  </div>
+  <div id="photo" class="panel" data-bind="template: { name: 'photo-template', data: photo, if: photo }"></div>
+  <script type="text/html" id="sets-template">
+    <li>
+      <a href="#" data-bind="attr: { title: data.name }, css: 'set thumb', click: $root.loadPhotos">
+        <img data-bind="attr: { src: data.thumbUrl, alt: data.name }">
+        <h2 data-bind="text: shortName()"></h2>
+        <p data-bind="attr: { title: photosCountTitle() }">
+          <i class="fa fa-picture-o"></i>
+          <!-- ko text: data.photosCount --><!-- /ko -->
+        </p>
+      </a>
+    </li>
   </script>
-  <script type="text/x-handlebars" data-template-name="sets/_set_thumb">
-    {{#link-to 'set' this title=name classNames="set thumb"}}
-      <img {{bind-attr src=thumbUrl alt=name}}">
-      <h2>{{truncate name 20}}</h2>
-      <p {{bind-attr title=photosCountTitle}}>
-        <i class="fa fa-picture-o"></i>
-        {{photosCount}}
-      </p>
-    {{/link-to}}
+  <script type="text/html" id="photos-template">
+    <li>
+      <a href="#" data-bind="attr: { title: fileName() }, css: 'photo thumb', click: $root.photo">
+        <img data-bind="attr: { src: data.smallThumbUrl, alt: fileName() }">
+        <h2 data-bind="text: shortName()"></h2>
+      </a>
+    </li>
   </script>
-  <script type="text/x-handlebars" data-template-name="set">
-    <div id="photos" class="panel">
-      <ol>
-        {{#each photos itemController="photo"}}
-          <li>{{partial 'set/photo_thumb'}}</li>
-        {{/each}}
-      </ol>
-    </div>
-    {{outlet}}
+  <script type="text/html" id="photo-template">
+    <img data-bind="attr: { src: data.bigThumbUrl, alt: fileName() }, css: 'big-thumb'">
+    <table id="photo-details" data-bind="with: data">
+      <tr><th>File name</th><td data-bind="text: $parent.fileName()"></td></tr>
+      <tr><th>File size</th><td data-bind="text: $parent.formattedSize()"></td></tr>
+      <tr><th>Dimensions</th><td data-bind="html: width + '&times;' + height"></td></tr>
+      <tr><th>Aspect ratio</th><td data-bind="text: $parent.aspectRatio()"></td></tr>
+      <tr><th>Taken at</th><td data-bind="text: $parent.formattedTakenAt()"></td></tr>
+      <tr><th>Camera</th><td data-bind="text: $parent.camera()"></td></tr>
+      <tr><th>Artist</th><td data-bind="text: exif.Artist"></td></tr>
+      <tr><th>Shutter speed</th><td data-bind="text: $parent.shutterSpeed()"></td></tr>
+      <tr><th>Aperture size</th><td data-bind="text: $parent.apertureSize()"></td></tr>
+      <tr><th>ISO</th><td data-bind="text: exif.ISO"></td></tr>
+      <tr><th>Exp. compensation</th><td data-bind="text: exif.ExposureCompensation"></td></tr>
+      <tr><th>Light source</th><td data-bind="text: exif.LightSource"></td></tr>
+      <tr><th>Focus mode</th><td data-bind="text: exif.FocusMode"></td></tr>
+      <tr><th>Shooting mode</th><td data-bind="text: exif.ShootingMode"></td></tr>
+    </table>
   </script>
-  <script type="text/x-handlebars" data-template-name="set/_photo_thumb">
-    {{#link-to 'photo' this title=fileName classNames="photo thumb"}}
-      <img {{bind-attr src=smallThumbUrl alt=fileName}}">
-      <h2>{{truncate fileName 20}}</h2>
-    {{/link-to}}
-  </script>
-  <script type="text/x-handlebars" data-template-name="photo">
-    <div id="photo" class="panel">
-      <img {{bind-attr src=bigThumbUrl alt=fileName class=":big-thumb"}}>
-      <table id="photo-details">
-        <tr><th>File name</th><td>{{fileName}}</td></tr>
-        <tr><th>File size</th><td>{{formattedSize}}</td></tr>
-        <tr><th>Dimensions</th><td>{{width}} &times; {{height}}</td></tr>
-        <tr><th>Aspect ratio</th><td>{{aspectRatio}}</td></tr>
-        <tr><th>Taken at</th><td>{{formattedTakenAt}}</td></tr>
-        <tr><th>Camera</th><td>{{exif.Make}} {{exif.Model}}</td></tr>
-        <tr><th>Artist</th><td>{{exif.Artist}}</td></tr>
-        <tr><th>Shutter speed</th><td>{{exif.ExposureTime}} s</td></tr>
-        <tr><th>Aperture size</th><td>f/{{exif.FNumber}}</td></tr>
-        <tr><th>ISO</th><td>{{exif.ISO}}</td></tr>
-        <tr><th>Exp. compensation</th><td>{{exif.ExposureCompensation}}</td></tr>
-        <tr><th>Light source</th><td>{{exif.LightSource}}</td></tr>
-        <tr><th>Focus mode</th><td>{{exif.FocusMode}}</td></tr>
-        <tr><th>Shooting mode</th><td>{{exif.ShootingMode}}</td></tr>
-      </table>
-    </div>
-  </script>
-  <script src="bower_components/jquery/jquery.js"></script>
-  <script src="bower_components/handlebars/handlebars.js"></script>
-  <script src="bower_components/ember/ember.js"></script>
-  <script src="bower_components/ember-data/ember-data.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/lodash/lodash.js"></script>
   <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/knockoutjs/dist/knockout.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

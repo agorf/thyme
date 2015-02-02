@@ -26,7 +26,10 @@ module Thyme
     end
 
     def as_json(options = {})
-      super(options).merge(photos: photos.oldest_first.map(&:id)).camelize_keys
+      super(options).merge(
+        photos_count: photos.count,
+        thumb_url: photos.oldest_first.first.small_thumb_url
+      ).camelize_keys
     end
 
     def update_taken_at!
