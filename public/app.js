@@ -51,8 +51,8 @@ function PhotoViewModel(data) {
   };
 
   self.shutterSpeed = function () {
-    if (self.data.exposureTime) {
-      return self.data.exposureTime + ' s';
+    if (self.data.exif.ExposureTime) {
+      return self.data.exif.ExposureTime + ' s';
     }
   };
 }
