@@ -40,7 +40,7 @@
       <tr><th>File size</th><td data-bind="text: $parent.formattedSize()"></td></tr>
       <tr><th>Dimensions</th><td data-bind="html: width + '&times;' + height"></td></tr>
       <tr><th>Aspect ratio</th><td data-bind="text: $parent.aspectRatio()"></td></tr>
-      <tr data-bind="if: takenAt"><th>Taken</th><td data-bind="text: $parent.takenAt(), attr: { title: $parent.takenAtTitle() }"></td></tr>
+      <tr data-bind="if: takenAt"><th>Taken</th><td data-bind="text: $parent.relativeTakenAt(), attr: { title: $parent.formattedTakenAt() }"></td></tr>
       <tr data-bind="if: exif.Make && exif.Model"><th>Camera</th><td data-bind="text: exif.Make + ' ' + exif.Model"></td></tr>
       <tr data-bind="if: exif.Artist"><th>Artist</th><td data-bind="text: exif.Artist"></td></tr>
       <tr data-bind="if: exif.ExposureTime"><th>Shutter speed</th><td data-bind="text: exif.ExposureTime + ' s'"></td></tr>

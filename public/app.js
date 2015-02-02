@@ -23,12 +23,12 @@ function PhotoViewModel(data) {
     return (Math.round((self.data.size / (1024 * 1024)) * 100) / 100) + ' MB';
   };
 
-  self.takenAt = function () {
-    return moment(self.data.takenAt).fromNow();
+  self.formattedTakenAt = function () {
+    return moment(self.data.takenAt).format('ddd, D MMM YYYY HH:mm:ss z');
   };
 
-  self.takenAtTitle = function () {
-    return moment(self.data.takenAt).format('ddd, D MMM YYYY HH:mm:ss z');
+  self.relativeTakenAt = function () {
+    return moment(self.data.takenAt).fromNow();
   };
 }
 
