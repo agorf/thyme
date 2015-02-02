@@ -15,7 +15,7 @@
   <div id="photo" class="panel" data-bind="template: { name: 'photo-template', data: photo, if: photo }"></div>
   <script type="text/html" id="sets-template">
     <li>
-      <a href="#" data-bind="attr: { title: data.name }, css: 'set thumb', click: $root.loadPhotos">
+      <a href="#" data-bind="attr: { title: data.name }, css: { 'set thumb': true, active: $data == $root.set() }, click: $root.set">
         <img data-bind="attr: { src: data.thumbUrl, alt: data.name }">
         <h2 data-bind="text: shortName()"></h2>
         <p data-bind="attr: { title: photosCountTitle() }">
@@ -27,7 +27,7 @@
   </script>
   <script type="text/html" id="photos-template">
     <li>
-      <a href="#" data-bind="attr: { title: fileName() }, css: 'photo thumb', click: $root.photo">
+      <a href="#" data-bind="attr: { title: fileName() }, css: { 'photo thumb': true, active: $data == $root.photo() }, click: $root.photo">
         <img data-bind="attr: { src: data.smallThumbUrl, alt: fileName() }">
         <h2 data-bind="text: shortName()"></h2>
       </a>

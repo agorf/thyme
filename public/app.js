@@ -78,6 +78,8 @@ function ThymeViewModel() {
 
   self.photos = ko.observableArray([]);
 
+  self.set = ko.observable();
+
   self.sets = ko.observableArray([]);
 
   self.loadPhotos = function (set) {
@@ -102,11 +104,13 @@ function ThymeViewModel() {
         self.sets.push(set);
 
         if (i === 0) {
-          self.loadPhotos(set);
+          self.set(set);
         }
       });
     });
   };
+
+  self.set.subscribe(self.loadPhotos);
 
   self.loadSets();
 };
