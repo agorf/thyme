@@ -89,7 +89,7 @@ function ThymeViewModel() {
         self.photos.push(photo);
 
         if (i === 0) {
-          self.photo(photo);
+          self.photo(photo); // load photo
         }
       });
     });
