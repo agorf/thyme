@@ -4,8 +4,8 @@ A minimal single-page web app for browsing and viewing photos locally.
 
 <a href="https://www.flickr.com/photos/infobunny/7093903557" title="thyme by
 poppet with a camera, on Flickr"><img
-src="https://farm6.staticflickr.com/5327/7093903557_725d7a4c0e_s.jpg" width="75"
-height="75" alt="thyme"></a>
+src="https://raw.githubusercontent.com/agorf/thyme/master/thyme.jpg" width="240"
+height="240" alt="thyme"></a>
 
 ## Quick how-to
 
