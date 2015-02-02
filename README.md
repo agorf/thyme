@@ -1,4 +1,4 @@
-# Thyme
+# thyme
 
 A minimal single-page web app for browsing and viewing photos locally.
 
