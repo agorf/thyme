@@ -44,6 +44,8 @@ task :serve do
   Thyme::Server.run!
 end
 
+task :s => :serve
+
 task :rerun do
   exec "bundle exec rerun 'bundle exec rake serve'"
 end
