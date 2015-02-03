@@ -1,14 +1,28 @@
 function PhotoViewModel(data) {
   var self = this;
 
+  self.stdAspectRatios = [[4, 3], [3, 2], [16, 9], [5, 3], [5, 4], [1, 1]];
+
   self.data = data;
 
   self.aspectRatio = function () {
-    var width = self.data.width;
-    var height = self.data.height;
-    var gcd = _.gcd(width, height);
+    var aspectRatio = self.calculateAspectRatio(self.data.width, self.data.height);
+    var exactMatch = _.find(self.stdAspectRatios, function (ar) {
+      return ar[0] == aspectRatio[0] && ar[1] == aspectRatio[1];
+    });
 
-    return (width / gcd) + ':' + (height / gcd);
+    if (exactMatch) { return aspectRatio.join(':'); }
+
+    var closestMatch = _.sortBy(self.stdAspectRatios, function (ar) {
+      return Math.abs((ar[0] / ar[1]) - (aspectRatio[0] / aspectRatio[1]));
+    })[0];
+
+    return '~' + closestMatch.join(':');
+  };
+
+  self.calculateAspectRatio = function (width, height) {
+    var gcd = _.gcd(width, height);
+    return [width / gcd, height / gcd];
   };
 
   self.fileName = function () {
