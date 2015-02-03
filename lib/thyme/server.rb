@@ -27,11 +27,11 @@ module Thyme
 
     get '/photo' do
       pass unless request.accept?('application/json')
-      content_type :json
 
       conditions = { id: params[:id], set: { id: params[:set_id].to_i } }
 
       if photo = Photo.first(conditions)
+        content_type :json
         photo.to_json
       else
         halt 404, 'Not Found'
