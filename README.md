@@ -10,8 +10,8 @@ height="240" alt="thyme"></a>
 ## Quick how-to
 
 1. Clone repo: `git clone https://github.com/agorf/thyme && cd thyme`
-1. Install system package dependencies (for [mini\_exiftool][] and
-   [mini\_magick][] gems respectively):
+1. Install system package dependencies (for [mini_exiftool][] and
+   [mini_magick][] gems respectively):
    * Linux: `sudo apt-get install libimage-exiftool-perl imagemagick`
    * Mac OS X: `brew install exiftool imagemagick`
 1. Install Ruby gems: `bundle install` (you need to have [Ruby][], [RubyGems][]
