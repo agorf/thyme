@@ -15,8 +15,27 @@ function PhotoViewModel(data) {
     return self.data.path.split('/').reverse()[0];
   };
 
-  self.shortName = function () {
-    return _.trunc(self.fileName(), 20);
+  self.formattedFocalLength = function () {
+    var fl = self.data.exif.FocalLength;
+    var fl35 = self.data.exif.FocalLengthIn35mmFormat;
+
+    if (!fl) {
+      return;
+    }
+
+    fl = fl.replace('.0', '');
+
+    if (!fl35) {
+      return fl;
+    }
+
+    fl35 = fl35.replace('.0', '');
+
+    if (fl === fl35) {
+      return fl;
+    }
+
+    return fl + ' (<span title="35 mm equivalent">' + fl35 + '</span>)';
   };
 
   self.formattedSize =  function () {
@@ -29,6 +48,10 @@ function PhotoViewModel(data) {
 
   self.relativeTakenAt = function () {
     return moment(self.data.takenAt).fromNow();
+  };
+
+  self.shortName = function () {
+    return _.trunc(self.fileName(), 20);
   };
 }
 
