@@ -10,7 +10,8 @@ height="240" alt="thyme"></a>
 ## Quick how-to
 
 1. Install system deps: `sudo apt-get install libimage-exiftool-perl
-   imagemagick` (for `mini_exiftool` and `mini_magick` gems respectively)
+   imagemagick` (for `mini_exiftool` and `mini_magick` gems respectively)  
+   *Mac OS X deps:* `brew install exiftool imagemagick node`
 1. Clone code: `git clone https://github.com/agorf/thyme && cd thyme`
 1. Install Ruby gems: `bundle install`
 1. Install [Bower](http://bower.io/) components: `bower install`
