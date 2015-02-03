@@ -5,8 +5,13 @@ function PhotoViewModel(data) {
 
   self.data = data;
 
-  self.aspectRatio = function () {
-    var aspectRatio = self.calculateAspectRatio(self.data.width, self.data.height);
+  self.aspectRatio = function (width, height) {
+    var gcd = self.gcd(width, height);
+    return [width / gcd, height / gcd];
+  };
+
+  self.aspectRatioText = function () {
+    var aspectRatio = self.aspectRatio(self.data.width, self.data.height);
     var exactMatch = _.find(self.stdAspectRatios, function (ar) {
       return ar[0] == aspectRatio[0] && ar[1] == aspectRatio[1];
     });
@@ -18,11 +23,6 @@ function PhotoViewModel(data) {
     })[0];
 
     return '~' + closestMatch.join(':');
-  };
-
-  self.calculateAspectRatio = function (width, height) {
-    var gcd = _.gcd(width, height);
-    return [width / gcd, height / gcd];
   };
 
   self.fileName = function () {
@@ -66,13 +66,21 @@ function PhotoViewModel(data) {
     n /= 1024; // kB
 
     if (n < 1024) {
-      return _.round(n, 2) + ' kB';
+      return self.round(n, 2) + ' kB';
     }
 
     n /= 1024; // MB
 
-    return _.round(n, 2) + ' MB';
+    return self.round(n, 2) + ' MB';
   };
+
+  self.gcd = function (a, b) {
+    return b ? self.gcd(b, a % b) : Math.abs(a);
+  };
+
+  self.round = function (n, scale) {
+    return Math.round(n * Math.pow(10, scale)) / Math.pow(10, scale);
+  }
 
   self.shortName = function () {
     return _.trunc(self.fileName(), 20);
@@ -168,15 +176,9 @@ function ThymeViewModel() {
 
 // lodash extensions
 _.mixin({
-  gcd: function (a, b) {
-    return b ? _.gcd(b, a % b) : Math.abs(a);
-  },
   pluralize: function (n, singular, plural) {
     plural = plural || singular + 's';
     return n + ' ' + (n === 1 ? singular : plural);
-  },
-  round: function (n, scale) {
-    return Math.round(n * Math.pow(10, scale)) / Math.pow(10, scale);
   }
 });
 
