@@ -70,8 +70,8 @@ function ThymeViewModel() {
   Sammy(function () {
     this.get('#:setId/:photoId', function () {
       var data = {
-        set_id: this.params.setId,
-        photo_id: this.params.photoId
+        id: this.params.photoId,
+        set_id: this.params.setId
       };
       $.getJSON('/photo', data, function (photoData) {
         self.photo(new PhotoViewModel(photoData));

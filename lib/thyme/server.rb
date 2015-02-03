@@ -29,7 +29,7 @@ module Thyme
       pass unless request.accept?('application/json')
       content_type :json
 
-      conditions = { id: params[:photo_id], set: { id: params[:set_id].to_i } }
+      conditions = { id: params[:id], set: { id: params[:set_id].to_i } }
 
       if photo = Photo.first(conditions)
         photo.to_json
