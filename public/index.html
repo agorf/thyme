@@ -47,12 +47,12 @@
     <img data-bind="attr: { src: data.bigThumbUrl, alt: fileName() }, css: 'big-thumb'">
     <table id="photo-details" data-bind="with: data">
       <tr><th>File name</th><td data-bind="text: $parent.fileName()"></td></tr>
-      <tr><th>File size</th><td data-bind="text: $parent.formattedSize()"></td></tr>
+      <tr><th>File size</th><td data-bind="text: $parent.fileSize()"></td></tr>
       <tr><th>Dimensions</th><td data-bind="html: width + '&times;' + height + ' (' + $parent.aspectRatio() + ')'"></td></tr>
-      <!-- ko if: takenAt --><tr><th>Taken</th><td data-bind="text: $parent.relativeTakenAt(), attr: { title: $parent.formattedTakenAt() }"></td></tr><!-- /ko -->
+      <!-- ko if: takenAt --><tr><th>Taken</th><td data-bind="text: $parent.takenAtText(), attr: { title: $parent.takenAtTitle() }"></td></tr><!-- /ko -->
       <!-- ko if: exif.Make && exif.Model --><tr><th>Camera</th><td data-bind="text: exif.Make + ' ' + exif.Model"></td></tr><!-- /ko -->
       <!-- ko if: exif.Artist --><tr><th>Artist</th><td data-bind="text: exif.Artist"></td></tr><!-- /ko -->
-      <!-- ko if: $parent.formattedFocalLength() --><tr><th>Focal length</th><td data-bind="html: $parent.formattedFocalLength()"></td></tr><!-- /ko -->
+      <!-- ko if: $parent.focalLength() --><tr><th>Focal length</th><td data-bind="html: $parent.focalLength()"></td></tr><!-- /ko -->
       <!-- ko if: exif.FNumber --><tr><th>Aperture</th><td class="aperture" data-bind="html: '<span>f</span>/' + exif.FNumber"></td></tr><!-- /ko -->
       <!-- ko if: exif.ExposureTime --><tr><th>Shutter speed</th><td data-bind="text: exif.ExposureTime + ' s'"></td></tr><!-- /ko -->
       <!-- ko if: exif.ISO --><tr><th>ISO</th><td data-bind="text: exif.ISO"></td></tr><!-- /ko -->
