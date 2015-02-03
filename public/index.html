@@ -51,15 +51,13 @@
       <tr><th>Dimensions</th><td data-bind="html: width + '&times;' + height + ' (' + $parent.aspectRatioText() + ')'"></td></tr>
       <!-- ko if: takenAt --><tr><th>Taken</th><td data-bind="text: $parent.takenAtText(), attr: { title: $parent.takenAtTitle() }"></td></tr><!-- /ko -->
       <!-- ko if: exif.Make && exif.Model --><tr><th>Camera</th><td data-bind="text: exif.Make + ' ' + exif.Model"></td></tr><!-- /ko -->
-      <!-- ko if: exif.Artist --><tr><th>Artist</th><td data-bind="text: exif.Artist"></td></tr><!-- /ko -->
+      <!-- ko if: exif.LensInfo --><tr><th>Lens</th><td data-bind="text: exif.LensInfo"></td></tr><!-- /ko -->
       <!-- ko if: $parent.focalLength() --><tr><th>Focal length</th><td data-bind="html: $parent.focalLength()"></td></tr><!-- /ko -->
       <!-- ko if: exif.FNumber --><tr><th>Aperture</th><td class="aperture" data-bind="html: '<span>f</span>/' + exif.FNumber"></td></tr><!-- /ko -->
       <!-- ko if: exif.ExposureTime --><tr><th>Shutter speed</th><td data-bind="text: exif.ExposureTime + ' s'"></td></tr><!-- /ko -->
       <!-- ko if: exif.ISO --><tr><th>ISO</th><td data-bind="text: exif.ISO"></td></tr><!-- /ko -->
       <!-- ko if: exif.ExposureCompensation --><tr><th>Exp. compensation</th><td data-bind="text: exif.ExposureCompensation"></td></tr><!-- /ko -->
-      <!-- ko if: exif.LightSource --><tr><th>Light source</th><td data-bind="text: exif.LightSource"></td></tr><!-- /ko -->
-      <!-- ko if: exif.FocusMode --><tr><th>Focus mode</th><td data-bind="text: exif.FocusMode"></td></tr><!-- /ko -->
-      <!-- ko if: exif.ShootingMode --><tr><th>Shooting mode</th><td data-bind="text: exif.ShootingMode"></td></tr><!-- /ko -->
+      <!-- ko if: exif.Flash --><tr><th>Flash</th><td data-bind="text: exif.Flash"></td></tr><!-- /ko -->
     </table>
   </script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
