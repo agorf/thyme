@@ -48,8 +48,7 @@
     <table id="photo-details" data-bind="with: data">
       <tr><th>File name</th><td data-bind="text: $parent.fileName()"></td></tr>
       <tr><th>File size</th><td data-bind="text: $parent.formattedSize()"></td></tr>
-      <tr><th>Dimensions</th><td data-bind="html: width + '&times;' + height"></td></tr>
-      <tr><th>Aspect ratio</th><td data-bind="text: $parent.aspectRatio()"></td></tr>
+      <tr><th>Dimensions</th><td data-bind="html: width + '&times;' + height + ' (' + $parent.aspectRatio() + ')'"></td></tr>
       <!-- ko if: takenAt --><tr><th>Taken</th><td data-bind="text: $parent.relativeTakenAt(), attr: { title: $parent.formattedTakenAt() }"></td></tr><!-- /ko -->
       <!-- ko if: exif.Make && exif.Model --><tr><th>Camera</th><td data-bind="text: exif.Make + ' ' + exif.Model"></td></tr><!-- /ko -->
       <!-- ko if: exif.Artist --><tr><th>Artist</th><td data-bind="text: exif.Artist"></td></tr><!-- /ko -->
