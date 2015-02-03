@@ -20,7 +20,7 @@ function PhotoViewModel(data) {
   };
 
   self.formattedSize =  function () {
-    return (Math.round((self.data.size / (1024 * 1024)) * 100) / 100) + ' MB';
+    return _.formatSize(self.data.size);
   };
 
   self.formattedTakenAt = function () {
@@ -110,12 +110,32 @@ function ThymeViewModel() {
 
 // lodash extensions
 _.mixin({
+  formatSize: function (bytes) {
+    var n = bytes;
+
+    if (n < 1024) {
+      return _.pluralize(n, 'byte');
+    }
+
+    n /= 1024; // kB
+
+    if (n < 1024) {
+      return _.round(n, 2) + ' kB';
+    }
+
+    n /= 1024; // MB
+
+    return _.round(n, 2) + ' MB';
+  },
   gcd: function (a, b) {
     return b ? _.gcd(b, a % b) : Math.abs(a);
   },
   pluralize: function (n, singular, plural) {
     plural = plural || singular + 's';
     return n + ' ' + (n === 1 ? singular : plural);
+  },
+  round: function (n, scale) {
+    return Math.round(n * Math.pow(10, scale)) / Math.pow(10, scale);
   }
 });
 
