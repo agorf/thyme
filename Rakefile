@@ -59,3 +59,10 @@ task :open do
 
   Rake::Task['serve'].execute
 end
+
+desc 'Run console and load application environment'
+task :console do
+  exec 'bundle exec irb -I lib -r thyme/db -r thyme/set -r thyme/photo'
+end
+
+task :c => :console
