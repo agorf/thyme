@@ -28,7 +28,11 @@ module Thyme
     get '/photo' do
       pass unless request.accept?('application/json')
 
-      conditions = { id: params[:id], set: { id: params[:set_id].to_i } }
+      conditions = { id: params[:id] }
+
+      if params[:set_id]
+        conditions[:set] = { id: params[:set_id] }
+      end
 
       if photo = Photo.first(conditions)
         content_type :json
