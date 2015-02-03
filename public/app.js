@@ -52,8 +52,25 @@ function PhotoViewModel(data) {
     return fl + ' (<span title="35 mm equivalent">' + fl35 + '</span>)';
   };
 
+  self.formatSize = function (bytes) {
+    var n = bytes;
+
+    if (n < 1024) {
+      return _.pluralize(n, 'byte');
+    }
+
+    n /= 1024; // kB
+
+    if (n < 1024) {
+      return _.round(n, 2) + ' kB';
+    }
+
+    n /= 1024; // MB
+
+    return _.round(n, 2) + ' MB';
+
   self.formattedSize =  function () {
-    return _.formatSize(self.data.size);
+    return self.formatSize(self.data.size);
   };
 
   self.formattedTakenAt = function () {
@@ -150,23 +167,6 @@ function ThymeViewModel() {
 
 // lodash extensions
 _.mixin({
-  formatSize: function (bytes) {
-    var n = bytes;
-
-    if (n < 1024) {
-      return _.pluralize(n, 'byte');
-    }
-
-    n /= 1024; // kB
-
-    if (n < 1024) {
-      return _.round(n, 2) + ' kB';
-    }
-
-    n /= 1024; // MB
-
-    return _.round(n, 2) + ' MB';
-  },
   gcd: function (a, b) {
     return b ? _.gcd(b, a % b) : Math.abs(a);
   },
