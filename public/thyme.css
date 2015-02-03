@@ -87,6 +87,11 @@ a {
   background: #eee;
 }
 
+#photo-details .aperture span {
+  font-family: Trebuchet MS, Candara, Georgia, Calibri, Corbel, serif;
+  font-style: italic;
+}
+
 .big-thumb {
   float: left;
 }

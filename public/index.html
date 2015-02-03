@@ -53,8 +53,8 @@
       <!-- ko if: exif.Make && exif.Model --><tr><th>Camera</th><td data-bind="text: exif.Make + ' ' + exif.Model"></td></tr><!-- /ko -->
       <!-- ko if: exif.Artist --><tr><th>Artist</th><td data-bind="text: exif.Artist"></td></tr><!-- /ko -->
       <!-- ko if: $parent.formattedFocalLength() --><tr><th>Focal length</th><td data-bind="html: $parent.formattedFocalLength()"></td></tr><!-- /ko -->
+      <!-- ko if: exif.FNumber --><tr><th>Aperture</th><td class="aperture" data-bind="html: '<span>f</span>/' + exif.FNumber"></td></tr><!-- /ko -->
       <!-- ko if: exif.ExposureTime --><tr><th>Shutter speed</th><td data-bind="text: exif.ExposureTime + ' s'"></td></tr><!-- /ko -->
-      <!-- ko if: exif.FNumber --><tr><th>Aperture size</th><td data-bind="text: 'f/' + exif.FNumber"></td></tr><!-- /ko -->
       <!-- ko if: exif.ISO --><tr><th>ISO</th><td data-bind="text: exif.ISO"></td></tr><!-- /ko -->
       <!-- ko if: exif.ExposureCompensation --><tr><th>Exp. compensation</th><td data-bind="text: exif.ExposureCompensation"></td></tr><!-- /ko -->
       <!-- ko if: exif.LightSource --><tr><th>Light source</th><td data-bind="text: exif.LightSource"></td></tr><!-- /ko -->
