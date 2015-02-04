@@ -66,6 +66,7 @@ Dir[
   )
 ].sort.each do |filename|
   Thyme::Photo.create_from_file(filename)
+  puts filename
 end
 
 Thyme::Set.each(&:update_taken_at!)
