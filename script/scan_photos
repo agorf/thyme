@@ -39,17 +39,15 @@ module Thyme
     def self.create_from_file(path)
       exif = MiniExiftool.new(path)
       width, height = Dimensions.dimensions(path)
-      open(path) {|f|
-        create(
-          path:     path,
-          size:     f.size,
-          width:    width,
-          height:   height,
-          taken_at: exif['DateTimeOriginal'],
-          exif:     exif.to_hash,
-          set:      Set.find_or_create_by_photo_path(path)
-        )
-      }
+      create(
+        path:     path,
+        size:     File.size(path),
+        width:    width,
+        height:   height,
+        taken_at: exif['DateTimeOriginal'],
+        exif:     exif.to_hash,
+        set:      Set.find_or_create_by_photo_path(path)
+      )
     end
   end
 end
