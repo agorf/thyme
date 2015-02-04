@@ -26,11 +26,11 @@
   <script type="text/html" id="sets-template">
     <li>
       <a href="#" data-bind="attr: { title: data.name }, css: 'set thumb', click: $root.set">
-        <img data-bind="attr: { src: data.thumbUrl, alt: data.name }">
+        <img data-bind="attr: { src: data.thumb_url, alt: data.name }">
         <h2 data-bind="text: shortName()"></h2>
         <p data-bind="attr: { title: photosCountTitle() }">
           <i class="fa fa-picture-o"></i>
-          <!-- ko text: data.photosCount --><!-- /ko -->
+          <!-- ko text: data.photos_count --><!-- /ko -->
         </p>
       </a>
     </li>
@@ -38,17 +38,17 @@
   <script type="text/html" id="photos-template">
     <li>
       <a href="#" data-bind="attr: { title: fileName() }, css: 'photo thumb', click: $root.photo">
-        <img data-bind="attr: { src: data.smallThumbUrl, alt: fileName() }">
+        <img data-bind="attr: { src: data.small_thumb_url, alt: fileName() }">
       </a>
     </li>
   </script>
   <script type="text/html" id="photo-template">
-    <img data-bind="attr: { src: data.bigThumbUrl, alt: fileName() }">
+    <img data-bind="attr: { src: data.big_thumb_url, alt: fileName() }">
     <ul id="details">
       <li data-bind="text: fileName()"></li>
       <li data-bind="text: fileSize()"></li>
       <li data-bind="html: data.width + '&times;' + data.height + ' (' + aspectRatioText() + ')'"></li>
-      <!-- ko if: data.takenAt --><li data-bind="text: takenAtText(), attr: { title: takenAtTitle() }"></li><!-- /ko -->
+      <!-- ko if: data.taken_at --><li data-bind="text: takenAtText(), attr: { title: takenAtTitle() }"></li><!-- /ko -->
       <!-- ko with: data -->
         <!-- ko if: exif.Make && exif.Model --><li title="Camera" data-bind="text: exif.Make + ' ' + exif.Model"></li><!-- /ko -->
         <!-- ko if: exif.LensInfo --><li title="Lens" data-bind="text: exif.LensInfo"></li><!-- /ko -->

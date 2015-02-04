@@ -91,11 +91,11 @@ function PhotoViewModel(data) {
   }
 
   self.takenAtText = function () {
-    return moment(self.data.takenAt).fromNow();
+    return moment(self.data.taken_at).fromNow();
   };
 
   self.takenAtTitle = function () {
-    return moment(self.data.takenAt).format('ddd, D MMM YYYY HH:mm:ss z');
+    return moment(self.data.taken_at).format('ddd, D MMM YYYY HH:mm:ss z');
   };
 }
 
@@ -105,7 +105,7 @@ function SetViewModel(data) {
   self.data = data;
 
   self.photosCountTitle = function () {
-    return _.pluralize(self.data.photosCount, 'photo');
+    return _.pluralize(self.data.photos_count, 'photo');
   };
 
   self.shortName = function () {
@@ -119,7 +119,7 @@ function ThymeViewModel() {
   self.photo = _.tap(ko.observable(), function (observable) {
     observable.subscribe(function (photo) {
       if (photo) {
-        location.hash = photo.data.setId + '/' + photo.data.id;
+        location.hash = photo.data.set_id + '/' + photo.data.id;
       }
     });
   });

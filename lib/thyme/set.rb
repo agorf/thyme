@@ -1,5 +1,4 @@
 require 'data_mapper'
-require 'thyme/core_ext'
 
 module Thyme
   class Set
@@ -29,7 +28,7 @@ module Thyme
       super(options).merge(
         photos_count: photos.count,
         thumb_url: photos.oldest_first.first.small_thumb_url
-      ).camelize_keys
+      )
     end
 
     def update_taken_at!

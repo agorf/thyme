@@ -2,7 +2,6 @@ require 'data_mapper'
 require 'dimensions'
 require 'mini_exiftool'
 require 'mini_magick'
-require 'thyme/core_ext'
 require 'thyme/set'
 
 module Thyme
@@ -42,7 +41,7 @@ module Thyme
     def as_json(options = {})
       super(
         options.merge(methods: [:big_thumb_url, :small_thumb_url])
-      ).camelize_keys
+      )
     end
 
     def big_thumb_url
