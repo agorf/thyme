@@ -7,7 +7,7 @@ title="thyme by poppet with a camera, on Flickr"><img
 src="https://raw.githubusercontent.com/agorf/thyme/master/thyme.jpg" width="240"
 height="240" alt="thyme"></a>
 
-## Quick how-to
+## Installation
 
 1. Clone repo: `git clone https://github.com/agorf/thyme && cd thyme`
 1. Install system package dependencies (for [mini_exiftool][] and
@@ -18,6 +18,9 @@ height="240" alt="thyme"></a>
    and [bundler][] installed for this)
 1. Install Bower components: `bower install` (you need to have [Node.js][] and
    [Bower][] installed for this)
+
+## Use
+
 1. Scan photos: `./script/scan_photos /path/to/photographs`
 1. Generate thumbs: `./script/generate_thumbs` (may take a while the first time)
 1. Run app with `./script/server` and point your browser to
