@@ -13,6 +13,10 @@ function PhotoViewModel(data) {
   self.aspectRatioText = function () {
     var aspectRatio = self.aspectRatio(self.data.width, self.data.height);
     var exactMatch = _.find(self.stdAspectRatios, function (ar) {
+      if (self.isPortrait()) {
+        ar[1] = [ar[0], ar[0] = ar[1]][0]; // swap hack
+      }
+
       return ar[0] == aspectRatio[0] && ar[1] == aspectRatio[1];
     });
 
@@ -76,6 +80,10 @@ function PhotoViewModel(data) {
 
   self.gcd = function (a, b) {
     return b ? self.gcd(b, a % b) : Math.abs(a);
+  };
+
+  self.isPortrait = function () {
+    return self.data.width < self.data.height;
   };
 
   self.round = function (n, scale) {
