@@ -7,10 +7,50 @@ lib = File.expand_path('../../lib', __FILE__)
 $:.unshift(lib) if !$:.include?(lib)
 
 require 'fileutils'
+require 'mini_magick'
 require 'thyme/db'
 require 'thyme/photo'
-require 'thyme/server'
+require 'thyme/set'
 
-FileUtils.mkdir_p Thyme::Server.thumbs_path
+module Thyme
+  class Photo
+    def generate_thumbs!
+      generate_small_thumb!
+      generate_big_thumb!
+    end
+
+    private
+
+    def generate_big_thumb!
+      generate_thumb!('1000x1000', :big)
+    end
+
+    def generate_small_thumb!
+      generate_thumb!('200x200', :small)
+    end
+
+    def generate_thumb!(size, suffix)
+      return if File.exist?(thumb_path(suffix))
+
+      image = MiniMagick::Image.open(path)
+
+      image.combine_options do |c|
+        c.auto_orient
+
+        if suffix == :small
+          c.resize("#{size}^")
+          c.gravity('center')
+          c.extent(size)
+        elsif suffix == :big
+          c.resize(size)
+        end
+      end
+
+      image.write(thumb_path(suffix))
+    end
+  end
+end
+
+FileUtils.mkdir_p Thyme::Photo::THUMBS_PATH
 
 Thyme::Photo.each(&:generate_thumbs!)

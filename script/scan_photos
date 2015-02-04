@@ -9,11 +9,50 @@ lib = File.expand_path('../../lib', __FILE__)
 $:.unshift(lib) if !$:.include?(lib)
 
 require 'data_mapper'
+require 'dimensions'
+require 'mini_exiftool'
 require 'thyme/db'
 require 'thyme/photo'
 require 'thyme/set'
 
 DataMapper.auto_upgrade!
+
+module Thyme
+  class Set
+    def self.find_or_create_by_photo_path(path)
+      conditions = { name: path.split(File::SEPARATOR)[-2] }
+
+      if set = first(conditions)
+        set
+      else
+        create(conditions)
+      end
+    end
+
+    def update_taken_at!
+      self.taken_at = photos.all(fields: [:taken_at]).map(&:taken_at).max
+      save
+    end
+  end
+
+  class Photo
+    def self.create_from_file(path)
+      exif = MiniExiftool.new(path)
+      width, height = Dimensions.dimensions(path)
+      open(path) {|f|
+        create(
+          path:     path,
+          size:     f.size,
+          width:    width,
+          height:   height,
+          taken_at: exif['DateTimeOriginal'],
+          exif:     exif.to_hash,
+          set:      Set.find_or_create_by_photo_path(path)
+        )
+      }
+    end
+  end
+end
 
 Dir[
   File.join(

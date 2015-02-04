@@ -10,16 +10,6 @@ module Thyme
 
     has n, :photos
 
-    def self.find_or_create_by_photo_path(path)
-      conditions = { name: path.split(File::SEPARATOR)[-2] }
-
-      if set = first(conditions)
-        set
-      else
-        create(conditions)
-      end
-    end
-
     def self.newest_first
       all(order: [:taken_at.desc])
     end
@@ -29,11 +19,6 @@ module Thyme
         photos_count: photos.count,
         thumb_url: photos.oldest_first.first.small_thumb_url
       )
-    end
-
-    def update_taken_at!
-      self.taken_at = photos.all(fields: [:taken_at]).map(&:taken_at).max
-      save
     end
   end
 end
