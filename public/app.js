@@ -26,7 +26,7 @@ function PhotoViewModel(data) {
       return Math.abs((ar[0] / ar[1]) - (aspectRatio[0] / aspectRatio[1]));
     })[0];
 
-    return '~' + closestMatch.join(':');
+    return '<span title="Approximation">~</span>' + closestMatch.join(':');
   };
 
   self.fileName = function () {
