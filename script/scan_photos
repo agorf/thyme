@@ -46,13 +46,20 @@ module Thyme
       return if first(path: path)
       exif = MiniExiftool.new(path)
       width, height = Dimensions.dimensions(path)
+
+      exif_hash = exif.to_hash.reject! do |_, value|
+        next unless value.is_a?(String)
+
+        value.force_encoding('utf-8') && !value.valid_encoding?
+      end
+
       create(
         path:     path,
         size:     File.size(path),
         width:    width,
         height:   height,
         taken_at: exif['DateTimeOriginal'],
-        exif:     exif.to_hash,
+        exif:     exif_hash,
         set:      Set.find_or_create_by_photo_path(path)
       )
     end
