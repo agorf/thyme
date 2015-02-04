@@ -44,13 +44,13 @@ module Thyme
   class Photo
     def self.create_from_file(path)
       return if first(path: path)
+
       exif = MiniExiftool.new(path)
       width, height = Dimensions.dimensions(path)
 
-      exif_hash = exif.to_hash.reject! do |_, value|
-        next unless value.is_a?(String)
-
-        value.force_encoding('utf-8') && !value.valid_encoding?
+      exif_hash = exif.to_hash.select do |_, value|
+        !value.is_a?(String) ||
+          (value.force_encoding('utf-8') && value.valid_encoding?)
       end
 
       create(
