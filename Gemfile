@@ -6,6 +6,7 @@ gem 'dm-serializer'
 gem 'dm-sqlite-adapter'
 gem 'mini_exiftool'
 gem 'mini_magick'
+gem 'ruby-progressbar'
 gem 'sinatra'
 
 group :development do

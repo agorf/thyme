@@ -8,19 +8,13 @@ $:.unshift(lib) if !$:.include?(lib)
 
 require 'fileutils'
 require 'mini_magick'
+require 'ruby-progressbar'
 require 'thyme/db'
 require 'thyme/photo'
 require 'thyme/set'
 
 module Thyme
   class Photo
-    def generate_thumbs!
-      generate_small_thumb!
-      generate_big_thumb!
-    end
-
-    private
-
     def generate_big_thumb!
       generate_thumb!('1000x1000', :big)
     end
@@ -28,6 +22,8 @@ module Thyme
     def generate_small_thumb!
       generate_thumb!('200x200', :small)
     end
+
+    private
 
     def generate_thumb!(size, suffix)
       return if File.exist?(thumb_path(suffix))
@@ -53,4 +49,15 @@ end
 
 FileUtils.mkdir_p Thyme::Photo::THUMBS_PATH
 
-Thyme::Photo.each(&:generate_thumbs!)
+progress_bar = ProgressBar.create(
+  title:  'thumb gen.',
+  total:  Thyme::Photo.count * 2,
+  format: '%a |%b>%i| %p%% %t'
+)
+
+Thyme::Photo.each do |photo|
+  photo.generate_big_thumb!
+  progress_bar.increment
+  photo.generate_small_thumb!
+  progress_bar.increment
+end

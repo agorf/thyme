@@ -89,6 +89,7 @@ GEM
       ffi (>= 0.5.0)
     rerun (0.9.0)
       listen (~> 2.7)
+    ruby-progressbar (1.7.1)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -116,5 +117,6 @@ DEPENDENCIES
   mini_magick
   pry
   rerun
+  ruby-progressbar
   sinatra
   thin
