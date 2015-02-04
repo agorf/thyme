@@ -90,10 +90,6 @@ function PhotoViewModel(data) {
     return Math.round(n * Math.pow(10, scale)) / Math.pow(10, scale);
   }
 
-  self.shortName = function () {
-    return _.trunc(self.fileName(), 20);
-  };
-
   self.takenAtText = function () {
     return moment(self.data.takenAt).fromNow();
   };
