@@ -16,19 +16,20 @@ require 'thyme/set'
 module Thyme
   class Photo
     def generate_big_thumb!
-      generate_thumb!('1000x1000', :big)
+      generate_thumb!(path, '1000x1000', :big)
     end
 
     def generate_small_thumb!
-      generate_thumb!('200x200', :small)
+      generate_big_thumb!
+      generate_thumb!(thumb_path(:big), '200x200', :small)
     end
 
     private
 
-    def generate_thumb!(size, suffix)
+    def generate_thumb!(src_path, size, suffix)
       return if File.exist?(thumb_path(suffix))
 
-      image = MiniMagick::Image.open(path)
+      image = MiniMagick::Image.open(src_path)
 
       image.combine_options do |c|
         c.auto_orient
