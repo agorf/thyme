@@ -13,10 +13,10 @@ module Thyme
     def self.find_or_create_by_photo_path(path)
       conditions = { name: path.split(File::SEPARATOR)[-2] }
 
-      if set = Set.first(conditions)
+      if set = first(conditions)
         set
       else
-        Set.create(conditions)
+        create(conditions)
       end
     end
 
