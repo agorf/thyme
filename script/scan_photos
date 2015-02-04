@@ -30,8 +30,14 @@ module Thyme
     end
 
     def update_taken_at!
-      self.taken_at = photos.all(fields: [:taken_at]).map(&:taken_at).max
+      self.taken_at = taken_at
       save
+    end
+
+    private
+
+    def taken_at
+      photos.all(fields: [:taken_at]).map(&:taken_at).compact.max
     end
   end
 
