@@ -109,7 +109,7 @@ function SetViewModel(data) {
   };
 
   self.shortName = function () {
-    return _.trunc(self.data.name, 20);
+    return _.trunc(self.data.name, 25);
   };
 }
 
