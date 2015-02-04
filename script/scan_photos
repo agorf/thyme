@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+abort "usage: #{__FILE__} /path/to/photos" unless ARGV[0]
+
+require 'bundler'
+Bundler.setup
+
+lib = File.expand_path('../../lib', __FILE__)
+$:.unshift(lib) if !$:.include?(lib)
+
+require 'data_mapper'
+require 'thyme/db'
+require 'thyme/photo'
+require 'thyme/set'
+
+DataMapper.auto_upgrade!
+
+Dir[
+  File.join(
+    File.expand_path(ARGV[0]),
+    '**',
+    '*.{jpg,jpeg,JPG,JPEG}'
+  )
+].each do |filename|
+  Thyme::Photo.create_from_file(filename)
+end
+
+Thyme::Set.each(&:update_taken_at!)

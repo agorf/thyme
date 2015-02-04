@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'bundler'
+Bundler.setup
+
+lib = File.expand_path('../../lib', __FILE__)
+$:.unshift(lib) if !$:.include?(lib)
+
+require 'fileutils'
+require 'thyme/db'
+require 'thyme/photo'
+require 'thyme/server'
+
+FileUtils.mkdir_p Thyme::Server.thumbs_path
+
+Thyme::Photo.each(&:generate_thumbs!)

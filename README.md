@@ -18,10 +18,10 @@ height="240" alt="thyme"></a>
    and [bundler][] installed for this)
 1. Install Bower components: `bower install` (you need to have [Node.js][] and
    [Bower][] installed for this)
-1. Scan photos: `bundle exec rake scan[/path/to/photographs]`
-1. Generate thumbs: `bundle exec rake generate_thumbs` (may take a while)
-1. Run app with `bundle exec rake s` and point your browser to
-   <http://localhost:4567/> or issue `bundle exec rake open`
+1. Scan photos: `./script/scan_photos /path/to/photographs`
+1. Generate thumbs: `./script/generate_thumbs` (may take a while)
+1. Run app with `./script/server` and point your browser to
+   <http://localhost:9292/>
 
 [mini_exiftool]: https://rubygems.org/gems/mini_exiftool
 [mini_magick]: https://rubygems.org/gems/mini_magick
