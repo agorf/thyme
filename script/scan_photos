@@ -64,7 +64,7 @@ Dir[
     '**',
     '*.{jpg,jpeg,JPG,JPEG}'
   )
-].each do |filename|
+].sort.each do |filename|
   Thyme::Photo.create_from_file(filename)
 end
 
