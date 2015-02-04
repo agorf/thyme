@@ -58,27 +58,24 @@ a {
   background: rgba(0, 0, 0, 0.5);
 }
 
-#photo-details {
+#photo {
+  padding: 40px;
+  text-align: center;
+}
+
+#details {
   font-size: 13px;
-  clear: right;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 1000px;
 }
 
-#photo-details th {
-  text-align: right;
-  padding: 5px 10px;
-  background: #ccc;
+#details li {
+  margin: 4px 0;
 }
 
-#photo-details td {
-  padding: 5px 10px;
-  background: #eee;
-}
-
-#photo-details .aperture span {
+#details .aperture span {
   font-family: Trebuchet MS, Candara, Georgia, Calibri, Corbel, serif;
   font-style: italic;
-}
-
-.big-thumb {
-  float: left;
 }
