@@ -15,18 +15,14 @@ require 'thyme/set'
 
 module Thyme
   class Photo
-    def generate_big_thumb!
-      generate_thumb!(path, '1000x1000', :big)
-    end
-
-    def generate_small_thumb!
-      generate_big_thumb!
-      generate_thumb!(thumb_path(:big), '200x200', :small)
+    def generate_thumbs
+      generate_thumb(path, '1000x1000', :big) # use original file
+      generate_thumb(thumb_path(:big), '200x200', :small) # use big thumb
     end
 
     private
 
-    def generate_thumb!(src_path, size, suffix)
+    def generate_thumb(src_path, size, suffix)
       return if File.exist?(thumb_path(suffix))
 
       image = MiniMagick::Image.open(src_path)
@@ -52,13 +48,11 @@ FileUtils.mkdir_p Thyme::Photo::THUMBS_PATH
 
 progress_bar = ProgressBar.create(
   title:  'thumb gen.',
-  total:  Thyme::Photo.count * 2,
+  total:  Thyme::Photo.count,
   format: '%a |%b>%i| %p%% %t'
 )
 
-Thyme::Photo.each do |photo|
-  photo.generate_big_thumb!
-  progress_bar.increment
-  photo.generate_small_thumb!
+Thyme::Photo.all(order: :id).each do |photo|
+  photo.generate_thumbs
   progress_bar.increment
 end
