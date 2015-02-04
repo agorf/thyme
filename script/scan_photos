@@ -43,6 +43,7 @@ module Thyme
 
   class Photo
     def self.create_from_file(path)
+      return if first(path: path)
       exif = MiniExiftool.new(path)
       width, height = Dimensions.dimensions(path)
       create(
