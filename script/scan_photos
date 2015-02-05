@@ -66,6 +66,12 @@ module Thyme
   end
 end
 
+Thyme::Photo.all(fields: [:id, :path]).each do |photo|
+  if !File.exist?(photo.path) && photo.destroy
+    puts "- #{photo.path}"
+  end
+end
+
 Dir[
   File.join(
     File.expand_path(ARGV[0]),
@@ -76,7 +82,7 @@ Dir[
   photo = Thyme::Photo.create_from_file(filename)
 
   if photo && photo.saved?
-    puts filename
+    puts "+ #{filename}"
   end
 end
 
