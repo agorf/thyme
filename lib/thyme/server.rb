@@ -5,7 +5,7 @@ require 'thyme/set'
 
 module Thyme
   class Server < Sinatra::Base
-    set :root, File.expand_path(File.join(*%w{.. .. ..}), __FILE__)
+    set :root, File.expand_path('../../..', __FILE__)
 
     get '/' do
       send_file File.expand_path('index.html', settings.public_folder)
