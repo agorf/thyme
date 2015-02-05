@@ -16,14 +16,14 @@ a {
   top: 0;
 }
 
-#thumbs {
+.thumbs {
   list-style: none;
   margin: 0;
   overflow: auto;
   padding: 5px;
 }
 
-#thumbs li {
+.thumbs li {
   float: left;
   margin: 5px;
 }

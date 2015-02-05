@@ -116,64 +116,63 @@ function SetViewModel(data) {
 function ThymeViewModel() {
   var self = this;
 
-  self.photo = _.tap(ko.observable(), function (observable) {
-    observable.subscribe(function (photo) {
-      if (photo) {
-        location.hash = photo.data.set_id + '/' + photo.data.id;
+  self.photoData = ko.observable();
+
+  self.photo = ko.pureComputed({
+    read: function () {
+      if (self.photoData()) {
+        return new PhotoViewModel(self.photoData());
       }
-    });
+    },
+    write: function (value) {
+      location.hash = value.data.set_id + '/' + value.data.id;
+    },
+    owner: this
   });
 
-  self.photos = ko.observableArray([]);
+  self.photosData = ko.observable();
 
-  self.set = _.tap(ko.observable(), function (observable) {
-    observable.subscribe(function (set) {
-      location.hash = set.data.id;
-    });
+  self.photos = ko.computed(function () {
+    if (self.photosData()) {
+      return _.map(self.photosData(), function (photoData) {
+        return new PhotoViewModel(photoData);
+      });
+    }
   });
 
-  self.sets = ko.observableArray([]);
+  self.setsData = ko.observable();
+
+  self.sets = ko.computed(function () {
+    if (self.setsData()) {
+      return _.map(self.setsData(), function (setData) {
+        return new SetViewModel(setData);
+      });
+    }
+  });
+
+  self.set = function (value) {
+    location.hash = value.data.id;
+  };
 
   Sammy(function () {
     this.get('#:setId/:photoId', function () {
-      if (self.photo()) { return; } // clicked photo
-
+      self.photosData(null); // from photos
       var data = {
         id: this.params.photoId,
         set_id: this.params.setId
-      };
-
-      $.getJSON('/photo', data, function (photoData) {
-        self.photo(new PhotoViewModel(photoData));
-      });
+      }
+      $.getJSON('/photo', data, self.photoData);
     });
 
     this.get('#:setId', function () {
-      self.photo(null);
-
-      if (self.photos().length > 0) { // back pressed
-        return;
-      }
-
-      $.getJSON('/photos', { set_id: this.params.setId }, function (photosData) {
-        _.forEach(photosData, function (photoData) {
-          self.photos.push(new PhotoViewModel(photoData));
-        });
-      });
+      self.setsData(null); // from sets
+      self.photoData(null); // back from photo
+      $.getJSON('/photos', { set_id: this.params.setId }, self.photosData);
     });
 
     this.get('', function () {
-      self.photos([]);
-
-      if (self.sets().length > 0) { // back pressed
-        return;
-      }
-
-      $.getJSON('/sets', function (setsData) {
-        _.forEach(setsData, function (setData) {
-          self.sets.push(new SetViewModel(setData));
-        });
-      });
+      self.photosData(null); // back from set
+      $.getJSON('/sets', self.setsData);
     });
   }).run();
 };

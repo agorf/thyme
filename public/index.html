@@ -7,60 +7,49 @@
 </head>
 <body>
   <div id="pane">
-    <!-- ko if: photo -->
-      <div id="photo" data-bind="template: { name: 'photo-template', data: photo }"></div>
-    <!-- /ko -->
-    <!-- ko ifnot: photo -->
-      <ol id="thumbs">
-        <!-- ko if: photos().length > 0 -->
-          <!-- ko template: { name: 'photos-template', foreach: photos } -->
-          <!-- /ko -->
-        <!-- /ko -->
-        <!-- ko if: photos().length === 0 -->
-          <!-- ko template: { name: 'sets-template', foreach: sets } -->
-          <!-- /ko -->
-        <!-- /ko -->
+    <div id="sets" data-bind="with: sets">
+      <ol class="thumbs" data-bind="foreach: $data">
+        <li>
+          <a href="#" data-bind="attr: { title: data.name }, css: 'set thumb', click: $root.set">
+            <img data-bind="attr: { src: data.thumb_url, alt: data.name }">
+            <h2 data-bind="text: shortName()"></h2>
+            <p data-bind="attr: { title: photosCountTitle() }">
+              <i class="fa fa-picture-o"></i>
+              <!-- ko text: data.photos_count --><!-- /ko -->
+            </p>
+          </a>
+        </li>
       </ol>
-    <!-- /ko -->
+    </div>
+    <div id="photos" data-bind="with: photos">
+      <ol class="thumbs" data-bind="foreach: $data">
+        <li>
+          <a href="#" data-bind="attr: { title: fileName() }, css: 'photo thumb', click: $root.photo">
+            <img data-bind="attr: { src: data.small_thumb_url, alt: fileName() }">
+          </a>
+        </li>
+      </ol>
+    </div>
+    <div id="photo" data-bind="with: photo">
+      <img data-bind="attr: { src: data.big_thumb_url, alt: fileName() }">
+      <ul id="details">
+        <li data-bind="text: fileName()"></li>
+        <li data-bind="text: fileSize()"></li>
+        <li data-bind="html: data.width + '&times;' + data.height + ' (' + aspectRatioText() + ')'"></li>
+        <!-- ko if: data.taken_at --><li data-bind="text: takenAtText(), attr: { title: takenAtTitle() }"></li><!-- /ko -->
+        <!-- ko with: data -->
+          <!-- ko if: exif.Make && exif.Model --><li title="Camera" data-bind="text: exif.Make + ' ' + exif.Model"></li><!-- /ko -->
+          <!-- ko if: exif.LensInfo --><li title="Lens" data-bind="text: exif.LensInfo"></li><!-- /ko -->
+          <!-- ko if: $parent.focalLength() --><li title="Focal length" data-bind="html: $parent.focalLength()"></li><!-- /ko -->
+          <!-- ko if: exif.FNumber --><li title="Aperture" class="aperture" data-bind="html: '<span>f</span>/' + exif.FNumber"></li><!-- /ko -->
+          <!-- ko if: exif.ExposureTime --><li title="Shutter speed" data-bind="text: exif.ExposureTime + ' s'"></li><!-- /ko -->
+          <!-- ko if: exif.ISO --><li data-bind="text: 'ISO ' + exif.ISO"></li><!-- /ko -->
+          <!-- ko if: exif.ExposureCompensation --><li title="Exposure compensation" data-bind="text: exif.ExposureCompensation"></li><!-- /ko -->
+          <!-- ko if: exif.Flash --><li data-bind="text: 'Flash ' + exif.Flash"></li><!-- /ko -->
+        <!-- /ko -->
+      </ul>
+    </div>
   </div>
-  <script type="text/html" id="sets-template">
-    <li>
-      <a href="#" data-bind="attr: { title: data.name }, css: 'set thumb', click: $root.set">
-        <img data-bind="attr: { src: data.thumb_url, alt: data.name }">
-        <h2 data-bind="text: shortName()"></h2>
-        <p data-bind="attr: { title: photosCountTitle() }">
-          <i class="fa fa-picture-o"></i>
-          <!-- ko text: data.photos_count --><!-- /ko -->
-        </p>
-      </a>
-    </li>
-  </script>
-  <script type="text/html" id="photos-template">
-    <li>
-      <a href="#" data-bind="attr: { title: fileName() }, css: 'photo thumb', click: $root.photo">
-        <img data-bind="attr: { src: data.small_thumb_url, alt: fileName() }">
-      </a>
-    </li>
-  </script>
-  <script type="text/html" id="photo-template">
-    <img data-bind="attr: { src: data.big_thumb_url, alt: fileName() }">
-    <ul id="details">
-      <li data-bind="text: fileName()"></li>
-      <li data-bind="text: fileSize()"></li>
-      <li data-bind="html: data.width + '&times;' + data.height + ' (' + aspectRatioText() + ')'"></li>
-      <!-- ko if: data.taken_at --><li data-bind="text: takenAtText(), attr: { title: takenAtTitle() }"></li><!-- /ko -->
-      <!-- ko with: data -->
-        <!-- ko if: exif.Make && exif.Model --><li title="Camera" data-bind="text: exif.Make + ' ' + exif.Model"></li><!-- /ko -->
-        <!-- ko if: exif.LensInfo --><li title="Lens" data-bind="text: exif.LensInfo"></li><!-- /ko -->
-        <!-- ko if: $parent.focalLength() --><li title="Focal length" data-bind="html: $parent.focalLength()"></li><!-- /ko -->
-        <!-- ko if: exif.FNumber --><li title="Aperture" class="aperture" data-bind="html: '<span>f</span>/' + exif.FNumber"></li><!-- /ko -->
-        <!-- ko if: exif.ExposureTime --><li title="Shutter speed" data-bind="text: exif.ExposureTime + ' s'"></li><!-- /ko -->
-        <!-- ko if: exif.ISO --><li data-bind="text: 'ISO ' + exif.ISO"></li><!-- /ko -->
-        <!-- ko if: exif.ExposureCompensation --><li title="Exposure compensation" data-bind="text: exif.ExposureCompensation"></li><!-- /ko -->
-        <!-- ko if: exif.Flash --><li data-bind="text: 'Flash ' + exif.Flash"></li><!-- /ko -->
-      <!-- /ko -->
-    </ul>
-  </script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/lodash/lodash.js"></script>
   <script src="bower_components/moment/moment.js"></script>
