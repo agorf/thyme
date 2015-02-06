@@ -69,6 +69,17 @@ function PhotoViewModel(data) {
     return _.last(path.split('/'));
   }
 
+  self.bigThumbHeight = function () {
+    if (self.bigThumbWidth() < 1000) { return self.data.height; }
+    var aspectRatio = self.aspectRatio(self.data.width, self.data.height);
+    return self.round((aspectRatio[1] / aspectRatio[0]) * self.bigThumbWidth());
+  };
+
+  self.bigThumbWidth = function () {
+    if (self.data.width < 1000) { return self.data.width; }
+    return 1000;
+  };
+
   self.fileName = function () {
     return self.baseName(self.data.path);
   };
@@ -117,6 +128,7 @@ function PhotoViewModel(data) {
   };
 
   self.round = function (n, scale) {
+    if (typeof scale === 'undefined') { scale = 0; }
     return Math.round(n * Math.pow(10, scale)) / Math.pow(10, scale);
   }
 
