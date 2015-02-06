@@ -34,6 +34,7 @@ module Thyme
 
       image.combine_options do |c|
         c.auto_orient
+        c.strip
 
         if suffix == :small
           c.resize("#{size}^")
