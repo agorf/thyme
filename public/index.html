@@ -33,7 +33,7 @@
           <!-- ko if: exif.LensInfo --><li title="Lens" data-bind="text: exif.LensInfo"></li><!-- /ko -->
           <!-- ko if: $parent.focalLength() --><li title="Focal length" data-bind="html: $parent.focalLength()"></li><!-- /ko -->
           <!-- ko if: exif.FNumber --><li title="Aperture" class="aperture" data-bind="html: '<span>f</span>/' + exif.FNumber"></li><!-- /ko -->
-          <!-- ko if: exif.ExposureTime --><li title="Shutter speed" data-bind="text: exif.ExposureTime + ' s'"></li><!-- /ko -->
+          <!-- ko if: exif.ExposureTime --><li title="Exposure time" data-bind="text: exif.ExposureTime + ' s'"></li><!-- /ko -->
           <!-- ko if: exif.ISO --><li data-bind="text: 'ISO ' + exif.ISO"></li><!-- /ko -->
           <!-- ko if: exif.ExposureCompensation --><li title="Exposure compensation" data-bind="text: exif.ExposureCompensation"></li><!-- /ko -->
           <!-- ko if: exif.Flash --><li data-bind="text: 'Flash ' + exif.Flash"></li><!-- /ko -->
