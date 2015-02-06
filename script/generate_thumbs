@@ -44,6 +44,12 @@ module Thyme
         end
       end
 
+      if photo = Photo.first(path: src_path)
+        photo.big_thumb_width = image.width
+        photo.big_thumb_height = image.height
+        photo.save
+      end
+
       image.write(thumb_path(suffix))
     end
   end

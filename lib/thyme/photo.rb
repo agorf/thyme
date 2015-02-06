@@ -6,16 +6,18 @@ module Thyme
 
     include DataMapper::Resource
 
-    property :id,            Serial
-    property :path,          String, length: 4096, unique: true
-    property :size,          Integer
-    property :width,         Integer
-    property :height,        Integer
-    property :taken_at,      DateTime
-    property :exif,          Json
-    property :set_id,        Integer
-    property :prev_photo_id, Integer
-    property :next_photo_id, Integer
+    property :id,                Serial
+    property :path,              String, length: 4096, unique: true
+    property :size,              Integer
+    property :width,             Integer
+    property :height,            Integer
+    property :taken_at,          DateTime
+    property :exif,              Json
+    property :set_id,            Integer
+    property :prev_photo_id,     Integer
+    property :next_photo_id,     Integer
+    property :big_thumb_width,   Integer
+    property :big_thumb_height,  Integer
 
     belongs_to :set
     belongs_to :prev_photo, self, required: false
