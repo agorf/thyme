@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+bundle exec rerun -d lib/ -p '**/*.rb' rackup
