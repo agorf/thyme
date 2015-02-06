@@ -65,8 +65,12 @@ function PhotoViewModel(data) {
     return '<span title="Approximation">~</span>' + closestMatch.join(':');
   };
 
+  self.baseName = function (path) {
+    return _.last(path.split('/'));
+  }
+
   self.fileName = function () {
-    return self.data.path.split('/').reverse()[0];
+    return self.baseName(self.data.path);
   };
 
   self.fileSize =  function () {
@@ -130,8 +134,12 @@ function PhotoThumbViewModel(data) {
 
   self.data = data;
 
+  self.baseName = function (path) {
+    return _.last(path.split('/'));
+  }
+
   self.fileName = function () {
-    return self.data.path.split('/').reverse()[0];
+    return self.baseName(self.data.path);
   };
 }
 
