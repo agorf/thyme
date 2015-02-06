@@ -29,15 +29,27 @@ module Thyme
       end
     end
 
-    def update_taken_at!
-      self.taken_at = taken_at
-      save
+    def update_taken_at
+      newest_photo = photos.first(
+        fields: [:taken_at], :taken_at.not => nil, order: :taken_at.desc
+      )
+      update(taken_at: newest_photo.taken_at) if newest_photo
     end
 
-    private
+    def update_photo_siblings
+      prev_photo = nil
 
-    def taken_at
-      photos.all(fields: [:taken_at]).map(&:taken_at).compact.max
+      photos.oldest_first.all(fields: [:id]).each do |photo|
+        if prev_photo
+          prev_photo.next_photo = photo
+          prev_photo.save
+
+          photo.prev_photo = prev_photo
+          photo.save
+        end
+
+        prev_photo = photo
+      end
     end
   end
 
@@ -86,4 +98,7 @@ Dir[
   end
 end
 
-Thyme::Set.each(&:update_taken_at!)
+Thyme::Set.each do |set|
+  set.update_taken_at
+  set.update_photo_siblings
+end

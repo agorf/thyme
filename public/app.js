@@ -5,6 +5,42 @@ function PhotoViewModel(data) {
 
   self.data = data;
 
+  self.prevPhotoData = ko.observable();
+
+  self.prevPhoto = ko.computed(function () {
+    if (self.prevPhotoData()) {
+      return new PhotoThumbViewModel(self.prevPhotoData());
+    }
+  });
+
+  if (self.data.prev_photo_id) {
+    $.getJSON('/photo', { id: self.data.prev_photo_id }, self.prevPhotoData);
+  }
+
+  self.nextPhotoData = ko.observable();
+
+  self.nextPhoto = ko.computed(function () {
+    if (self.nextPhotoData()) {
+      return new PhotoThumbViewModel(self.nextPhotoData());
+    }
+  });
+
+  if (self.data.next_photo_id) {
+    $.getJSON('/photo', { id: self.data.next_photo_id }, self.nextPhotoData);
+  }
+
+  self.setData = ko.observable();
+
+  self.set = ko.computed(function () {
+    if (self.setData()) {
+      return new SetThumbViewModel(self.setData());
+    }
+  });
+
+  if (self.data.set_id) {
+    $.getJSON('/set', { id: self.data.set_id }, self.setData);
+  }
+
   self.aspectRatio = function (width, height) {
     var gcd = self.gcd(width, height);
     return [width / gcd, height / gcd];
@@ -99,7 +135,17 @@ function PhotoViewModel(data) {
   };
 }
 
-function SetViewModel(data) {
+function PhotoThumbViewModel(data) {
+  var self = this;
+
+  self.data = data;
+
+  self.fileName = function () {
+    return self.data.path.split('/').reverse()[0];
+  };
+}
+
+function SetThumbViewModel(data) {
   var self = this;
 
   self.data = data;
@@ -135,7 +181,7 @@ function ThymeViewModel() {
   self.photos = ko.computed(function () {
     if (self.photosData()) {
       return _.map(self.photosData(), function (photoData) {
-        return new PhotoViewModel(photoData);
+        return new PhotoThumbViewModel(photoData);
       });
     }
   });
@@ -145,7 +191,7 @@ function ThymeViewModel() {
   self.sets = ko.computed(function () {
     if (self.setsData()) {
       return _.map(self.setsData(), function (setData) {
-        return new SetViewModel(setData);
+        return new SetThumbViewModel(setData);
       });
     }
   });
@@ -157,11 +203,7 @@ function ThymeViewModel() {
   Sammy(function () {
     this.get('#:setId/:photoId', function () {
       self.photosData(null); // from photos
-      var data = {
-        id: this.params.photoId,
-        set_id: this.params.setId
-      }
-      $.getJSON('/photo', data, self.photoData);
+      $.getJSON('/photo', { id: this.params.photoId }, self.photoData);
     });
 
     this.get('#:setId', function () {

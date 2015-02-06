@@ -6,15 +6,20 @@ module Thyme
 
     include DataMapper::Resource
 
-    property :id,       Serial
-    property :path,     String, length: 4096, unique: true
-    property :size,     Integer
-    property :width,    Integer
-    property :height,   Integer
-    property :taken_at, DateTime
-    property :exif,     Json
+    property :id,            Serial
+    property :path,          String, length: 4096, unique: true
+    property :size,          Integer
+    property :width,         Integer
+    property :height,        Integer
+    property :taken_at,      DateTime
+    property :exif,          Json
+    property :set_id,        Integer
+    property :prev_photo_id, Integer
+    property :next_photo_id, Integer
 
     belongs_to :set
+    belongs_to :prev_photo, self, required: false
+    belongs_to :next_photo, self, required: false
 
     def self.oldest_first
       all(order: [:taken_at.asc, :path.asc])

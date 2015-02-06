@@ -17,6 +17,17 @@ module Thyme
       Set.newest_first.to_json
     end
 
+    get '/set' do
+      pass unless request.accept?('application/json')
+
+      if set = Set.get(params[:id])
+        content_type :json
+        set.to_json
+      else
+        halt 404, 'Not Found'
+      end
+    end
+
     get '/photos' do
       pass unless request.accept?('application/json')
       content_type :json
@@ -26,13 +37,7 @@ module Thyme
     get '/photo' do
       pass unless request.accept?('application/json')
 
-      conditions = { id: params[:id] }
-
-      if params[:set_id]
-        conditions[:set] = { id: params[:set_id] }
-      end
-
-      if photo = Photo.first(conditions)
+      if photo = Photo.get(params[:id])
         content_type :json
         photo.to_json
       else

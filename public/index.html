@@ -9,28 +9,18 @@
   <div id="pane">
     <div id="sets" data-bind="with: sets">
       <ol class="thumbs" data-bind="foreach: $data">
-        <li>
-          <a href="#" data-bind="attr: { title: data.name }, css: 'set thumb', click: $root.set">
-            <img data-bind="attr: { src: data.thumb_url, alt: data.name }">
-            <h2 data-bind="text: shortName()"></h2>
-            <p data-bind="attr: { title: photosCountTitle() }">
-              <i class="fa fa-picture-o"></i>
-              <!-- ko text: data.photos_count --><!-- /ko -->
-            </p>
-          </a>
-        </li>
+        <li data-bind="template: { name: 'set-thumb-template', data: $data }"></li>
       </ol>
     </div>
     <div id="photos" data-bind="with: photos">
       <ol class="thumbs" data-bind="foreach: $data">
-        <li>
-          <a href="#" data-bind="attr: { title: fileName() }, css: 'photo thumb', click: $root.photo">
-            <img data-bind="attr: { src: data.small_thumb_url, alt: fileName() }">
-          </a>
-        </li>
+        <li data-bind="template: { name: 'photo-thumb-template', data: $data }"></li>
       </ol>
     </div>
     <div id="photo" data-bind="with: photo">
+      <div id="prev-photo" data-bind="template: { name: 'photo-thumb-template', data: prevPhoto, if: prevPhoto }"></div>
+      <div id="parent-set" data-bind="template: { name: 'set-thumb-template', data: set, if: set }"></div>
+      <div id="next-photo" data-bind="template: { name: 'photo-thumb-template', data: nextPhoto, if: nextPhoto }"></div>
       <img data-bind="attr: { src: data.big_thumb_url, alt: fileName() }">
       <ul id="details">
         <li data-bind="text: fileName()"></li>
@@ -50,6 +40,21 @@
       </ul>
     </div>
   </div>
+  <script type="text/html" id="set-thumb-template">
+    <a href="#" data-bind="attr: { title: data.name }, css: 'set thumb', click: $root.set">
+      <img data-bind="attr: { src: data.thumb_url, alt: data.name }">
+      <h2 data-bind="text: shortName()"></h2>
+      <p data-bind="attr: { title: photosCountTitle() }">
+        <i class="fa fa-picture-o"></i>
+        <!-- ko text: data.photos_count --><!-- /ko -->
+      </p>
+    </a>
+  </script>
+  <script type="text/html" id="photo-thumb-template">
+    <a href="#" data-bind="attr: { title: fileName() }, css: 'photo thumb', click: $root.photo">
+      <img data-bind="attr: { src: data.small_thumb_url, alt: fileName() }">
+    </a>
+  </script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/lodash/lodash.js"></script>
   <script src="bower_components/moment/moment.js"></script>
