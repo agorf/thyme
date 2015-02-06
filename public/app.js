@@ -202,6 +202,23 @@ function ThymeViewModel() {
     location.hash = value.data.id;
   };
 
+  self.pageTitle = ko.computed(function () {
+    var parts = ['thyme'];
+
+    if (self.setData()) {
+      parts.push(self.setData().name);
+    }
+    else if (self.photo() && self.photo().setData()) {
+      parts.push(self.photo().setData().name);
+    }
+
+    if (self.photo()) {
+      parts.push(self.photo().fileName());
+    }
+
+    return parts.join(' - ');
+  });
+
   Sammy(function () {
     this.get('#:setId/:photoId', function () {
       self.photosData(null); // from photos
@@ -238,4 +255,4 @@ _.mixin({
   }
 });
 
-ko.applyBindings(new ThymeViewModel());
+ko.applyBindings(new ThymeViewModel(), $('#thyme')[0]);
