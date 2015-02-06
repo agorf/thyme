@@ -13,6 +13,11 @@ require 'thyme/db'
 require 'thyme/photo'
 require 'thyme/set'
 
+MiniMagick.configure do |config|
+  config.validate_on_create = false
+  config.validate_on_write = false
+end
+
 module Thyme
   class Photo
     def generate_thumbs
@@ -25,7 +30,7 @@ module Thyme
     def generate_thumb(src_path, size, suffix)
       return if File.exist?(thumb_path(suffix))
 
-      image = MiniMagick::Image.open(src_path)
+      image = MiniMagick::Image.read(File.open(src_path))
 
       image.combine_options do |c|
         c.auto_orient
