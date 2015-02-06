@@ -169,6 +169,7 @@ function ThymeViewModel() {
       }
     },
     write: function (value) {
+      self.photoData(value.data);
       location.hash = value.data.set_id + '/' + value.data.id;
     },
     owner: this
@@ -194,24 +195,36 @@ function ThymeViewModel() {
     }
   });
 
+  self.setData = ko.observable();
+
   self.set = function (value) {
+    self.setData(value.data);
     location.hash = value.data.id;
   };
 
   Sammy(function () {
     this.get('#:setId/:photoId', function () {
       self.photosData(null); // from photos
-      $.getJSON('/photo', { id: this.params.photoId }, self.photoData);
+
+      if (!self.photoData()) { // direct (not from photos)
+        $.getJSON('/photo', { id: this.params.photoId }, self.photoData);
+      }
     });
 
     this.get('#:setId', function () {
       self.setsData(null); // from sets
-      self.photoData(null); // back from photo
+      self.photoData(null); // from photo
+
+      if (!self.setData()) { // direct (not from sets or photo)
+        $.getJSON('/set', { id: this.params.setId }, self.setData);
+      }
+
       $.getJSON('/photos', { set_id: this.params.setId }, self.photosData);
     });
 
     this.get('', function () {
       self.photosData(null); // back from set
+      self.setData(null); // back from set
       $.getJSON('/sets', self.setsData);
     });
   }).run();
