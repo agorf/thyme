@@ -77,21 +77,15 @@ function PhotoViewModel(data) {
     var fl = self.data.exif.FocalLength;
     var fl35 = self.data.exif.FocalLengthIn35mmFormat;
 
-    if (!fl) {
-      return;
-    }
+    if (!fl) { return; }
 
     fl = fl.replace('.0', '');
 
-    if (!fl35) {
-      return fl;
-    }
+    if (!fl35) { return fl; }
 
     fl35 = fl35.replace('.0', '');
 
-    if (fl === fl35) {
-      return fl;
-    }
+    if (fl === fl35) { return fl; }
 
     return fl + ' (<span title="35 mm equivalent">' + fl35 + '</span>)';
   };
@@ -99,15 +93,11 @@ function PhotoViewModel(data) {
   self.formatSize = function (bytes) {
     var n = bytes;
 
-    if (n < 1024) {
-      return _.pluralize(n, 'byte');
-    }
+    if (n < 1024) { return _.pluralize(n, 'byte'); }
 
     n /= 1024; // kB
 
-    if (n < 1024) {
-      return self.round(n, 2) + ' kB';
-    }
+    if (n < 1024) { return self.round(n, 2) + ' kB'; }
 
     n /= 1024; // MB
 
