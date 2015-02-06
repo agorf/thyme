@@ -36,7 +36,7 @@
           <!-- ko if: exif.ExposureTime --><li title="Exposure time" data-bind="text: exif.ExposureTime + ' s'"></li><!-- /ko -->
           <!-- ko if: exif.ISO --><li data-bind="text: 'ISO ' + exif.ISO"></li><!-- /ko -->
           <!-- ko if: exif.ExposureCompensation --><li title="Exposure compensation" data-bind="text: exif.ExposureCompensation"></li><!-- /ko -->
-          <!-- ko if: exif.Flash --><li data-bind="text: 'Flash ' + exif.Flash"></li><!-- /ko -->
+          <!-- ko if: exif.Flash --><li data-bind="text: 'flash ' + exif.Flash.toLowerCase()"></li><!-- /ko -->
         <!-- /ko -->
       </ul>
     </div>
