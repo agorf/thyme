@@ -70,14 +70,41 @@ function PhotoViewModel(data) {
   }
 
   self.bigThumbHeight = function () {
+    if (self.isPortrait()) {
+      return self.bigThumbHeightPortrait();
+    }
+
+    return self.bigThumbHeightLandscape();
+  };
+
+  self.bigThumbHeightLandscape = function () {
     if (self.bigThumbWidth() < 1000) { return self.data.height; }
     var aspectRatio = self.aspectRatio(self.data.width, self.data.height);
     return self.round((aspectRatio[1] / aspectRatio[0]) * self.bigThumbWidth());
   };
 
+  self.bigThumbHeightPortrait = function () {
+    if (self.data.height < 1000) { return self.data.height; }
+    return 1000;
+  };
+
   self.bigThumbWidth = function () {
+    if (self.isPortrait()) {
+      return self.bigThumbWidthPortrait();
+    }
+
+    return self.bigThumbWidthLandscape();
+  };
+
+  self.bigThumbWidthLandscape = function () {
     if (self.data.width < 1000) { return self.data.width; }
     return 1000;
+  };
+
+  self.bigThumbWidthPortrait = function () {
+    if (self.bigThumbHeight() < 1000) { return self.data.width; }
+    var aspectRatio = self.aspectRatio(self.data.width, self.data.height);
+    return self.round((aspectRatio[0] / aspectRatio[1]) * self.bigThumbHeight());
   };
 
   self.fileName = function () {
