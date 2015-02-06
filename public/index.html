@@ -27,7 +27,7 @@
         <li data-bind="text: fileName()"></li>
         <li data-bind="text: fileSize()"></li>
         <li data-bind="html: data.width + '&times;' + data.height + ' (' + aspectRatioText() + ')'"></li>
-        <!-- ko if: data.taken_at --><li data-bind="text: takenAtText(), attr: { title: takenAtTitle() }"></li><!-- /ko -->
+        <!-- ko if: data.taken_at --><li data-bind="text: 'taken ' + takenAtText(), attr: { title: takenAtTitle() }"></li><!-- /ko -->
         <!-- ko with: data -->
           <!-- ko if: exif.Make && exif.Model --><li title="Camera" data-bind="text: exif.Make + ' ' + exif.Model"></li><!-- /ko -->
           <!-- ko if: exif.LensInfo --><li title="Lens" data-bind="text: exif.LensInfo"></li><!-- /ko -->
