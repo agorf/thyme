@@ -13,6 +13,7 @@
       </ol>
     </div>
     <div id="photos" data-bind="with: photos">
+      <h1 data-bind="text: $parent.setData().name"></h1>
       <ol class="thumbs" data-bind="foreach: $data">
         <li data-bind="template: { name: 'photo-thumb-template', data: $data }"></li>
       </ol>
