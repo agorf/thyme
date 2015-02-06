@@ -21,9 +21,7 @@ module Thyme
     end
 
     def as_json(options = {})
-      super(
-        options.merge(methods: [:big_thumb_url, :small_thumb_url])
-      )
+      super(options.merge(methods: [:big_thumb_url, :small_thumb_url]))
     end
 
     def big_thumb_url
