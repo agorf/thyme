@@ -10,9 +10,10 @@ height="240" alt="thyme"></a>
 ## Installation
 
 1. Clone repo: `git clone https://github.com/agorf/thyme && cd thyme`
-1. Install system package dependencies (for [mini_exiftool][] and
-   [mini_magick][] gems respectively):
-   * Linux: `sudo apt-get install libimage-exiftool-perl imagemagick`
+1. Install system package dependencies (for [mini_exiftool][], [mini_magick][]
+   and [sqlite3][] gems respectively):
+   * Linux: `sudo apt-get install libimage-exiftool-perl imagemagick
+     libsqlite3-dev`
    * Mac OS X: `brew install exiftool imagemagick`
 1. Install Ruby gems: `bundle install` (you need to have [Ruby][], [RubyGems][]
    and [bundler][] installed for this)
@@ -30,6 +31,7 @@ height="240" alt="thyme"></a>
 
 [mini_exiftool]: https://rubygems.org/gems/mini_exiftool
 [mini_magick]: https://rubygems.org/gems/mini_magick
+[sqlite3]: https://rubygems.org/gems/sqlite3
 [Ruby]: https://www.ruby-lang.org/en/
 [RubyGems]: https://rubygems.org/
 [bundler]: https://rubygems.org/gems/bundler
