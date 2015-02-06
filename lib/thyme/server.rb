@@ -20,7 +20,7 @@ module Thyme
     get '/photos' do
       pass unless request.accept?('application/json')
       content_type :json
-      Photo.all(set: { id: params[:set_id].to_i }).oldest_first.to_json
+      Photo.all(set_id: params[:set_id]).oldest_first.to_json
     end
 
     get '/photo' do
