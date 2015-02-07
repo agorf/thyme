@@ -101,3 +101,9 @@ h1 {
   font-family: Trebuchet MS, Candara, Georgia, Calibri, Corbel, serif;
   font-style: italic;
 }
+
+#map {
+  height: 200px;
+  margin: 20px auto 0;
+  width: 400px;
+}

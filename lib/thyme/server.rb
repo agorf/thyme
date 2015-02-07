@@ -1,7 +1,11 @@
 require 'dm-serializer/to_json'
+require 'dotenv'
+require 'json'
 require 'sinatra/base'
 require 'thyme/photo'
 require 'thyme/set'
+
+Dotenv.load
 
 module Thyme
   class Server < Sinatra::Base
@@ -43,6 +47,16 @@ module Thyme
       else
         halt 404, 'Not Found'
       end
+    end
+
+    get '/config' do
+      pass unless request.accept?('application/json')
+      content_type :json
+      Hash[
+        *%w{mapbox_map_id mapbox_token}.map {|key|
+          [key, ENV[key.upcase]]
+        }.flatten
+      ].to_json
     end
   end
 end

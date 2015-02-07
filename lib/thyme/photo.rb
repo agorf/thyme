@@ -26,7 +26,9 @@ module Thyme
     end
 
     def as_json(options = {})
-      super(options.merge(methods: [:big_thumb_url, :small_thumb_url]))
+      super(options.merge(methods: [:big_thumb_url, :small_thumb_url])).merge(
+        lat: lat, lng: lng
+      )
     end
 
     def big_thumb_url
@@ -45,6 +47,18 @@ module Thyme
 
     def extname
       File.extname(path)
+    end
+
+    def lat
+      if exif['GPSLatitude']
+        exif['GPSLatitude'].to_f
+      end
+    end
+
+    def lng
+      if exif['GPSLongitude']
+        exif['GPSLongitude'].to_f
+      end
     end
 
     def thumb_filename(suffix)

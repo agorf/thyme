@@ -3,6 +3,7 @@
 <head>
   <title data-bind="text: pageTitle"></title>
   <link href="bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet">
   <link rel="stylesheet" href="/thyme.css">
 </head>
 <body>
@@ -39,6 +40,7 @@
           <!-- ko if: exif.Flash --><li data-bind="text: 'flash ' + exif.Flash.toLowerCase()"></li><!-- /ko -->
         <!-- /ko -->
       </ul>
+      <div id="map" style="display:none" data-bind="photoMap: [data.lat, data.lng]"></div>
     </div>
   </div>
   <script type="text/html" id="set-thumb-template">
@@ -61,6 +63,7 @@
   <script src="bower_components/moment/moment.js"></script>
   <script src="bower_components/knockoutjs/dist/knockout.js"></script>
   <script src="bower_components/sammy/lib/sammy.js"></script>
+  <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

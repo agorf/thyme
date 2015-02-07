@@ -294,4 +294,21 @@ _.mixin({
   }
 });
 
+ko.bindingHandlers.photoMap = {
+  init: function (element, valueAccessor) {
+    var latlng = valueAccessor(); // [lat, lng]
+
+    $(element).show(); // show container before creating map
+
+    $.getJSON('/config', function (configData) {
+      var map = L.map('map').setView(latlng, 15);
+      L.tileLayer(
+        'http://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}',
+        { id: configData.mapbox_map_id, token: configData.mapbox_token }
+      ).addTo(map);
+      L.marker(latlng).addTo(map);
+    });
+  }
+};
+
 ko.applyBindings(new ThymeViewModel(), $('#thyme')[0]);

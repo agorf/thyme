@@ -57,7 +57,7 @@ module Thyme
     def self.create_from_file(path)
       return if first(path: path)
 
-      exif = MiniExiftool.new(path)
+      exif = MiniExiftool.new(path, coord_format: '%+.6f degrees')
       width, height = Dimensions.dimensions(path)
 
       exif_hash = exif.to_hash.select do |_, value|

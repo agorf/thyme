@@ -61,6 +61,7 @@ GEM
       dm-core (~> 1.2.0)
     do_sqlite3 (0.10.14)
       data_objects (= 0.10.14)
+    dotenv (1.0.2)
     eventmachine (1.0.3)
     fastercsv (1.5.5)
     ffi (1.9.3)
@@ -111,6 +112,7 @@ DEPENDENCIES
   dimensions
   dm-serializer
   dm-sqlite-adapter
+  dotenv
   mini_exiftool
   mini_magick
   pry
