@@ -47,10 +47,11 @@ it:
 1. [Get the map id][map_id] of your map you want to use
 1. [Create an API access token][token]
 1. Create an `.env` file inside the thyme directory with the following:
-   ```shell
-   MAPBOX_MAP_ID=your_map_id_here
-   MAPBOX_TOKEN=your_token_here
-   ```
+
+```shell
+MAPBOX_MAP_ID=your_map_id_here
+MAPBOX_TOKEN=your_token_here
+```
 
 **Note:** Don't forget to rerun thyme so that it picks up the new configuration.
 
