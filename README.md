@@ -41,7 +41,7 @@ height="240" alt="thyme"></a>
 ## Map support
 
 By default, thyme shows a map with [OpenStreetMap][] tiles below each geotagged
-photo. To use [Mapbox][] (has more beautiful tiles):
+photo. To use [Mapbox][] (has better-looking tiles):
 
 1. [Signup][Mapbox] for a free account
 1. [Get the map id][map_id] of your map you want to use
