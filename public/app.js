@@ -155,7 +155,7 @@ function PhotoViewModel(data) {
   };
 
   self.round = function (n, scale) {
-    if (typeof scale === 'undefined') { scale = 0; }
+    if (_.isUndefined(scale)) { scale = 0; }
     return Math.round(n * Math.pow(10, scale)) / Math.pow(10, scale);
   }
 
@@ -289,7 +289,7 @@ function ThymeViewModel() {
 // lodash extensions
 _.mixin({
   pluralize: function (n, singular, plural) {
-    plural = plural || singular + 's';
+    if (_.isUndefined(plural)) { plural = singular + 's'; }
     return n + ' ' + (n === 1 ? singular : plural);
   }
 });
