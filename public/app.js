@@ -315,7 +315,8 @@ ko.bindingHandlers.photoMap = {
         };
       }
 
-      map.addLayer(L.tileLayer(url, options)).addMarker(L.marker(latlng));
+      L.tileLayer(url, options).addTo(map);
+      L.marker(latlng).addTo(map);
     });
   }
 };
