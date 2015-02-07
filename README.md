@@ -55,6 +55,7 @@ MAPBOX_TOKEN=your_token_here
 
 **Note:** Don't forget to rerun thyme so that it picks up the new configuration.
 
+[OpenStreetMap]: http://www.openstreetmap.org/
 [Mapbox]: https://www.mapbox.com/
 [map_id]: https://www.mapbox.com/help/define-map-id/
 [token]: https://www.mapbox.com/help/create-api-access-token/
