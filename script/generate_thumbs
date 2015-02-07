@@ -30,7 +30,7 @@ module Thyme
     def generate_thumb(src_path, size, suffix)
       return if File.exist?(thumb_path(suffix))
 
-      image = MiniMagick::Image.read(File.open(src_path))
+      image = MiniMagick::Image.open(src_path, File.extname(src_path))
 
       image.combine_options do |c|
         c.auto_orient
