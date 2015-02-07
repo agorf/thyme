@@ -27,7 +27,7 @@ height="240" alt="thyme"></a>
 1. Run app with `./script/server` and point your browser to
    <http://localhost:9292/>
 1. Run `./script/scan_photos` and `./script/generate_thumbs` each time you have
-   new photos to add.
+   new photos to add
 
 [mini_exiftool]: https://rubygems.org/gems/mini_exiftool
 [mini_magick]: https://rubygems.org/gems/mini_magick
