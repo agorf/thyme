@@ -298,6 +298,8 @@ ko.bindingHandlers.photoMap = {
   init: function (element, valueAccessor) {
     var latlng = valueAccessor(); // [lat, lng]
 
+    if (!_.isNumber(latlng[0]) || !_.isNumber(latlng[1])) { return; }
+
     $(element).show(); // show container before creating map
 
     $.getJSON('/config', function (configData) {
