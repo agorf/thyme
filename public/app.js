@@ -305,7 +305,7 @@ ko.bindingHandlers.photoMap = {
     $.getJSON('/config', function (configData) {
       var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; // OpenStreetMap
       var options = {};
-      var map = L.map('map').setView(latlng, 15);
+      var map = L.map(element).setView(latlng, 15);
 
       if (configData.mapbox_map_id && configData.mapbox_token) {
         url = 'http://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}',
