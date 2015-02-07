@@ -308,11 +308,11 @@ ko.bindingHandlers.photoMap = {
       var map = L.map(element).setView(latlng, 15);
 
       if (configData.mapbox_map_id && configData.mapbox_token) {
-        url = 'http://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}',
+        url = 'http://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}';
         options = {
           id: configData.mapbox_map_id,
           token: configData.mapbox_token
-        }
+        };
       }
 
       map.addLayer(L.tileLayer(url, options)).addMarker(L.marker(latlng));
