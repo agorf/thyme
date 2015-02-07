@@ -303,12 +303,19 @@ ko.bindingHandlers.photoMap = {
     $(element).show(); // show container before creating map
 
     $.getJSON('/config', function (configData) {
+      var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; // OpenStreetMap
+      var options = {};
       var map = L.map('map').setView(latlng, 15);
-      L.tileLayer(
-        'http://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}',
-        { id: configData.mapbox_map_id, token: configData.mapbox_token }
-      ).addTo(map);
-      L.marker(latlng).addTo(map);
+
+      if (configData.mapbox_map_id && configData.mapbox_token) {
+        url = 'http://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}',
+        options = {
+          id: configData.mapbox_map_id,
+          token: configData.mapbox_token
+        }
+      }
+
+      map.addLayer(L.tileLayer(url, options)).addMarker(L.marker(latlng));
     });
   }
 };

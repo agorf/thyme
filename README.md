@@ -40,10 +40,10 @@ height="240" alt="thyme"></a>
 
 ## Map support
 
-thyme supports showing a nice little map below each geotagged photo. To enable
-it:
+By default, thyme shows a map with [OpenStreetMap][] tiles below each geotagged
+photo. To use [Mapbox][]:
 
-1. Signup for a free [Mapbox][] account (necessary to use their beautiful tiles)
+1. [Signup][Mapbox] for a free account (necessary to use their beautiful tiles)
 1. [Get the map id][map_id] of your map you want to use
 1. [Create an API access token][token]
 1. Create an `.env` file inside the thyme directory with the following:
