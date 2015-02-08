@@ -47,8 +47,8 @@
           <!-- /ko -->
         </div>
       </div>
-      <div id="photo-meta">
-        <ul id="details" data-bind="with: data">
+      <div id="photo-meta" data-bind="with: data">
+        <ul id="details">
           <!-- ko if: taken_at --><li data-bind="text: 'Taken ' + $parent.takenAtText(), attr: { title: $parent.takenAtTitle() }"></li><!-- /ko -->
           <li data-bind="text: filename"></li>
           <li data-bind="text: $parent.fileSize()"></li>
@@ -62,7 +62,7 @@
           <!-- ko if: exif.ExposureCompensation --><li title="Exposure compensation" data-bind="text: exif.ExposureCompensation"></li><!-- /ko -->
           <!-- ko if: exif.Flash --><li data-bind="text: 'Flash ' + exif.Flash.toLowerCase()"></li><!-- /ko -->
         </ul>
-        <div id="map" style="display:none" data-bind="photoMap: [data.lat, data.lng]"></div>
+        <div id="map" style="display:none" data-bind="photoMap: [lat, lng]"></div>
       </div>
     </div>
   </div>
