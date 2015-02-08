@@ -21,8 +21,8 @@ end
 module Thyme
   class Photo
     def generate_thumbs
-      generate_thumb(path, '1000x1000', :big) # use original file
-      generate_thumb(thumb_path(:big), '200x200', :small) # use big thumb
+      generate_thumb(path, BIG_THUMB_SIZE.join('x'), :big) # use original file
+      generate_thumb(thumb_path(:big), SMALL_THUMB_SIZE.join('x'), :small) # use big thumb
     end
 
     private

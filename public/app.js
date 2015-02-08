@@ -41,15 +41,10 @@ function PhotoViewModel(data) {
     $.getJSON('/set', { id: self.data.set_id }, self.setData);
   }
 
-  self.aspectRatio = function (width, height) {
-    var gcd = self.gcd(width, height);
-    return [width / gcd, height / gcd];
-  };
-
   self.aspectRatioText = function () {
-    var aspectRatio = self.aspectRatio(self.data.width, self.data.height);
+    var aspectRatio = self.data.aspect_ratio;
     var exactMatch = _.find(self.stdAspectRatios, function (ar) {
-      if (self.isPortrait()) {
+      if (self.data.orientation === 'portrait') {
         ar[1] = [ar[0], ar[0] = ar[1]][0]; // swap hack
       }
 
@@ -63,44 +58,6 @@ function PhotoViewModel(data) {
     })[0];
 
     return '<span title="Approximation">~</span>' + closestMatch.join(':');
-  };
-
-  self.bigThumbHeight = function () {
-    if (self.isPortrait()) {
-      return self.bigThumbHeightPortrait();
-    }
-
-    return self.bigThumbHeightLandscape();
-  };
-
-  self.bigThumbHeightLandscape = function () {
-    if (self.bigThumbWidth() < 1000) { return self.data.height; }
-    var aspectRatio = self.aspectRatio(self.data.width, self.data.height);
-    return self.round((aspectRatio[1] / aspectRatio[0]) * self.bigThumbWidth());
-  };
-
-  self.bigThumbHeightPortrait = function () {
-    if (self.data.height < 1000) { return self.data.height; }
-    return 1000;
-  };
-
-  self.bigThumbWidth = function () {
-    if (self.isPortrait()) {
-      return self.bigThumbWidthPortrait();
-    }
-
-    return self.bigThumbWidthLandscape();
-  };
-
-  self.bigThumbWidthLandscape = function () {
-    if (self.data.width < 1000) { return self.data.width; }
-    return 1000;
-  };
-
-  self.bigThumbWidthPortrait = function () {
-    if (self.bigThumbHeight() < 1000) { return self.data.width; }
-    var aspectRatio = self.aspectRatio(self.data.width, self.data.height);
-    return self.round((aspectRatio[0] / aspectRatio[1]) * self.bigThumbHeight());
   };
 
   self.fileSize =  function () {
@@ -136,14 +93,6 @@ function PhotoViewModel(data) {
     n /= 1024; // MB
 
     return self.round(n, 2) + ' MB';
-  };
-
-  self.gcd = function (a, b) {
-    return b ? self.gcd(b, a % b) : Math.abs(a);
-  };
-
-  self.isPortrait = function () {
-    return self.data.width < self.data.height;
   };
 
   self.round = function (n, scale) {

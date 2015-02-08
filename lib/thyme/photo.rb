@@ -4,6 +4,8 @@ require 'sequel'
 module Thyme
   class Photo < Sequel::Model
     THUMBS_PATH = File.expand_path('../../../public/thumbs', __FILE__)
+    BIG_THUMB_SIZE = [1000, 1000]
+    SMALL_THUMB_SIZE = [200, 200]
 
     plugin :json_serializer
     plugin :serialization, :json, :exif
@@ -33,10 +35,14 @@ module Thyme
     def to_json(options = {})
       super(
         options.merge(include: [
+          :aspect_ratio,
+          :big_thumb_height,
           :big_thumb_url,
+          :big_thumb_width,
           :filename,
           :lat,
           :lng,
+          :orientation,
           :small_thumb_url,
         ])
       )
@@ -44,8 +50,29 @@ module Thyme
 
     private
 
+    def aspect_ratio
+      gcd = width.gcd(height).to_f
+      [width / gcd, height / gcd]
+    end
+
     def basename
       File.basename(path, extname)
+    end
+
+    def big_thumb_height
+      if portrait?
+        [height, BIG_THUMB_SIZE.max].min
+      else
+        ((aspect_ratio[1] / aspect_ratio[0].to_f) * big_thumb_width).round(2)
+      end
+    end
+
+    def big_thumb_width
+      if portrait?
+        ((aspect_ratio[0] / aspect_ratio[1].to_f) * big_thumb_height).round(2)
+      else
+        [width, BIG_THUMB_SIZE.max].min
+      end
     end
 
     def extname
@@ -66,6 +93,14 @@ module Thyme
       if exif['GPSLongitude']
         exif['GPSLongitude'].to_f
       end
+    end
+
+    def orientation
+      width >= height ? 'landscape' : 'portrait'
+    end
+
+    def portrait?
+      orientation == 'portrait'
     end
 
     def thumb_filename(suffix)

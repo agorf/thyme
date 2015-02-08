@@ -23,7 +23,7 @@
       <div id="prev-photo" data-bind="template: { name: 'photo-thumb-template', data: prevPhoto, if: prevPhoto }"></div>
       <div id="parent-set" data-bind="template: { name: 'set-thumb-template', data: set, if: set }"></div>
       <div id="next-photo" data-bind="template: { name: 'photo-thumb-template', data: nextPhoto, if: nextPhoto }"></div>
-      <img data-bind="attr: { src: data.big_thumb_url, alt: data.filename, width: bigThumbWidth(), height: bigThumbHeight() }">
+      <img data-bind="attr: { src: data.big_thumb_url, alt: data.filename, width: data.big_thumb_width, height: data.big_thumb_height }">
       <ul id="details">
         <li data-bind="text: data.filename"></li>
         <li data-bind="text: fileSize()"></li>
