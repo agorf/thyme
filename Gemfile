@@ -1,14 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'data_mapper'
 gem 'dimensions'
-gem 'dm-serializer'
-gem 'dm-sqlite-adapter'
 gem 'dotenv'
 gem 'mini_exiftool'
 gem 'mini_magick'
 gem 'ruby-progressbar'
+gem 'sequel'
 gem 'sinatra'
+gem 'sqlite3'
 
 group :development do
   gem 'pry'

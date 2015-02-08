@@ -65,10 +65,6 @@ function PhotoViewModel(data) {
     return '<span title="Approximation">~</span>' + closestMatch.join(':');
   };
 
-  self.baseName = function (path) {
-    return _.last(path.split('/'));
-  }
-
   self.bigThumbHeight = function () {
     if (self.isPortrait()) {
       return self.bigThumbHeightPortrait();
@@ -105,10 +101,6 @@ function PhotoViewModel(data) {
     if (self.bigThumbHeight() < 1000) { return self.data.width; }
     var aspectRatio = self.aspectRatio(self.data.width, self.data.height);
     return self.round((aspectRatio[0] / aspectRatio[1]) * self.bigThumbHeight());
-  };
-
-  self.fileName = function () {
-    return self.baseName(self.data.path);
   };
 
   self.fileSize =  function () {
@@ -172,14 +164,6 @@ function PhotoThumbViewModel(data) {
   var self = this;
 
   self.data = data;
-
-  self.baseName = function (path) {
-    return _.last(path.split('/'));
-  }
-
-  self.fileName = function () {
-    return self.baseName(self.data.path);
-  };
 }
 
 function SetThumbViewModel(data) {
@@ -252,7 +236,7 @@ function ThymeViewModel() {
     }
 
     if (self.photo()) {
-      parts.push(self.photo().fileName());
+      parts.push(self.photo().data.filename);
     }
 
     return parts.join(' - ');

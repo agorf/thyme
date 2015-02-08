@@ -1,6 +1,4 @@
-require 'dm-serializer/to_json'
 require 'dotenv'
-require 'json'
 require 'sinatra/base'
 require 'thyme/photo'
 require 'thyme/set'
@@ -24,7 +22,7 @@ module Thyme
     get '/set' do
       pass unless request.accept?('application/json')
 
-      if set = Set.get(params[:id])
+      if set = Set[params[:id]]
         content_type :json
         set.to_json
       else
@@ -35,13 +33,13 @@ module Thyme
     get '/photos' do
       pass unless request.accept?('application/json')
       content_type :json
-      Photo.all(set_id: params[:set_id]).oldest_first.to_json
+      Photo.where(set_id: params[:set_id]).oldest_first.to_json
     end
 
     get '/photo' do
       pass unless request.accept?('application/json')
 
-      if photo = Photo.get(params[:id])
+      if photo = Photo[params[:id]]
         content_type :json
         photo.to_json
       else

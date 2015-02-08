@@ -1,24 +1,35 @@
-require 'data_mapper'
+require 'json'
+require 'sequel'
 
 module Thyme
-  class Set
-    include DataMapper::Resource
+  class Set < Sequel::Model
+    plugin :json_serializer
 
-    property :id,       Serial
-    property :name,     String, length: 4096, unique: true
-    property :taken_at, DateTime
+    one_to_many :photos
 
-    has n, :photos
-
-    def self.newest_first
-      all(order: [:taken_at.desc])
+    dataset_module do
+      def newest_first
+        reverse_order(:taken_at)
+      end
     end
 
-    def as_json(options = {})
-      super(options).merge(
-        photos_count: photos.count,
-        thumb_url: photos.oldest_first.first.small_thumb_url
+    def to_json(options = {})
+      super(
+        options.merge(include: [
+          :photos_count,
+          :thumb_url,
+        ])
       )
+    end
+
+    private
+
+    def photos_count
+      photos.count
+    end
+
+    def thumb_url
+      photos_dataset.oldest_first.first.small_thumb_url
     end
   end
 end

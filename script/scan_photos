@@ -8,44 +8,33 @@ Bundler.setup
 lib = File.expand_path('../../lib', __FILE__)
 $:.unshift(lib) if !$:.include?(lib)
 
-require 'data_mapper'
 require 'dimensions'
 require 'mini_exiftool'
 require 'thyme/db'
 require 'thyme/photo'
 require 'thyme/set'
 
-DataMapper.auto_upgrade!
-
 module Thyme
   class Set
     def self.find_or_create_by_photo_path(path)
-      conditions = { name: path.split(File::SEPARATOR)[-2] }
-
-      if set = first(conditions)
-        set
-      else
-        create(conditions)
-      end
+      Set.find_or_create(name: path.split(File::SEPARATOR)[-2])
     end
 
     def update_taken_at
-      newest_photo = photos.first(
-        fields: [:taken_at], :taken_at.not => nil, order: :taken_at.desc
-      )
+      newest_photo = photos_dataset.exclude(taken_at: nil).
+                                    reverse_order(:taken_at).
+                                    select(:taken_at).
+                                    first
       update(taken_at: newest_photo.taken_at) if newest_photo
     end
 
     def update_photo_siblings
       prev_photo = nil
 
-      photos.oldest_first.all(fields: [:id]).each do |photo|
+      photos_dataset.oldest_first.select(:id).each do |photo|
         if prev_photo
-          prev_photo.next_photo = photo
-          prev_photo.save
-
-          photo.prev_photo = prev_photo
-          photo.save
+          prev_photo.update(next_photo_id: photo.id)
+          photo.update(prev_photo_id: prev_photo.id)
         end
 
         prev_photo = photo
@@ -54,11 +43,10 @@ module Thyme
   end
 
   class Photo
-    def self.create_from_file(path)
-      return if first(path: path)
+    def self.create_by_path(path)
+      width, height = Dimensions.dimensions(path)
 
       exif = MiniExiftool.new(path, coord_format: '%+.6f degrees')
-      width, height = Dimensions.dimensions(path)
 
       exif_hash = exif.to_hash.select do |_, value|
         !value.is_a?(String) ||
@@ -66,19 +54,19 @@ module Thyme
       end
 
       create(
+        set_id:   Set.find_or_create_by_photo_path(path).id,
         path:     path,
         size:     File.size(path),
         width:    width,
         height:   height,
         taken_at: exif['DateTimeOriginal'],
-        exif:     exif_hash,
-        set:      Set.find_or_create_by_photo_path(path)
+        exif:     exif_hash
       )
     end
   end
 end
 
-Thyme::Photo.all(fields: [:id, :path]).each do |photo|
+Thyme::Photo.select(:id, :path).each do |photo|
   if !File.exist?(photo.path) && photo.destroy
     puts "- #{photo.path}"
   end
@@ -90,11 +78,10 @@ Dir[
     '**',
     '*.{jpg,jpeg,JPG,JPEG}'
   )
-].sort.each do |filename|
-  photo = Thyme::Photo.create_from_file(filename)
-
-  if photo && photo.saved?
-    puts "+ #{filename}"
+].sort.each do |photo_path|
+  if Thyme::Photo.where(path: photo_path).empty?
+    Thyme::Photo.create_by_path(photo_path)
+    puts "+ #{photo_path}"
   end
 end
 

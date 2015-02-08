@@ -1,4 +1,4 @@
 .env
-index.db
 public/bower_components/
 public/thumbs/
+thyme.db

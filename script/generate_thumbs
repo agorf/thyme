@@ -58,7 +58,7 @@ progress_bar = ProgressBar.create(
   format: '%a |%b>%i| %p%% %t'
 )
 
-Thyme::Photo.all(order: :taken_at.desc).each do |photo|
+Thyme::Photo.reverse_order(:taken_at).each do |photo|
   photo.generate_thumbs
   progress_bar.increment
 end

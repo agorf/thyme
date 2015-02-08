@@ -23,9 +23,9 @@
       <div id="prev-photo" data-bind="template: { name: 'photo-thumb-template', data: prevPhoto, if: prevPhoto }"></div>
       <div id="parent-set" data-bind="template: { name: 'set-thumb-template', data: set, if: set }"></div>
       <div id="next-photo" data-bind="template: { name: 'photo-thumb-template', data: nextPhoto, if: nextPhoto }"></div>
-      <img data-bind="attr: { src: data.big_thumb_url, alt: fileName(), width: bigThumbWidth(), height: bigThumbHeight() }">
+      <img data-bind="attr: { src: data.big_thumb_url, alt: data.filename, width: bigThumbWidth(), height: bigThumbHeight() }">
       <ul id="details">
-        <li data-bind="text: fileName()"></li>
+        <li data-bind="text: data.filename"></li>
         <li data-bind="text: fileSize()"></li>
         <li data-bind="html: data.width + '&times;' + data.height + ' (' + aspectRatioText() + ')'"></li>
         <!-- ko if: data.taken_at --><li data-bind="text: 'taken ' + takenAtText(), attr: { title: takenAtTitle() }"></li><!-- /ko -->
@@ -54,8 +54,8 @@
     </a>
   </script>
   <script type="text/html" id="photo-thumb-template">
-    <a href="#" data-bind="attr: { title: fileName() }, css: 'photo thumb', click: $root.photo">
-      <img data-bind="attr: { src: data.small_thumb_url, alt: fileName(), width: 200, height: 200 }">
+    <a href="#" data-bind="attr: { title: data.filename }, css: 'photo thumb', click: $root.photo">
+      <img data-bind="attr: { src: data.small_thumb_url, alt: data.filename, width: 200, height: 200 }">
     </a>
   </script>
   <script src="bower_components/jquery/dist/jquery.js"></script>

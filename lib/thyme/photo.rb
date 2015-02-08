@@ -1,34 +1,21 @@
-require 'data_mapper'
+require 'json'
+require 'sequel'
 
 module Thyme
-  class Photo
+  class Photo < Sequel::Model
     THUMBS_PATH = File.expand_path('../../../public/thumbs', __FILE__)
 
-    include DataMapper::Resource
+    plugin :json_serializer
+    plugin :serialization, :json, :exif
 
-    property :id,            Serial
-    property :path,          String, length: 4096, unique: true
-    property :size,          Integer
-    property :width,         Integer
-    property :height,        Integer
-    property :taken_at,      DateTime
-    property :exif,          Json
-    property :set_id,        Integer
-    property :prev_photo_id, Integer
-    property :next_photo_id, Integer
+    many_to_one :_set, class: :Set # "set" is reserved by Sequel...
+    one_to_one :prev_photo, key: :prev_photo_id, class: self
+    one_to_one :next_photo, key: :next_photo_id, class: self
 
-    belongs_to :set
-    belongs_to :prev_photo, self, required: false
-    belongs_to :next_photo, self, required: false
-
-    def self.oldest_first
-      all(order: [:taken_at.asc, :path.asc])
-    end
-
-    def as_json(options = {})
-      super(options.merge(methods: [:big_thumb_url, :small_thumb_url])).merge(
-        lat: lat, lng: lng
-      )
+    dataset_module do
+      def oldest_first
+        order(:taken_at).order_append(:path)
+      end
     end
 
     def big_thumb_url
@@ -39,6 +26,18 @@ module Thyme
       thumb_url(:small)
     end
 
+    def to_json(options = {})
+      super(
+        options.merge(include: [
+          :big_thumb_url,
+          :filename,
+          :lat,
+          :lng,
+          :small_thumb_url,
+        ])
+      )
+    end
+
     private
 
     def basename
@@ -47,6 +46,10 @@ module Thyme
 
     def extname
       File.extname(path)
+    end
+
+    def filename
+      File.basename(path)
     end
 
     def lat
