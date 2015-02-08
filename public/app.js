@@ -257,11 +257,15 @@ ko.bindingHandlers.photoMap = {
 $(document).keydown(function (e) {
   switch (e.which) {
     case 37: // left
-      $('#prev-photo').click();
+      if ($('#prev-photo').length > 0) {
+        $('#prev-photo').click();
+      }
       break;
 
     case 39: // right
-      $('#next-photo').click();
+      if ($('#next-photo').length > 0) {
+        $('#next-photo').click();
+      }
       break;
 
     default: return; // exit handler for other keys
