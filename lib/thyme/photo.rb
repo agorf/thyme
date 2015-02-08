@@ -13,6 +13,10 @@ module Thyme
     one_to_one :next_photo, key: :next_photo_id, class: self
 
     dataset_module do
+      def newest_first
+        reverse_order(:taken_at).order_append(:path)
+      end
+
       def oldest_first
         order(:taken_at).order_append(:path)
       end
