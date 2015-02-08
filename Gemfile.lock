@@ -19,7 +19,7 @@ GEM
       rb-inotify (>= 0.9)
     method_source (0.8.2)
     mini_exiftool (2.4.1)
-    mini_magick (4.0.3)
+    mini_magick (4.0.4)
     nio4r (1.0.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
