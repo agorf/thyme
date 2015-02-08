@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-abort "usage: #{__FILE__} /path/to/photos" unless ARGV[0]
+abort "usage: #{__FILE__} path [path...]" if ARGV.empty?
 
 require 'bundler'
 Bundler.setup
@@ -72,16 +72,18 @@ Thyme::Photo.select(:id, :path).each do |photo|
   end
 end
 
-Dir[
-  File.join(
-    File.expand_path(ARGV[0]),
-    '**',
-    '*.{jpg,jpeg,JPG,JPEG}'
-  )
-].sort.each do |photo_path|
-  if Thyme::Photo.where(path: photo_path).empty?
-    Thyme::Photo.create_by_path(photo_path)
-    puts "+ #{photo_path}"
+ARGV.each do |argv|
+  Dir[
+    File.join(
+      File.expand_path(argv),
+      '**',
+      '*.{jpg,jpeg,JPG,JPEG}'
+    )
+  ].sort.each do |photo_path|
+    if Thyme::Photo.where(path: photo_path).empty?
+      Thyme::Photo.create_by_path(photo_path)
+      puts "+ #{photo_path}"
+    end
   end
 end
 
