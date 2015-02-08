@@ -62,35 +62,50 @@ h1 {
   background: rgba(0, 0, 0, 0.5);
 }
 
-#photo {
-  padding: 40px;
+#photo-nav {
+  background-color: #212121;
+  padding-bottom: 40px;
+}
+
+#parent-set {
+  display: block;
+  height: 40px;
+}
+
+#photo-nav-inner {
+  position: relative;
   text-align: center;
 }
 
 #prev-photo {
-  left: 0;
-  position: fixed;
+  position: absolute;
   top: 0;
-}
-
-#parent-set {
   bottom: 0;
   left: 0;
-  position: fixed;
+  width: 50%;
 }
 
 #next-photo {
-  position: fixed;
-  right: 0;
+  position: absolute;
   top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+}
+
+#photo-meta {
+  margin: auto;
+  overflow: auto;
+  padding: 40px;
+  width: 1000px;
 }
 
 #details {
+  float: left;
   font-size: 13px;
   list-style: none;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
-  width: 200px;
 }
 
 #details li {
@@ -103,7 +118,7 @@ h1 {
 }
 
 #map {
-  height: 200px;
-  margin: 20px auto 0;
-  width: 400px;
+  float: right;
+  height: 225px;
+  width: 450px;
 }
