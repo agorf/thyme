@@ -55,10 +55,6 @@ module Thyme
       [width / gcd, height / gcd]
     end
 
-    def basename
-      File.basename(path, extname)
-    end
-
     def big_thumb_height
       if portrait?
         [height, BIG_THUMB_SIZE.max].min
@@ -73,10 +69,6 @@ module Thyme
       else
         [width, BIG_THUMB_SIZE.max].min
       end
-    end
-
-    def extname
-      File.extname(path)
     end
 
     def filename
@@ -104,7 +96,7 @@ module Thyme
     end
 
     def thumb_filename(suffix)
-      "#{basename}_#{suffix}#{extname}"
+      "#{uuid}_#{suffix}.jpg"
     end
 
     def thumb_path(suffix)

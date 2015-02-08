@@ -60,7 +60,8 @@ module Thyme
         width:    width,
         height:   height,
         taken_at: exif['DateTimeOriginal'],
-        exif:     exif_hash
+        exif:     exif_hash,
+        uuid:     SecureRandom.uuid
       )
     end
   end
