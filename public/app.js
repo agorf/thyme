@@ -255,20 +255,16 @@ ko.bindingHandlers.photoMap = {
 };
 
 $(document).keydown(function (e) {
-  switch (e.which) {
-    case 37: // left
-      if ($('#prev-photo').length > 0) {
-        $('#prev-photo').click();
-        e.preventDefault();
-      }
-      break;
+  if (e.which === 37 && $('#prev-photo').length > 0) {
+    $('#prev-photo').click();
+    e.preventDefault();
+    return;
+  }
 
-    case 39: // right
-      if ($('#next-photo').length > 0) {
-        $('#next-photo').click();
-        e.preventDefault();
-      }
-      break;
+  if (e.which === 39 && $('#next-photo').length > 0) {
+    $('#next-photo').click();
+    e.preventDefault();
+    return;
   }
 });
 
