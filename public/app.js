@@ -259,19 +259,17 @@ $(document).keydown(function (e) {
     case 37: // left
       if ($('#prev-photo').length > 0) {
         $('#prev-photo').click();
+        e.preventDefault();
       }
       break;
 
     case 39: // right
       if ($('#next-photo').length > 0) {
         $('#next-photo').click();
+        e.preventDefault();
       }
       break;
-
-    default: return; // exit handler for other keys
   }
-
-  e.preventDefault();
 });
 
 ko.applyBindings(new ThymeViewModel(), $('#thyme')[0]);
