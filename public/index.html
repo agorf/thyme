@@ -62,7 +62,7 @@
           <!-- ko if: exif.ExposureCompensation --><li title="Exposure compensation" data-bind="text: exif.ExposureCompensation"></li><!-- /ko -->
           <!-- ko if: exif.Flash --><li data-bind="text: 'Flash ' + exif.Flash.toLowerCase()"></li><!-- /ko -->
         </ul>
-        <div id="map" style="display:none" data-bind="photoMap: [lat, lng]"></div>
+        <div id="map" data-bind="photoMap: [lat, lng]"><span>No geolocation data</span></div>
       </div>
     </div>
   </div>

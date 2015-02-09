@@ -118,7 +118,27 @@ h1 {
 }
 
 #map {
+  background-color: #ddd;
   float: right;
   height: 225px;
   width: 450px;
+}
+
+#map.no-data {
+  color: #666;
+  font-size: 13px;
+  line-height: 225px;
+  text-align: center;
+}
+
+#map span {
+  display: none;
+}
+
+#map.no-data span {
+  display: inline;
+}
+
+.leaflet-control-attribution {
+  display: none;
 }

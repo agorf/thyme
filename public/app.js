@@ -231,13 +231,17 @@ ko.bindingHandlers.photoMap = {
   init: function (element, valueAccessor) {
     var latlng = valueAccessor(); // [lat, lng]
 
-    if (!_.isNumber(latlng[0]) || !_.isNumber(latlng[1])) { return; }
-
-    $(element).show(); // show container before creating map
+    if (!_.isNumber(latlng[0]) || !_.isNumber(latlng[1])) {
+      $(element).addClass('no-data');
+      return;
+    }
 
     $.getJSON('/config', function (configData) {
       var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; // OpenStreetMap
       var options = {};
+
+      $(element).show(); // show container before creating map
+
       var map = L.map(element).setView(latlng, 15);
 
       if (configData.mapbox_map_id && configData.mapbox_token) {
