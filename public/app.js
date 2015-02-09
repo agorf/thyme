@@ -237,7 +237,7 @@ ko.bindingHandlers.photoMap = {
     }
 
     $.getJSON('/config', function (configData) {
-      var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; // OpenStreetMap
+      var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
       var options = {};
 
       $(element).show(); // show container before creating map
