@@ -75,12 +75,6 @@ module Thyme
   end
 end
 
-Thyme::Photo.select(:id, :path).each do |photo|
-  if !File.exist?(photo.path) && photo.destroy
-    puts "- #{photo.path}"
-  end
-end
-
 ARGV.each do |argv|
   Dir[
     File.join(
