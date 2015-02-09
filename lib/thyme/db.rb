@@ -11,6 +11,8 @@ DB.loggers << Logger.new($stderr) if ENV['THYME_ENV'] == 'development'
 DB.create_table? :sets do
   primary_key :id
   String :name, size: 4096, null: false, unique: true
+  String :thumb_url, null: false, unique: true
+  Integer :photos_count, null: false
   Time :taken_at
 end
 

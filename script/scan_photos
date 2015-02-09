@@ -40,6 +40,14 @@ module Thyme
         prev_photo = photo
       end
     end
+
+    def update_photos_count
+      update(photos_count: photos_dataset.count)
+    end
+
+    def update_thumb_url
+      update(thumb_url: photos_dataset.oldest_first.first.small_thumb_url)
+    end
   end
 
   class Photo
@@ -90,5 +98,7 @@ end
 
 Thyme::Set.each do |set|
   set.update_taken_at
+  set.update_thumb_url
   set.update_photo_siblings
+  set.update_photos_count
 end
