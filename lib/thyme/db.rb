@@ -6,7 +6,7 @@ DB = Sequel.connect(
   database: File.expand_path('../../../thyme.db', __FILE__)
 )
 
-DB.loggers << Logger.new($stdout) if ENV['THYME_ENV'] == 'development'
+DB.loggers << Logger.new($stderr) if ENV['THYME_ENV'] == 'development'
 
 DB.create_table? :sets do
   primary_key :id
