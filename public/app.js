@@ -241,12 +241,19 @@ ko.bindingHandlers.photoMap = {
       var options = {};
       var map = L.map(element).setView(latlng, 15);
 
+      map.attributionControl.addAttribution(
+        '&copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a>'
+      );
+
       if (configData.mapbox_map_id && configData.mapbox_token) {
         url = 'http://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}';
         options = {
           id: configData.mapbox_map_id,
           token: configData.mapbox_token
         };
+        map.attributionControl.addAttribution(
+          '&copy; <a href="http://www.mapbox.com/">Mapbox</a>'
+        );
       }
 
       L.tileLayer(url, options).addTo(map);

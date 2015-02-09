@@ -138,7 +138,3 @@ h1 {
 #map.no-data span {
   display: inline;
 }
-
-.leaflet-control-attribution {
-  display: none;
-}
