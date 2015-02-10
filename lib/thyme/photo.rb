@@ -96,7 +96,7 @@ module Thyme
     end
 
     def thumb_filename(suffix)
-      "#{uuid}_#{suffix}.jpg"
+      "#{identifier}_#{suffix}.jpg"
     end
 
     def thumb_path(suffix)

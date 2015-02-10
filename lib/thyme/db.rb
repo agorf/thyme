@@ -22,7 +22,7 @@ DB.create_table? :photos do
   foreign_key :prev_photo_id, :photos, unique: true
   foreign_key :next_photo_id, :photos, unique: true
   String :path, size: 4096, null: false, unique: true
-  String :uuid, size: 36, null: false, unique: true
+  String :identifier, size: 32, null: false, unique: true
   Integer :size, null: false
   Integer :width, null: false
   Integer :height, null: false
