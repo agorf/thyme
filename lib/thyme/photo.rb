@@ -16,11 +16,11 @@ module Thyme
 
     dataset_module do
       def newest_first
-        reverse_order(:taken_at).order_append(:path)
+        order_append(Sequel.desc(:taken_at)).order_append(:path)
       end
 
       def oldest_first
-        order(:taken_at).order_append(:path)
+        order_append(:taken_at).order_append(:path)
       end
     end
 

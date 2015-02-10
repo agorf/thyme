@@ -10,7 +10,7 @@ module Thyme
 
     dataset_module do
       def newest_first
-        reverse_order(:taken_at)
+        order_append(Sequel.desc(:taken_at))
       end
     end
 
