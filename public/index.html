@@ -32,19 +32,21 @@
         </li>
       </ol>
     </div>
-    <div id="photo" data-bind="with: photo">
+    <div data-bind="with: photo">
       <div id="photo-nav">
         <!-- ko with: set -->
           <a id="parent-set" href="#" data-bind="click: $root.set, attr: { title: data.name }"></a>
         <!-- /ko -->
         <div id="photo-nav-inner">
-          <!-- ko with: prevPhoto -->
-            <a id="prev-photo" href="#" data-bind="click: $root.photo, attr: { title: data.filename }"></a>
-          <!-- /ko -->
-          <img data-bind="attr: { src: data.big_thumb_url, alt: data.filename, width: data.big_thumb_width, height: data.big_thumb_height }">
-          <!-- ko with: nextPhoto -->
-            <a id="next-photo" href="#" data-bind="click: $root.photo, attr: { title: data.filename }"></a>
-          <!-- /ko -->
+          <div id="prev-photo" data-bind="with: prevPhoto">
+            <a href="#" data-bind="click: $root.photo, attr: { title: data.filename }"></a>
+          </div>
+          <div id="photo" data-bind="with: data, style: { width: data.big_thumb_width + 'px' }">
+            <img data-bind="attr: { src: big_thumb_url, alt: filename, width: big_thumb_width, height: big_thumb_height }">
+          </div>
+          <div id="next-photo" data-bind="with: nextPhoto">
+            <a href="#" data-bind="click: $root.photo, attr: { title: data.filename }"></a>
+          </div>
         </div>
       </div>
       <div id="photo-meta" data-bind="with: data">

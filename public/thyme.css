@@ -73,24 +73,39 @@ h1 {
 }
 
 #photo-nav-inner {
-  position: relative;
-  text-align: center;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
 }
 
 #prev-photo {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 50%;
+  display: table-cell;
+  position: relative;
 }
 
-#next-photo {
+#prev-photo a {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 50%;
+  left: 0;
+}
+
+#photo {
+  display: table-cell;
+}
+
+#next-photo {
+  display: table-cell;
+  position: relative;
+}
+
+#next-photo a {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 #photo-meta {
