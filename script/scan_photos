@@ -45,8 +45,8 @@ module Thyme
       update(photos_count: photos_dataset.count)
     end
 
-    def update_thumb_url
-      update(thumb_url: photos_dataset.oldest_first.first.small_thumb_url)
+    def update_thumb_photo_id
+      update(thumb_photo_id: photos_dataset.oldest_first.first.id)
     end
   end
 
@@ -92,7 +92,7 @@ end
 
 Thyme::Set.each do |set|
   set.update_taken_at
-  set.update_thumb_url
+  set.update_thumb_photo_id
   set.update_photo_siblings
   set.update_photos_count
 end
