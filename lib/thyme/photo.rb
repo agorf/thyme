@@ -59,13 +59,13 @@ module Thyme
       if portrait?
         [height, BIG_THUMB_SIZE.max].min
       else
-        ((aspect_ratio[1] / aspect_ratio[0].to_f) * big_thumb_width).round(2)
+        ((aspect_ratio[1] / aspect_ratio[0].to_f) * big_thumb_width).round
       end
     end
 
     def big_thumb_width
       if portrait?
-        ((aspect_ratio[0] / aspect_ratio[1].to_f) * big_thumb_height).round(2)
+        ((aspect_ratio[0] / aspect_ratio[1].to_f) * big_thumb_height).round
       else
         [width, BIG_THUMB_SIZE.max].min
       end
