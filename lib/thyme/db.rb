@@ -18,7 +18,7 @@ end
 
 DB.create_table? :photos do
   primary_key :id
-  foreign_key :set_id, :sets, null: false
+  foreign_key :set_id, :sets, null: false, index: true
   foreign_key :prev_photo_id, :photos, unique: true
   foreign_key :next_photo_id, :photos, unique: true
   String :path, size: 4096, null: false, unique: true
