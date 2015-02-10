@@ -67,7 +67,16 @@ h1 {
   padding-bottom: 40px;
 }
 
+#photo-nav a {
+  opacity: 0.5;
+}
+
+#photo-nav a:hover {
+  opacity: 1;
+}
+
 #parent-set {
+  background: url("top-arrow.png") no-repeat center 5px;
   display: block;
   height: 40px;
 }
@@ -84,6 +93,7 @@ h1 {
 }
 
 #prev-photo a {
+  background: url("left-arrow.png") no-repeat 5px center;
   position: absolute;
   top: 0;
   right: 0;
@@ -101,11 +111,13 @@ h1 {
 }
 
 #next-photo a {
+  background: url("left-arrow.png") no-repeat 5px center;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  transform: rotate(180deg);
 }
 
 #photo-meta {
