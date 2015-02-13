@@ -9,11 +9,10 @@ height="240" alt="thyme"></a>
 
 ## Installation
 
-1. Install system package dependencies (for [mini_exiftool][], [mini_magick][]
-   and [sqlite3][] gems respectively):
-   * Linux: `sudo apt-get install libimage-exiftool-perl imagemagick
-     libsqlite3-dev`
-   * Mac OS X: `brew install exiftool imagemagick`
+1. Install system package dependencies (for [mini_magick][] and [sqlite3][] gems
+   respectively):
+   * Linux: `sudo apt-get install imagemagick libsqlite3-dev`
+   * Mac OS X: `brew install imagemagick`
 1. Clone repo: `git clone https://github.com/agorf/thyme && cd thyme`
 1. Install Ruby gems: `bundle install` (you need to have [Ruby][], [RubyGems][]
    and [bundler][] installed for this)
@@ -22,15 +21,14 @@ height="240" alt="thyme"></a>
 
 ## Use
 
-1. Scan photos: `./script/scan_photos /path/to/photos /another/path/to/photos`
-   (may take a while the first time)
+1. Scan photos: `go run ./script/scan_photos.go /path/to/photos
+   /another/path/to/photos` (you need to have [Go][] installed for this)
 1. Generate thumbs: `./script/generate_thumbs` (may take a while the first time)
 1. Run app with `./script/server` and point your browser to
    <http://localhost:9292/>
-1. Run `./script/scan_photos` and `./script/generate_thumbs` each time you have
-   new photos to add
+1. Run `go run ./script/scan_photos.go` and `./script/generate_thumbs` each time
+   you have new photos to add
 
-[mini_exiftool]: https://rubygems.org/gems/mini_exiftool
 [mini_magick]: https://rubygems.org/gems/mini_magick
 [sqlite3]: https://rubygems.org/gems/sqlite3
 [Ruby]: https://www.ruby-lang.org/en/
@@ -38,6 +36,7 @@ height="240" alt="thyme"></a>
 [bundler]: https://rubygems.org/gems/bundler
 [Node.js]: http://nodejs.org/
 [Bower]: http://bower.io/
+[Go]: http://golang.org/
 
 ## Map support
 

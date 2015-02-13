@@ -1,5 +1,6 @@
 require 'json'
 require 'sequel'
+require 'thyme/photo'
 
 module Thyme
   class Set < Sequel::Model

@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'dimensions'
 gem 'dotenv'
-gem 'mini_exiftool'
 gem 'mini_magick'
 gem 'ruby-progressbar'
 gem 'sequel'

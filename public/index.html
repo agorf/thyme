@@ -55,14 +55,14 @@
           <li data-bind="text: filename"></li>
           <li data-bind="text: $parent.fileSize()"></li>
           <li data-bind="html: width + '&times;' + height + ' (' + $parent.aspectRatioText() + ')'"></li>
-          <!-- ko if: exif.Make && exif.Model --><li title="Camera" data-bind="text: exif.Make + ' ' + exif.Model"></li><!-- /ko -->
-          <!-- ko if: exif.LensInfo --><li title="Lens" data-bind="text: exif.LensInfo"></li><!-- /ko -->
-          <!-- ko if: $parent.focalLength() --><li title="Focal length" data-bind="html: $parent.focalLength()"></li><!-- /ko -->
-          <!-- ko if: exif.FNumber --><li title="Aperture" class="aperture" data-bind="html: '<span>f</span>/' + exif.FNumber"></li><!-- /ko -->
-          <!-- ko if: exif.ExposureTime --><li title="Exposure time" data-bind="text: exif.ExposureTime + ' s'"></li><!-- /ko -->
-          <!-- ko if: exif.ISO --><li data-bind="text: 'ISO ' + exif.ISO"></li><!-- /ko -->
-          <!-- ko if: exif.ExposureCompensation --><li title="Exposure compensation" data-bind="text: exif.ExposureCompensation"></li><!-- /ko -->
-          <!-- ko if: exif.Flash --><li data-bind="text: 'Flash ' + exif.Flash.toLowerCase()"></li><!-- /ko -->
+          <!-- ko if: camera --><li title="Camera" data-bind="text: camera"></li><!-- /ko -->
+          <!-- ko if: lens --><li title="Lens" data-bind="text: lens"></li><!-- /ko -->
+          <!-- ko if: focal_length --><li title="Focal length" data-bind="html: $parent.focalLength()"></li><!-- /ko -->
+          <!-- ko if: aperture --><li title="Aperture" class="aperture" data-bind="html: '<span>f</span>/' + aperture"></li><!-- /ko -->
+          <!-- ko if: exposure_time --><li title="Exposure time" data-bind="text: $parent.exposureTime()"></li><!-- /ko -->
+          <!-- ko if: iso --><li data-bind="text: 'ISO ' + iso"></li><!-- /ko -->
+          <!-- ko if: exposure_comp --><li title="Exposure compensation" data-bind="text: exposure_comp"></li><!-- /ko -->
+          <!-- ko if: flash --><li data-bind="text: 'Flash ' + flash.toLowerCase()"></li><!-- /ko -->
         </ul>
         <div id="map" data-bind="photoMap: [lat, lng]"><span>No geolocation data</span></div>
       </div>

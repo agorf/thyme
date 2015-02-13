@@ -8,7 +8,6 @@ module Thyme
     SMALL_THUMB_SIZE = [200, 200]
 
     plugin :json_serializer
-    plugin :serialization, :json, :exif
 
     many_to_one :_set, class: :Set # "set" is reserved by Sequel...
     one_to_one :prev_photo, key: :prev_photo_id, class: self
@@ -40,8 +39,6 @@ module Thyme
           :big_thumb_url,
           :big_thumb_width,
           :filename,
-          :lat,
-          :lng,
           :orientation,
           :small_thumb_url,
         ])
@@ -49,6 +46,10 @@ module Thyme
     end
 
     private
+
+    def aperture
+      super ? super.to_f : super
+    end
 
     def aspect_ratio
       gcd = width.gcd(height).to_f
@@ -71,20 +72,24 @@ module Thyme
       end
     end
 
+    def exposure_time
+      super ? super.to_f : super
+    end
+
     def filename
       File.basename(path)
     end
 
+    def focal_length
+      super ? super.to_f : super
+    end
+
     def lat
-      if exif['GPSLatitude']
-        exif['GPSLatitude'].to_f
-      end
+      super ? super.to_f : super
     end
 
     def lng
-      if exif['GPSLongitude']
-        exif['GPSLongitude'].to_f
-      end
+      super ? super.to_f : super
     end
 
     def orientation
