@@ -220,22 +220,24 @@ func storePhoto(photo *Photo) error {
 }
 
 func walk(path string, info os.FileInfo, err error) error {
-	if info.IsDir() {
-		return nil
+	if err != nil { // error walking "path"
+		return nil // skip
 	}
 
-	if mime.TypeByExtension(filepath.Ext(path)) != "image/jpeg" {
-		return nil
+	if info.IsDir() {
+		return nil // skip
+	}
+
+	if mime.TypeByExtension(filepath.Ext(path)) != "image/jpeg" { // not JPEG
+		return nil // skip
 	}
 
 	photo, err := decodePhoto(path)
-	if err != nil {
-		return err
+	if err == nil {
+		storePhoto(photo)
 	}
 
-	storePhoto(photo)
-
-	return nil
+	return nil // next
 }
 
 func updatePhotoSiblings() error {
