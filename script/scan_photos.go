@@ -393,13 +393,13 @@ func main() {
 	defer insertSetStmt.Close()
 
 	insertPhotoStmt, err = db.Prepare(`
-  INSERT INTO photos (
+	INSERT INTO photos (
 	aperture, camera, exposure_comp, exposure_time, flash, focal_length,
 	focal_length_35, height, identifier, iso, lat, lens, lng, path, set_id, size,
 	taken_at, width
-  )
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `)
+	)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	`)
 	if err != nil {
 		log.Fatal(err)
 	}
