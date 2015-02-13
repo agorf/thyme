@@ -182,9 +182,7 @@ func storePhoto(photo *Photo) error {
 	var setId, photoId int64
 
 	row := selectSetStmt.QueryRow(photo.Folder)
-	err := row.Scan(&setId)
-
-	if err == sql.ErrNoRows { // set does not exist
+	if err := row.Scan(&setId); err == sql.ErrNoRows { // set does not exist
 		result, err := insertSetStmt.Exec(photo.Folder) // create it
 		if err != nil {
 			return err
@@ -197,9 +195,7 @@ func storePhoto(photo *Photo) error {
 	}
 
 	row = selectPhotoStmt.QueryRow(photo.Path)
-	err = row.Scan(&photoId)
-
-	if err == sql.ErrNoRows { // photo does not exist
+	if err := row.Scan(&photoId); err == sql.ErrNoRows { // photo does not exist
 		result, err := insertPhotoStmt.Exec(photo.Aperture, photo.Camera,
 			photo.ExposureComp, photo.ExposureTime, photo.Flash, photo.FocalLength,
 			photo.FocalLength35, photo.Height, photo.ISO, photo.Lat, photo.Lens,
@@ -287,13 +283,11 @@ func updatePhotoSiblings() error {
 		prevSetId = setId
 	}
 
-	err = rows.Err()
-	if err != nil {
+	if err := rows.Err(); err != nil {
 		return err
 	}
 
-	err = tx.Commit()
-	if err != nil {
+	if err := tx.Commit(); err != nil {
 		return err
 	}
 
@@ -345,13 +339,11 @@ func updateSets() error {
 		fmt.Fprintf(os.Stderr, "sets id=%d photos_count=%d taken=\"%s\" thumb_photo_id=%d\n", setId, photosCount, taken, id)
 	}
 
-	err = rows.Err()
-	if err != nil {
+	if err := rows.Err(); err != nil {
 		return err
 	}
 
-	err = tx.Commit()
-	if err != nil {
+	if err := tx.Commit(); err != nil {
 		return err
 	}
 
