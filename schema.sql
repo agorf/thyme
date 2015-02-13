@@ -14,7 +14,6 @@ CREATE TABLE `photos` (
   `prev_photo_id` integer UNIQUE REFERENCES `photos`,
   `next_photo_id` integer UNIQUE REFERENCES `photos`,
   `path` varchar(4096) NOT NULL UNIQUE,
-  `identifier` char(32) NOT NULL UNIQUE,
   `size` integer NOT NULL,
   `width` integer NOT NULL,
   `height` integer NOT NULL,

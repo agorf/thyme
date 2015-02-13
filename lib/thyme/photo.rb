@@ -1,3 +1,4 @@
+require 'digest/md5'
 require 'json'
 require 'sequel'
 
@@ -82,6 +83,10 @@ module Thyme
 
     def focal_length
       super ? super.to_f : super
+    end
+
+    def identifier
+      @identifier ||= Digest::MD5.hexdigest(path)
     end
 
     def lat

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"crypto/md5"
 	"database/sql"
 	"fmt"
 	"image"
@@ -26,7 +25,6 @@ type Photo struct {
 	Folder        string
 	Height        int
 	ISO           sql.NullInt64
-	Identifier    string
 	Lat           sql.NullFloat64
 	Lens          sql.NullString
 	Lng           sql.NullFloat64
@@ -151,7 +149,6 @@ func decodePhoto(path string) (*Photo, error) {
 
 	photo.Path = path
 	photo.Folder = filepath.Base(filepath.Dir(path))
-	photo.Identifier = fmt.Sprintf("%x", md5.Sum([]byte(path)))
 
 	f, err := os.Open(path)
 	if err != nil {
@@ -205,9 +202,8 @@ func storePhoto(photo *Photo) error {
 	if err == sql.ErrNoRows { // photo does not exist
 		result, err := insertPhotoStmt.Exec(photo.Aperture, photo.Camera,
 			photo.ExposureComp, photo.ExposureTime, photo.Flash, photo.FocalLength,
-			photo.FocalLength35, photo.Height, photo.Identifier, photo.ISO, photo.Lat,
-			photo.Lens, photo.Lng, photo.Path, setId, photo.Size, photo.Taken,
-			photo.Width) // create it
+			photo.FocalLength35, photo.Height, photo.ISO, photo.Lat, photo.Lens,
+			photo.Lng, photo.Path, setId, photo.Size, photo.Taken, photo.Width) // create it
 		if err != nil {
 			return err
 		}
@@ -395,10 +391,10 @@ func main() {
 	insertPhotoStmt, err = db.Prepare(`
 	INSERT INTO photos (
 	aperture, camera, exposure_comp, exposure_time, flash, focal_length,
-	focal_length_35, height, identifier, iso, lat, lens, lng, path, set_id, size,
-	taken_at, width
+	focal_length_35, height, iso, lat, lens, lng, path, set_id, size, taken_at,
+	width
 	)
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 	`)
 	if err != nil {
 		log.Fatal(err)
