@@ -336,7 +336,7 @@ func updateSets() error {
 		row.Scan(&photosCount)
 
 		updateSetStmt.Exec(photosCount, taken, id, setId)
-		fmt.Fprintf(os.Stderr, "sets id=%d photos_count=%d taken=\"%s\" thumb_photo_id=%d\n", setId, photosCount, taken, id)
+		fmt.Fprintf(os.Stderr, "sets id=%d photos_count=%d taken=%q thumb_photo_id=%d\n", setId, photosCount, taken.String, id)
 	}
 
 	if err := rows.Err(); err != nil {
