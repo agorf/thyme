@@ -33,3 +33,5 @@ CREATE TABLE `photos` (
 );
 
 CREATE INDEX `photos_set_id_index` ON `photos` (`set_id`);
+CREATE INDEX `photos_prev_photo_id_index` ON `photos` (`prev_photo_id`);
+CREATE INDEX `photos_next_photo_id_index` ON `photos` (`next_photo_id`);
