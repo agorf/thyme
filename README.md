@@ -17,7 +17,6 @@ height="240" alt="thyme"></a>
    * You need to have [bundler][] installed for this
 1. Install Bower components: `bower install`
    * You need to have [Bower][] installed for this
-1. Create database: `./script/resetdb`
 
 ## Use
 

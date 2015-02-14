@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-rm -f thyme.db
-sqlite3 thyme.db <schema.sql
