@@ -100,8 +100,8 @@ func decodePhotoExif(photo *Photo, x *exif.Exif) {
 
 	focalLenTag, err := x.Get(exif.FocalLength)
 	if err == nil {
-		numer, denom, _ := focalLenTag.Rat2(0)
-		photo.FocalLength.Float64 = float64(numer) / float64(denom)
+		focalLen, _ := focalLenTag.Rat(0)
+		photo.FocalLength.Float64, _ = focalLen.Float64()
 		photo.FocalLength.Valid = true
 	}
 
@@ -113,15 +113,15 @@ func decodePhotoExif(photo *Photo, x *exif.Exif) {
 
 	apertureTag, err := x.Get(exif.FNumber)
 	if err == nil {
-		numer, denom, _ := apertureTag.Rat2(0)
-		photo.Aperture.Float64 = float64(numer) / float64(denom)
+		aperture, _ := apertureTag.Rat(0)
+		photo.Aperture.Float64, _ = aperture.Float64()
 		photo.Aperture.Valid = true
 	}
 
 	expTimeTag, err := x.Get(exif.ExposureTime)
 	if err == nil {
-		numer, denom, _ := expTimeTag.Rat2(0)
-		photo.ExposureTime.Float64 = float64(numer) / float64(denom)
+		expTime, _ := expTimeTag.Rat(0)
+		photo.ExposureTime.Float64, _ = expTime.Float64()
 		photo.ExposureTime.Valid = true
 	}
 
