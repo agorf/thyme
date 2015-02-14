@@ -73,7 +73,7 @@ func decodePhotoExif(photo *Photo, x *exif.Exif) {
 		cameraModel, _ := camModelTag.StringVal()
 
 		if photo.Camera.Valid {
-			photo.Camera.String = fmt.Sprintf("%s %s", photo.Camera.String, cameraModel)
+			photo.Camera.String = fmt.Sprint(photo.Camera.String, " ", cameraModel)
 		} else {
 			photo.Camera.String = cameraModel
 			photo.Camera.Valid = true
@@ -91,7 +91,7 @@ func decodePhotoExif(photo *Photo, x *exif.Exif) {
 		lensModel, _ := lensModelTag.StringVal()
 
 		if photo.Lens.Valid {
-			photo.Lens.String = fmt.Sprintf("%s %s", photo.Lens.String, lensModel)
+			photo.Lens.String = fmt.Sprint(photo.Lens.String, " ", lensModel)
 		} else {
 			photo.Lens.String = lensModel
 			photo.Lens.Valid = true
