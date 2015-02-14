@@ -48,15 +48,12 @@ A map with [OpenStreetMap][] tiles is shown below each geotagged photo. To use
 1. [Signup][Mapbox] for a free account
 1. [Get the map id][map_id] of your map you want to use
 1. [Create an API access token][token]
-1. Create an `.env` file inside the thyme directory with the following:
+1. Create `public/mapbox.js` with the following:
 
-```shell
-MAPBOX_MAP_ID=your_map_id_here
-MAPBOX_TOKEN=your_token_here
+```javascript
+mapbox_map_id = "your_map_id_here"
+mapbox_api_token = "your_token_here"
 ```
-
-**Note:** Don't forget to rerun `./script/server` so that it picks up the new
-configuration.
 
 [OpenStreetMap]: http://www.openstreetmap.org/
 [Mapbox]: https://www.mapbox.com/

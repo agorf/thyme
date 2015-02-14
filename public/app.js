@@ -238,29 +238,25 @@ ko.bindingHandlers.photoMap = {
       return;
     }
 
-    $.getJSON('/config', function (configData) {
-      var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-      var options = {};
-      var map = L.map(element).setView(latlng, 15);
+    var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var options = {};
+    var map = L.map(element).setView(latlng, 15);
 
+    map.attributionControl.addAttribution(
+      '&copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a>'
+    );
+
+    if (window.mapbox_map_id && window.mapbox_api_token) {
+      url = 'http://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}';
+      options.id = mapbox_map_id
+      options.token = mapbox_api_token
       map.attributionControl.addAttribution(
-        '&copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a>'
+        '&copy; <a href="http://www.mapbox.com/">Mapbox</a>'
       );
+    }
 
-      if (configData.mapbox_map_id && configData.mapbox_token) {
-        url = 'http://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}';
-        options = {
-          id: configData.mapbox_map_id,
-          token: configData.mapbox_token
-        };
-        map.attributionControl.addAttribution(
-          '&copy; <a href="http://www.mapbox.com/">Mapbox</a>'
-        );
-      }
-
-      L.tileLayer(url, options).addTo(map);
-      L.marker(latlng).addTo(map);
-    });
+    L.tileLayer(url, options).addTo(map);
+    L.marker(latlng).addTo(map);
   }
 };
 

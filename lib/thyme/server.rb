@@ -1,9 +1,6 @@
-require 'dotenv'
 require 'sinatra/base'
 require 'thyme/photo'
 require 'thyme/set'
-
-Dotenv.load
 
 module Thyme
   class Server < Sinatra::Base
@@ -49,15 +46,6 @@ module Thyme
       else
         halt 404, '{}'
       end
-    end
-
-    get '/config', provides: :json do
-      require_json
-      Hash[
-        *%w{mapbox_map_id mapbox_token}.map {|key|
-          [key, ENV[key.upcase]] if ENV.has_key?(key.upcase)
-        }.compact.flatten
-      ].to_json
     end
   end
 end
