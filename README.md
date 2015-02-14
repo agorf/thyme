@@ -52,7 +52,7 @@ A map with [OpenStreetMap][] tiles is shown below each geotagged photo. To use
 
 ```javascript
 mapbox_map_id = "your_map_id_here"
-mapbox_api_token = "your_token_here"
+mapbox_api_token = "your_api_token_here"
 ```
 
 [OpenStreetMap]: http://www.openstreetmap.org/
