@@ -56,8 +56,8 @@ func decodePhotoExif(photo *Photo, x *exif.Exif) {
 
 	orientTag, err := x.Get(exif.Orientation)
 	if err == nil {
-		switch orientTag.String() {
-		case "5", "6", "7", "8": // rotated
+		switch orient, _ := orientTag.Int(0); orient {
+		case 5, 6, 7, 8: // rotated
 			photo.Width, photo.Height = photo.Height, photo.Width // swap
 		}
 	}
