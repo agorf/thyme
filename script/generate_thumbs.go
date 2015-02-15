@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/cheggaaa/pb"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -66,29 +67,25 @@ func generateThumbsImpl(photoPath string) (err error) {
 	identifier := fmt.Sprintf("%x", md5.Sum([]byte(photoPath)))
 
 	bigThumbPath, err := generateBigThumb(photoPath, identifier)
-	if err != nil { // error
-		return
-	}
-
-	fmt.Println(bigThumbPath)
-
-	smallThumbPath, err := generateSmallThumb(bigThumbPath, identifier)
 	if err == nil { // success
-		fmt.Println(smallThumbPath)
+		_, err = generateSmallThumb(bigThumbPath, identifier)
 	}
 
 	return
 }
 
-func generateThumbs(ch chan string, wg *sync.WaitGroup) {
+func generateThumbs(ch chan string, wg *sync.WaitGroup, bar *pb.ProgressBar) {
 	defer wg.Done()
 
 	for photoPath := range ch {
 		generateThumbsImpl(photoPath)
+		bar.Increment()
 	}
 }
 
 func main() {
+	var photosCount int
+
 	if workers < 1 {
 		log.Fatal("number of workers must be at least 1")
 	}
@@ -109,16 +106,22 @@ func main() {
 	}
 	defer rows.Close()
 
+	err = db.QueryRow("SELECT COUNT(*) FROM photos").Scan(&photosCount)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	if err := os.MkdirAll(thumbsDir, os.ModeDir|0755); err != nil {
 		log.Fatal(err)
 	}
 
 	ch := make(chan string)
 	wg := sync.WaitGroup{}
+	bar := pb.StartNew(photosCount)
 
 	for i := 0; i < workers; i++ {
 		wg.Add(1)
-		go generateThumbs(ch, &wg)
+		go generateThumbs(ch, &wg, bar)
 	}
 
 	for rows.Next() {
