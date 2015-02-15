@@ -69,6 +69,8 @@ func generateThumbsImpl(photoPath string) (err error) {
 	bigThumbPath, err := generateBigThumb(photoPath, identifier)
 	if err == nil { // success
 		_, err = generateSmallThumb(bigThumbPath, identifier)
+	} else { // create from original photo since big thumb failed
+		_, err = generateSmallThumb(photoPath, identifier)
 	}
 
 	return
