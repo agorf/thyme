@@ -24,9 +24,7 @@ height="240" alt="thyme"></a>
 ## Use
 
 1. Scan photos: `./scan_photos /path/to/photos /another/path/to/photos`
-   * It took 5m29s to scan 17407 photos on my system (~53 photos/sec)
 1. Generate thumbs: `./generate_thumbs`
-   * It may take a while the first time
 1. Run app with `./script/server` and point your browser to
    <http://localhost:9292/>
 
