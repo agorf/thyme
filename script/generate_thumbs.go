@@ -48,23 +48,27 @@ func generateBigThumb(photoPath, identifier string) (thumbPath string, err error
 	return
 }
 
-func generateThumb(ch chan string, wg *sync.WaitGroup) {
+func generateThumbsImpl(photoPath string) {
+	identifier := fmt.Sprintf("%x", md5.Sum([]byte(photoPath)))
+
+	bigThumbPath, err := generateBigThumb(photoPath, identifier)
+	if err != nil { // error
+		return
+	}
+
+	fmt.Println(bigThumbPath)
+
+	smallThumbPath, err := generateSmallThumb(bigThumbPath, identifier)
+	if err == nil { // success
+		fmt.Println(smallThumbPath)
+	}
+}
+
+func generateThumbs(ch chan string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for photoPath := range ch {
-		identifier := fmt.Sprintf("%x", md5.Sum([]byte(photoPath)))
-
-		bigThumbPath, err := generateBigThumb(photoPath, identifier)
-		if err != nil { // error
-			return
-		}
-
-		fmt.Println(bigThumbPath)
-
-		smallThumbPath, err := generateSmallThumb(bigThumbPath, identifier)
-		if err == nil { // success
-			fmt.Println(smallThumbPath)
-		}
+		generateThumbsImpl(photoPath)
 	}
 }
 
@@ -98,7 +102,7 @@ func main() {
 
 	for i := 0; i < workers; i++ {
 		wg.Add(1)
-		go generateThumb(ch, &wg)
+		go generateThumbs(ch, &wg)
 	}
 
 	for rows.Next() {
