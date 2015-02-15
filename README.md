@@ -26,13 +26,17 @@ height="240" alt="thyme"></a>
    * You can build a `./scan_photos` binary to avoid compiling each time:
      `go build ./script/scan_photos.go`
    * It took 5m29s to scan 17407 photos on my system (~53 photos/sec)
-1. Generate thumbs: `./script/generate_thumbs`
+1. Generate thumbs: `go run ./script/generate_thumbs.go`
+   * You need to have [Go][] installed for this
+   * You can build a `./generate_thumbs` binary to avoid compiling each time:
+     `go build ./script/generate_thumbs.go`
    * It may take a while the first time
 1. Run app with `./script/server` and point your browser to
    <http://localhost:9292/>
 
 Run `go run ./script/scan_photos.go` (or `./scan_photos` if you've built a
-binary) and `./script/generate_thumbs` to add new photos.
+binary) and `go run ./script/generate_thumbs.go` (or `./generate_thumbs` if
+you've built a binary) to add new photos.
 
 [mini_magick]: https://rubygems.org/gems/mini_magick
 [sqlite3]: https://rubygems.org/gems/sqlite3

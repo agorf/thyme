@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'mini_magick'
-gem 'ruby-progressbar'
 gem 'sequel'
 gem 'sinatra'
 gem 'sqlite3'

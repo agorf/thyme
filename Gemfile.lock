@@ -16,7 +16,6 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     method_source (0.8.2)
-    mini_magick (4.0.4)
     nio4r (1.0.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
@@ -30,7 +29,6 @@ GEM
       ffi (>= 0.5.0)
     rerun (0.9.0)
       listen (~> 2.7)
-    ruby-progressbar (1.7.1)
     sequel (4.19.0)
     sinatra (1.4.4)
       rack (~> 1.4)
@@ -49,10 +47,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  mini_magick
   pry
   rerun
-  ruby-progressbar
   sequel
   sinatra
   sqlite3
