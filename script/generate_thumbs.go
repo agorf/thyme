@@ -17,7 +17,7 @@ const (
 	thumbsDir      = "public/thumbs"
 	bigThumbSize   = "1000x1000"
 	smallThumbSize = "200x200"
-	workers        = 4
+	workers        = 4 // min: 1
 )
 
 func generateSmallThumb(photoPath, identifier string) (thumbPath string, err error) {
@@ -70,6 +70,11 @@ func generateThumb(ch chan string, wg *sync.WaitGroup) {
 
 func main() {
 	var wg sync.WaitGroup
+
+	if workers < 1 {
+		log.Fatal("number of workers must be at least 1")
+	}
+
 	ch := make(chan string)
 
 	db, err := sql.Open("sqlite3", "thyme.db")
