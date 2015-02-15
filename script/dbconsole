@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-sqlite3 thyme.db

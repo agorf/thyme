@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-bundle exec irb -I lib -r thyme/db -r thyme/set -r thyme/photo
