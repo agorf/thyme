@@ -69,13 +69,9 @@ func generateThumb(ch chan string, wg *sync.WaitGroup) {
 }
 
 func main() {
-	var wg sync.WaitGroup
-
 	if workers < 1 {
 		log.Fatal("number of workers must be at least 1")
 	}
-
-	ch := make(chan string)
 
 	db, err := sql.Open("sqlite3", "thyme.db")
 	if err != nil {
@@ -96,6 +92,9 @@ func main() {
 	if err := os.MkdirAll(thumbsDir, os.ModeDir|0755); err != nil {
 		log.Fatal(err)
 	}
+
+	ch := make(chan string)
+	wg := sync.WaitGroup{}
 
 	for i := 0; i < workers; i++ {
 		wg.Add(1)
