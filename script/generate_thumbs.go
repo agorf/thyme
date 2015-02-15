@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"path/filepath"
 	"sync"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -15,36 +16,49 @@ import (
 
 const (
 	thumbsDir      = "public/thumbs"
-	bigThumbSize   = "1000x1000"
-	smallThumbSize = "200x200"
+	bigThumbSize   = "1000"
+	smallThumbSize = "200"
 	workers        = 4 // min: 1
 )
 
 func generateSmallThumb(photoPath, identifier string) (thumbPath string, err error) {
 	thumbPath = path.Join(thumbsDir, fmt.Sprintf("%s_small.jpg", identifier))
+
+	absThumbPath, err := filepath.Abs(thumbPath)
+	if err != nil {
+		return
+	}
+
 	if _, err = os.Stat(thumbPath); os.IsNotExist(err) { // file does not exist
 		err = exec.Command(
-			"convert", photoPath,
-			"-auto-orient",
-			"-strip",
-			"-resize", smallThumbSize+"^",
-			"-gravity", "center",
-			"-extent", smallThumbSize,
-			thumbPath).Run()
+			"vipsthumbnail", photoPath,
+			"--rotate",
+			"--size", smallThumbSize,
+			"--crop",
+			"--interpolator", "bicubic",
+			"--output", absThumbPath+"[Q=97,no_subsample,strip]").Run()
 	}
+
 	return
 }
 
 func generateBigThumb(photoPath, identifier string) (thumbPath string, err error) {
 	thumbPath = path.Join(thumbsDir, fmt.Sprintf("%s_big.jpg", identifier))
+
+	absThumbPath, err := filepath.Abs(thumbPath)
+	if err != nil {
+		return
+	}
+
 	if _, err = os.Stat(thumbPath); os.IsNotExist(err) { // file does not exist
 		err = exec.Command(
-			"convert", photoPath,
-			"-auto-orient",
-			"-strip",
-			"-resize", bigThumbSize,
-			thumbPath).Run()
+			"vipsthumbnail", photoPath,
+			"--rotate",
+			"--size", bigThumbSize,
+			"--interpolator", "bicubic",
+			"--output", absThumbPath+"[Q=97,no_subsample,strip]").Run()
 	}
+
 	return
 }
 

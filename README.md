@@ -9,7 +9,7 @@ height="240" alt="thyme"></a>
 
 ## Installation
 
-1. Install system package dependencies: `sudo apt-get install imagemagick
+1. Install system package dependencies: `sudo apt-get install libvips-tools
    libsqlite3-dev`
 1. Clone repo: `git clone https://github.com/agorf/thyme`
 1. Enter checked out directory: `cd thyme`
