@@ -48,7 +48,7 @@ func generateBigThumb(photoPath, identifier string) (thumbPath string, err error
 	return
 }
 
-func generateThumbsImpl(photoPath string) {
+func generateThumbsImpl(photoPath string) (err error) {
 	identifier := fmt.Sprintf("%x", md5.Sum([]byte(photoPath)))
 
 	bigThumbPath, err := generateBigThumb(photoPath, identifier)
@@ -62,6 +62,8 @@ func generateThumbsImpl(photoPath string) {
 	if err == nil { // success
 		fmt.Println(smallThumbPath)
 	}
+
+	return
 }
 
 func generateThumbs(ch chan string, wg *sync.WaitGroup) {
