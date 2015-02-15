@@ -22,7 +22,6 @@ type Photo struct {
 	Flash         sql.NullString
 	FocalLength   sql.NullFloat64
 	FocalLength35 sql.NullInt64
-	Folder        string
 	Height        int
 	ISO           sql.NullInt64
 	Lat           sql.NullFloat64
@@ -148,7 +147,6 @@ func decodePhoto(path string) (*Photo, error) {
 	var photo Photo
 
 	photo.Path = path
-	photo.Folder = filepath.Base(filepath.Dir(path))
 
 	f, err := os.Open(path)
 	if err != nil {
@@ -181,9 +179,10 @@ func decodePhoto(path string) (*Photo, error) {
 func storePhoto(photo *Photo) error {
 	var setId, photoId int64
 
-	row := selectSetStmt.QueryRow(photo.Folder)
+	setName := filepath.Base(filepath.Dir(photo.Path))
+	row := selectSetStmt.QueryRow(setName)
 	if err := row.Scan(&setId); err == sql.ErrNoRows { // set does not exist
-		result, err := insertSetStmt.Exec(photo.Folder) // create it
+		result, err := insertSetStmt.Exec(setName) // create it
 		if err != nil {
 			return err
 		}
