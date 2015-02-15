@@ -17,26 +17,21 @@ height="240" alt="thyme"></a>
    * You need to have [bundler][] installed for this
 1. Install Bower components: `bower install`
    * You need to have [Bower][] installed for this
+1. Build necessary binaries: `go build ./script/scan_photos.go && go build
+   ./script/generate_thumbs.go`
+   * You need to have [Go][] installed for this
 
 ## Use
 
-1. Scan photos: `go run ./script/scan_photos.go /path/to/photos
-   /another/path/to/photos`
-   * You need to have [Go][] installed for this
-   * You can build a `./scan_photos` binary to avoid compiling each time:
-     `go build ./script/scan_photos.go`
+1. Scan photos: `./scan_photos /path/to/photos /another/path/to/photos`
    * It took 5m29s to scan 17407 photos on my system (~53 photos/sec)
-1. Generate thumbs: `go run ./script/generate_thumbs.go`
-   * You need to have [Go][] installed for this
-   * You can build a `./generate_thumbs` binary to avoid compiling each time:
-     `go build ./script/generate_thumbs.go`
+1. Generate thumbs: `./generate_thumbs`
    * It may take a while the first time
 1. Run app with `./script/server` and point your browser to
    <http://localhost:9292/>
 
-Run `go run ./script/scan_photos.go` (or `./scan_photos` if you've built a
-binary) and `go run ./script/generate_thumbs.go` (or `./generate_thumbs` if
-you've built a binary) to add new photos.
+Run `./script/scan_photos` and `./script/generate_thumbs` each time you want to
+add new photos.
 
 [mini_magick]: https://rubygems.org/gems/mini_magick
 [sqlite3]: https://rubygems.org/gems/sqlite3
