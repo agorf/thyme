@@ -64,14 +64,15 @@ func generateBigThumb(photoPath, identifier string) (thumbPath string, err error
 }
 
 func generateThumbsImpl(photoPath string) (err error) {
+	smallThumbPhotoPath := photoPath
 	identifier := fmt.Sprintf("%x", md5.Sum([]byte(photoPath)))
 
 	bigThumbPath, err := generateBigThumb(photoPath, identifier)
-	if err == nil { // success
-		_, err = generateSmallThumb(bigThumbPath, identifier)
-	} else { // create from original photo since big thumb failed
-		_, err = generateSmallThumb(photoPath, identifier)
+	if err == nil {
+		smallThumbPhotoPath = bigThumbPath // create small thumb from big for speed
 	}
+
+	_, err = generateSmallThumb(smallThumbPhotoPath, identifier)
 
 	return
 }
