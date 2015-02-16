@@ -13,26 +13,26 @@ height="240" alt="thyme"></a>
 1. Enter directory: `cd thyme`
 1. Install gems: `bundle install` ([bundler][] needs to be installed)
 1. Install Bower components: `bower install` ([Bower][] needs to be installed)
-1. Build necessary binaries: `go build ./script/scan_photos.go && go build
-   ./script/generate_thumbs.go` ([Go][] needs to be installed)
-1. Install system package dependencies: `sudo apt-get install libvips-tools
-   libsqlite3-dev`
+1. Install [thymian][] binaries: `go get
+   https://github.com/agorf/thymian/thymian-scan-photos && go get
+   https://github.com/agorf/thymian/thymian-generate-thumbs`
+   ([Go][] needs to be installed)
+1. Install system packages: `sudo apt-get install libvips-tools libsqlite3-dev`
+
+[bundler]: https://rubygems.org/gems/bundler
+[Bower]: http://bower.io/
+[thymian]: https://github.com/agorf/thymian
+[Go]: http://golang.org/
 
 ## Use
 
-1. Scan photos: `./scan_photos /path/to/photos /another/path/to/photos`
-1. Generate thumbs: `./generate_thumbs`
-1. Run app with `./script/server` and point your browser to
+1. Enter directory: `cd thyme`
+1. Scan photos: `thymian-scan-photos /path/to/photos /another/path/to/photos`
+1. Generate thumbs: `thymian-generate-thumbs`
+1. Run app with `bundle exec rackup` and point your browser to
    <http://localhost:9292/>
 
-Run `./script/scan_photos` and `./script/generate_thumbs` each time you want to
-add new photos.
-
-[mini_magick]: https://rubygems.org/gems/mini_magick
-[sqlite3]: https://rubygems.org/gems/sqlite3
-[bundler]: https://rubygems.org/gems/bundler
-[Bower]: http://bower.io/
-[Go]: http://golang.org/
+Repeat the above steps each time you want to add new photos.
 
 ## Map support
 
