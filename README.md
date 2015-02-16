@@ -1,6 +1,6 @@
 # thyme
 
-A minimal single-page web app for browsing and viewing local photos
+A minimal single-page web app for browsing and viewing your photos
 
 <a href="https://www.flickr.com/photos/infobunny/7093903557"
 title="thyme by poppet with a camera, on Flickr"><img
