@@ -11,7 +11,7 @@ height="240" alt="thyme"></a>
 
 1. Clone repo: `git clone https://github.com/agorf/thyme`
 1. Enter directory: `cd thyme`
-1. Install gems: `bundle install` ([bundler][] needs to be installed)
+1. Install gems: `bundle install` ([Bundler][] needs to be installed)
 1. Install Bower components: `bower install` ([Bower][] needs to be installed)
 1. Install [thyme-backend][] binaries: `go get
    https://github.com/agorf/thyme-backend/thyme-scan-photos && go get
@@ -19,7 +19,7 @@ height="240" alt="thyme"></a>
    ([Go][] needs to be installed)
 1. Install system packages: `sudo apt-get install libvips-tools libsqlite3-dev`
 
-[bundler]: https://rubygems.org/gems/bundler
+[Bundler]: http://bundler.io/
 [Bower]: http://bower.io/
 [thyme-backend]: https://github.com/agorf/thyme-backend
 [Go]: http://golang.org/
