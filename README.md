@@ -13,22 +13,22 @@ height="240" alt="thyme"></a>
 1. Enter directory: `cd thyme`
 1. Install gems: `bundle install` ([bundler][] needs to be installed)
 1. Install Bower components: `bower install` ([Bower][] needs to be installed)
-1. Install [thymian][] binaries: `go get
-   https://github.com/agorf/thymian/thymian-scan-photos && go get
-   https://github.com/agorf/thymian/thymian-generate-thumbs`
+1. Install [thyme-backend][] binaries: `go get
+   https://github.com/agorf/thyme-backend/thyme-scan-photos && go get
+   https://github.com/agorf/thyme-backend/thyme-generate-thumbs`
    ([Go][] needs to be installed)
 1. Install system packages: `sudo apt-get install libvips-tools libsqlite3-dev`
 
 [bundler]: https://rubygems.org/gems/bundler
 [Bower]: http://bower.io/
-[thymian]: https://github.com/agorf/thymian
+[thyme-backend]: https://github.com/agorf/thyme-backend
 [Go]: http://golang.org/
 
 ## Use
 
 1. Enter directory: `cd thyme`
-1. Scan photos: `thymian-scan-photos /path/to/photos /another/path/to/photos`
-1. Generate thumbs: `thymian-generate-thumbs`
+1. Scan photos: `thyme-scan-photos /path/to/photos /another/path/to/photos`
+1. Generate thumbs: `thyme-generate-thumbs`
 1. Run app with `bundle exec rackup` and point your browser to
    <http://localhost:9292/>
 
