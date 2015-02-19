@@ -78,7 +78,7 @@ function PhotoViewModel(data) {
     var fl = self.data.focal_length;
     var fl35 = self.data.focal_length_35;
 
-    if (fl === fl35) { return fl + ' mm'; }
+    if (fl === fl35 || !fl35) { return fl + ' mm'; }
 
     return fl + ' mm (<span title="35 mm equivalent">' + fl35 + ' mm</span>)';
   };
