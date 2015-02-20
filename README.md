@@ -12,11 +12,8 @@ height="240" alt="thyme"></a>
 1. Clone repo: `git clone https://github.com/agorf/thyme`
 1. Enter directory: `cd thyme`
 1. Install Bower components: `bower install` ([Bower][] needs to be installed)
-1. Install [thyme-backend][] binaries: `go get
-   https://github.com/agorf/thyme-backend/thyme-scan-photos && go get
-   https://github.com/agorf/thyme-backend/thyme-generate-thumbs && go get
-   https://github.com/agorf/thyme-backend/thyme-serve` ([Go][] needs to be
-   installed)
+1. Install [thyme-backend][] binary: `go get
+   https://github.com/agorf/thyme-backend/thyme` ([Go][] needs to be installed)
 1. Install system packages: `sudo apt-get install libvips-tools libsqlite3-dev`
 
 [Bower]: http://bower.io/
@@ -25,10 +22,11 @@ height="240" alt="thyme"></a>
 
 ## Use
 
-1. Enter directory: `cd thyme`
-1. Scan photos: `thyme-scan-photos /path/to/photos /another/path/to/photos`
-1. Generate thumbs: `thyme-generate-thumbs`
-1. Run app with `thyme-serve` and point your browser to <http://localhost:9292/>
+1. Scan photos: `thyme scan /path/to/photos /another/path/to/photos`
+1. Generate thumbs: `thyme thumbs /path/to/thyme`
+1. Run app with `thyme run /path/to/thyme` (or `thyme run` if you're already
+   inside the thyme directory) and point your browser to
+   <http://localhost:9292/>
 
 Repeat the above steps each time you want to add new photos.
 
