@@ -23,7 +23,8 @@ height="240" alt="thyme"></a>
 ## Use
 
 1. Scan photos: `thyme scan /path/to/photos /another/path/to/photos`
-1. Generate thumbs: `thyme thumbs /path/to/thyme`
+1. Generate thumbs: `thyme thumbs /path/to/thyme` (or `thyme thumbs .` if you're
+   already inside the thyme directory)
 1. Run app with `thyme run /path/to/thyme` (or `thyme run` if you're already
    inside the thyme directory) and point your browser to
    <http://localhost:9292/>
